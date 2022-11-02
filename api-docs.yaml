@@ -1,0 +1,668 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/sliders/{id}:
+    put:
+      tags:
+      - slider-controller
+      operationId: updateSlider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - image
+              - slider
+              type: object
+              properties:
+                slider:
+                  $ref: '#/components/schemas/SliderRequest'
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSlider'
+    delete:
+      tags:
+      - slider-controller
+      operationId: deleteSlider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseObject'
+  /api/products/{id}:
+    get:
+      tags:
+      - product-controller
+      operationId: findProductById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseProduct'
+    put:
+      tags:
+      - product-controller
+      operationId: updateProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - featureImage
+              - imageFile
+              - product
+              type: object
+              properties:
+                featureImage:
+                  type: string
+                  format: binary
+                product:
+                  $ref: '#/components/schemas/ProductRequest'
+                imageFile:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseProduct'
+    delete:
+      tags:
+      - product-controller
+      operationId: deleteProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseObject'
+  /api/categories/{id}:
+    put:
+      tags:
+      - category-controller
+      operationId: updateCategory
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCategory'
+    delete:
+      tags:
+      - category-controller
+      operationId: deleteCategory
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseObject'
+  /api/banners/{id}:
+    put:
+      tags:
+      - banner-controller
+      operationId: updateBanner
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - banner
+              - image
+              type: object
+              properties:
+                banner:
+                  $ref: '#/components/schemas/BannerRequest'
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBanner'
+    delete:
+      tags:
+      - banner-controller
+      operationId: deleteBanner
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseObject'
+  /api/sliders:
+    get:
+      tags:
+      - slider-controller
+      operationId: getAllSlider
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListSlider'
+    post:
+      tags:
+      - slider-controller
+      operationId: createNewSlider
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - image
+              - slider
+              type: object
+              properties:
+                slider:
+                  $ref: '#/components/schemas/SliderRequest'
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSlider'
+  /api/products:
+    get:
+      tags:
+      - product-controller
+      operationId: findProduct
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListProduct'
+    post:
+      tags:
+      - product-controller
+      operationId: createNewProduct
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - featureImage
+              - imageFiles
+              - product
+              type: object
+              properties:
+                product:
+                  $ref: '#/components/schemas/ProductRequest'
+                featureImage:
+                  type: string
+                  format: binary
+                imageFiles:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseProduct'
+  /api/categories:
+    post:
+      tags:
+      - category-controller
+      operationId: createNewCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCategory'
+  /api/banners:
+    post:
+      tags:
+      - banner-controller
+      operationId: createNewBanner
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - banner
+              - image
+              type: object
+              properties:
+                banner:
+                  $ref: '#/components/schemas/BannerRequest'
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBanner'
+  /api/auth/signup:
+    post:
+      tags:
+      - auth-controller
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseObject'
+  /api/auth/signin:
+    post:
+      tags:
+      - auth-controller
+      operationId: authenticateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseObject'
+  /api/test/user:
+    get:
+      tags:
+      - test-controller
+      operationId: userAccess
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/test/mod:
+    get:
+      tags:
+      - test-controller
+      operationId: moderatorAccess
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/test/all:
+    get:
+      tags:
+      - test-controller
+      operationId: allAccess
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/test/admin:
+    get:
+      tags:
+      - test-controller
+      operationId: adminAccess
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    SliderRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        imageName:
+          type: string
+    ApiResponseSlider:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Slider'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    Slider:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        imageName:
+          type: string
+    ImageModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        imageName:
+          type: string
+        type:
+          type: string
+    ProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+        actualPrice:
+          type: number
+          format: double
+        productImages:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageModel'
+        featureImageName:
+          type: string
+        category_id:
+          type: integer
+          format: int64
+    ApiResponseProduct:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Product'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        parent_id:
+          type: integer
+          format: int64
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        content:
+          type: string
+        actualPrice:
+          type: number
+          format: double
+        featureImageName:
+          type: string
+        productImages:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageModel'
+        category:
+          $ref: '#/components/schemas/Category'
+    CategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        parent_id:
+          type: integer
+          format: int64
+    ApiResponseCategory:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Category'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    BannerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+        imageName:
+          type: string
+    ApiResponseBanner:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Banner'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    Banner:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        content:
+          type: string
+        imageName:
+          type: string
+    SignupRequest:
+      required:
+      - email
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ApiResponseObject:
+      type: object
+      properties:
+        result:
+          type: object
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    ApiResponseListSlider:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slider'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    ApiResponseListProduct:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32

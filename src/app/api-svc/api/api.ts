@@ -1,0 +1,13 @@
+export * from './authController.service';
+import { AuthControllerService } from './authController.service';
+export * from './bannerController.service';
+import { BannerControllerService } from './bannerController.service';
+export * from './categoryController.service';
+import { CategoryControllerService } from './categoryController.service';
+export * from './productController.service';
+import { ProductControllerService } from './productController.service';
+export * from './sliderController.service';
+import { SliderControllerService } from './sliderController.service';
+export * from './testController.service';
+import { TestControllerService } from './testController.service';
+export const APIS = [AuthControllerService, BannerControllerService, CategoryControllerService, ProductControllerService, SliderControllerService, TestControllerService];
