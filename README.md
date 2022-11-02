@@ -1,2 +1,2 @@
-# Vitech---FE
+# Vitech-FE
 Vitech UI
