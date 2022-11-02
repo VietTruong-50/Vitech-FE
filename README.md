@@ -1,2 +1,0 @@
-# Vitech-FE
-Vitech UI
