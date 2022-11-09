@@ -1,0 +1,42 @@
+<div>
+  <app-content-header [title]="title"></app-content-header>
+  <div class="form">
+    <form [formGroup]="formGroup">
+      <div class="form-group">
+        <label for="nameSlider">Name brand</label>
+        <input
+          type="text"
+          formControlName="brandName"
+          class="form-control"
+          placeholder="name brand"
+        />
+      </div>
+      <div class="form-group">
+        <label for="content">Description</label>
+        <textarea
+          class="form-control"
+          rows="3"
+          placeholder="Description ..."
+          formControlName="description"
+        ></textarea>
+      </div>
+    </form>
+
+    <button
+      *ngIf="!id"
+      mat-raised-button
+      class="btn btn-primary mb-2 float-right"
+      (click)="addBrand()"
+    >
+      Add
+    </button>
+    <button
+      *ngIf="id"
+      mat-raised-button
+      class="btn btn-primary mb-2 float-right"
+      (click)="updateBrand()"
+    >
+      Update
+    </button>
+  </div>
+</div>

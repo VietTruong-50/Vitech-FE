@@ -1,0 +1,62 @@
+<div>
+  <app-content-header [title]="title"></app-content-header>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <a class="btn btn-success float-right m-2" (click)="renderTo('Add')">Add </a>
+        </div>
+        <div class="col-md-12">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Content</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productData; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                  <img
+                    src="{{
+                      '../../../assets/image/products/' +
+                        product.id +
+                        '/feature_img/' +
+                        product.featureImageName
+                    }}"
+                    style="
+                      max-width: 240px;
+                      max-height: 120px;
+                      width: auto;
+                      height: auto;
+                    "
+                    alt="{{ product.featureImageName }}"
+                  />
+                </td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.content }}</td>
+                <td>{{ product.actualPrice }}</td>
+                <td fxLayout="row" fxLayoutGap="15px">
+                  <a class="btn btn-default" (click)="renderTo('Edit', product.id)">Edit</a>
+                  <a class="btn btn-danger action-delete">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      #paginator
+      [length]="100"
+      [pageSize]="5"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

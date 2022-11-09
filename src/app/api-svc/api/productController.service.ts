@@ -19,9 +19,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ApiResponseListProduct } from '../model/apiResponseListProduct';
-// @ts-ignore
 import { ApiResponseObject } from '../model/apiResponseObject';
+// @ts-ignore
+import { ApiResponsePageProduct } from '../model/apiResponsePageProduct';
 // @ts-ignore
 import { ApiResponseProduct } from '../model/apiResponseProduct';
 // @ts-ignore
@@ -172,7 +172,7 @@ export class ProductControllerService {
             localVarFormParams = localVarFormParams.append('product', localVarUseForm ? new Blob([JSON.stringify(product)], {type: 'application/json'}) : <any>product) as any || localVarFormParams;
         }
         if (featureImage !== undefined) {
-            localVarFormParams = localVarFormParams.append('featureImage', <any>featureImage) as any || localVarFormParams;
+            localVarFormParams = localVarFormParams.append('feature_image', <any>featureImage) as any || localVarFormParams;
         }
         if (imageFiles) {
             if (localVarUseForm) {
@@ -265,58 +265,6 @@ export class ProductControllerService {
     }
 
     /**
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public findProduct(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListProduct>;
-    public findProduct(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListProduct>>;
-    public findProduct(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListProduct>>;
-    public findProduct(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        return this.httpClient.get<ApiResponseListProduct>(`${this.configuration.basePath}/api/products`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -373,28 +321,107 @@ export class ProductControllerService {
     }
 
     /**
-     * @param id 
-     * @param featureImage 
-     * @param product 
-     * @param imageFile 
+     * @param size 
+     * @param page 
+     * @param sortBy 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateProduct(id: number, featureImage: Blob, product: ProductRequest, imageFile: Array<Blob>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseProduct>;
-    public updateProduct(id: number, featureImage: Blob, product: ProductRequest, imageFile: Array<Blob>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseProduct>>;
-    public updateProduct(id: number, featureImage: Blob, product: ProductRequest, imageFile: Array<Blob>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseProduct>>;
-    public updateProduct(id: number, featureImage: Blob, product: ProductRequest, imageFile: Array<Blob>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getAllProduct(size: number, page: number, sortBy: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponsePageProduct>;
+    public getAllProduct(size: number, page: number, sortBy: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponsePageProduct>>;
+    public getAllProduct(size: number, page: number, sortBy: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponsePageProduct>>;
+    public getAllProduct(size: number, page: number, sortBy: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (size === null || size === undefined) {
+            throw new Error('Required parameter size was null or undefined when calling getAllProduct.');
+        }
+        if (page === null || page === undefined) {
+            throw new Error('Required parameter page was null or undefined when calling getAllProduct.');
+        }
+        if (sortBy === null || sortBy === undefined) {
+            throw new Error('Required parameter sortBy was null or undefined when calling getAllProduct.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (size !== undefined && size !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>size, 'size');
+        }
+        if (page !== undefined && page !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>page, 'page');
+        }
+        if (sortBy !== undefined && sortBy !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>sortBy, 'sortBy');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        return this.httpClient.get<ApiResponsePageProduct>(`${this.configuration.basePath}/api/products`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param product 
+     * @param featureImage 
+     * @param imageFiles 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateProduct(id: number, product: ProductRequest, featureImage: Blob, imageFiles: Array<Blob>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseProduct>;
+    public updateProduct(id: number, product: ProductRequest, featureImage: Blob, imageFiles: Array<Blob>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseProduct>>;
+    public updateProduct(id: number, product: ProductRequest, featureImage: Blob, imageFiles: Array<Blob>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseProduct>>;
+    public updateProduct(id: number, product: ProductRequest, featureImage: Blob, imageFiles: Array<Blob>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateProduct.');
-        }
-        if (featureImage === null || featureImage === undefined) {
-            throw new Error('Required parameter featureImage was null or undefined when calling updateProduct.');
         }
         if (product === null || product === undefined) {
             throw new Error('Required parameter product was null or undefined when calling updateProduct.');
         }
-        if (imageFile === null || imageFile === undefined) {
-            throw new Error('Required parameter imageFile was null or undefined when calling updateProduct.');
+        if (featureImage === null || featureImage === undefined) {
+            throw new Error('Required parameter featureImage was null or undefined when calling updateProduct.');
+        }
+        if (imageFiles === null || imageFiles === undefined) {
+            throw new Error('Required parameter imageFiles was null or undefined when calling updateProduct.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -438,19 +465,19 @@ export class ProductControllerService {
             localVarFormParams = new HttpParams({encoder: this.encoder});
         }
 
-        if (featureImage !== undefined) {
-            localVarFormParams = localVarFormParams.append('featureImage', <any>featureImage) as any || localVarFormParams;
-        }
         if (product !== undefined) {
             localVarFormParams = localVarFormParams.append('product', localVarUseForm ? new Blob([JSON.stringify(product)], {type: 'application/json'}) : <any>product) as any || localVarFormParams;
         }
-        if (imageFile) {
+        if (featureImage !== undefined) {
+            localVarFormParams = localVarFormParams.append('featureImage', <any>featureImage) as any || localVarFormParams;
+        }
+        if (imageFiles) {
             if (localVarUseForm) {
-                imageFile.forEach((element) => {
-                    localVarFormParams = localVarFormParams.append('imageFile', <any>element) as any || localVarFormParams;
+                imageFiles.forEach((element) => {
+                    localVarFormParams = localVarFormParams.append('imageFiles', <any>element) as any || localVarFormParams;
             })
             } else {
-                localVarFormParams = localVarFormParams.append('imageFile', imageFile.join(COLLECTION_FORMATS['csv'])) as any || localVarFormParams;
+                localVarFormParams = localVarFormParams.append('imageFiles', imageFiles.join(COLLECTION_FORMATS['csv'])) as any || localVarFormParams;
             }
         }
 

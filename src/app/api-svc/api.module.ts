@@ -4,10 +4,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { AuthControllerService } from './api/authController.service';
 import { BannerControllerService } from './api/bannerController.service';
+import { BrandControllerService } from './api/brandController.service';
 import { CategoryControllerService } from './api/categoryController.service';
 import { ProductControllerService } from './api/productController.service';
+import { RoleControllerService } from './api/roleController.service';
 import { SliderControllerService } from './api/sliderController.service';
 import { TestControllerService } from './api/testController.service';
+import { UserControllerService } from './api/userController.service';
 
 @NgModule({
   imports:      [],

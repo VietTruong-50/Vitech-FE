@@ -19,7 +19,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ApiResponseObject } from '../model/apiResponseObject';
+import { ApiResponseJwtResponse } from '../model/apiResponseJwtResponse';
+// @ts-ignore
+import { ApiResponseUser } from '../model/apiResponseUser';
 // @ts-ignore
 import { LoginRequest } from '../model/loginRequest';
 // @ts-ignore
@@ -96,9 +98,9 @@ export class AuthControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public authenticateUser(loginRequest: LoginRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseObject>;
-    public authenticateUser(loginRequest: LoginRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseObject>>;
-    public authenticateUser(loginRequest: LoginRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseObject>>;
+    public authenticateUser(loginRequest: LoginRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseJwtResponse>;
+    public authenticateUser(loginRequest: LoginRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseJwtResponse>>;
+    public authenticateUser(loginRequest: LoginRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseJwtResponse>>;
     public authenticateUser(loginRequest: LoginRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (loginRequest === null || loginRequest === undefined) {
             throw new Error('Required parameter loginRequest was null or undefined when calling authenticateUser.');
@@ -144,7 +146,7 @@ export class AuthControllerService {
             }
         }
 
-        return this.httpClient.post<ApiResponseObject>(`${this.configuration.basePath}/api/auth/signin`,
+        return this.httpClient.post<ApiResponseJwtResponse>(`${this.configuration.basePath}/api/auth/signin`,
             loginRequest,
             {
                 context: localVarHttpContext,
@@ -162,9 +164,9 @@ export class AuthControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public registerUser(signupRequest: SignupRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseObject>;
-    public registerUser(signupRequest: SignupRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseObject>>;
-    public registerUser(signupRequest: SignupRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseObject>>;
+    public registerUser(signupRequest: SignupRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseUser>;
+    public registerUser(signupRequest: SignupRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseUser>>;
+    public registerUser(signupRequest: SignupRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseUser>>;
     public registerUser(signupRequest: SignupRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (signupRequest === null || signupRequest === undefined) {
             throw new Error('Required parameter signupRequest was null or undefined when calling registerUser.');
@@ -210,7 +212,7 @@ export class AuthControllerService {
             }
         }
 
-        return this.httpClient.post<ApiResponseObject>(`${this.configuration.basePath}/api/auth/signup`,
+        return this.httpClient.post<ApiResponseUser>(`${this.configuration.basePath}/api/auth/signup`,
             signupRequest,
             {
                 context: localVarHttpContext,

@@ -1,0 +1,35 @@
+#footer {
+    background: #15161D;
+    color: #B9BABC;
+}
+
+.footer {
+    margin: 30px 0px;
+}
+
+.footer-links{
+    padding: 0;
+}
+
+.footer-links li a {
+    color: #B9BABC;
+}
+
+.footer .footer-title {
+    color: #FFF;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 0px 0px 30px;
+}
+
+.footer-links li a:hover {
+    color: #D10024;
+    transition: 0.2s;
+}
+
+.footer-links li i {
+    margin-right: 15px;
+    color: #D10024;
+    width: 14px;
+    text-align: center;
+}

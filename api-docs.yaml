@@ -93,16 +93,16 @@ paths:
             schema:
               required:
               - featureImage
-              - imageFile
+              - imageFiles
               - product
               type: object
               properties:
+                product:
+                  $ref: '#/components/schemas/ProductRequest'
                 featureImage:
                   type: string
                   format: binary
-                product:
-                  $ref: '#/components/schemas/ProductRequest'
-                imageFile:
+                imageFiles:
                   type: array
                   items:
                     type: string
@@ -175,7 +175,68 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseObject'
+  /api/brands/{id}:
+    get:
+      tags:
+      - brand-controller
+      operationId: getBrandById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBrand'
+    put:
+      tags:
+      - brand-controller
+      operationId: updateBrand
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiResponseBrand'
   /api/banners/{id}:
+    get:
+      tags:
+      - banner-controller
+      operationId: getBannerById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBanner'
     put:
       tags:
       - banner-controller
@@ -231,13 +292,31 @@ paths:
       tags:
       - slider-controller
       operationId: getAllSlider
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseListSlider'
+                $ref: '#/components/schemas/ApiResponsePageSlider'
     post:
       tags:
       - slider-controller
@@ -267,14 +346,32 @@ paths:
     get:
       tags:
       - product-controller
-      operationId: findProduct
+      operationId: getAllProduct
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseListProduct'
+                $ref: '#/components/schemas/ApiResponsePageProduct'
     post:
       tags:
       - product-controller
@@ -284,14 +381,14 @@ paths:
           multipart/form-data:
             schema:
               required:
-              - featureImage
+              - feature_image
               - imageFiles
               - product
               type: object
               properties:
                 product:
                   $ref: '#/components/schemas/ProductRequest'
-                featureImage:
+                feature_image:
                   type: string
                   format: binary
                 imageFiles:
@@ -307,6 +404,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponseProduct'
   /api/categories:
+    get:
+      tags:
+      - category-controller
+      operationId: getAllCategory
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageCategory'
     post:
       tags:
       - category-controller
@@ -324,7 +450,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseCategory'
+  /api/brands:
+    get:
+      tags:
+      - brand-controller
+      operationId: getAllBrand
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageBrand'
+    post:
+      tags:
+      - brand-controller
+      operationId: createNewBrand
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiResponseBrand'
   /api/banners:
+    get:
+      tags:
+      - banner-controller
+      operationId: getAllBanner
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageBanner'
     post:
       tags:
       - banner-controller
@@ -367,7 +569,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseObject'
+                $ref: '#/components/schemas/ApiResponseUser'
   /api/auth/signin:
     post:
       tags:
@@ -385,7 +587,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseObject'
+                $ref: '#/components/schemas/ApiResponseJwtResponse'
+  /api/users:
+    get:
+      tags:
+      - user-controller
+      operationId: getAllUsers
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageUser'
   /api/test/user:
     get:
       tags:
@@ -434,6 +666,67 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/slider/{id}:
+    get:
+      tags:
+      - slider-controller
+      operationId: getSliderById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSlider'
+  /api/roles:
+    get:
+      tags:
+      - role-controller
+      operationId: getAllRoles
+      parameters:
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageRole'
+  /api/brands/all:
+    get:
+      tags:
+      - brand-controller
+      operationId: getBrandData
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListBrand'
 components:
   schemas:
     SliderRequest:
@@ -489,6 +782,9 @@ components:
         actualPrice:
           type: number
           format: double
+        quantity:
+          type: integer
+          format: int32
         productImages:
           uniqueItems: true
           type: array
@@ -497,6 +793,9 @@ components:
         featureImageName:
           type: string
         category_id:
+          type: integer
+          format: int64
+        brand_id:
           type: integer
           format: int64
     ApiResponseProduct:
@@ -511,6 +810,16 @@ components:
         responseCode:
           type: integer
           format: int32
+    Brand:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        brandName:
+          type: string
+        description:
+          type: string
     Category:
       type: object
       properties:
@@ -534,6 +843,9 @@ components:
           type: string
         content:
           type: string
+        quantity:
+          type: integer
+          format: int32
         actualPrice:
           type: number
           format: double
@@ -546,6 +858,8 @@ components:
             $ref: '#/components/schemas/ImageModel'
         category:
           $ref: '#/components/schemas/Category'
+        brand:
+          $ref: '#/components/schemas/Brand'
     CategoryRequest:
       type: object
       properties:
@@ -561,6 +875,25 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/Category'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    BrandRequest:
+      type: object
+      properties:
+        brandName:
+          type: string
+        description:
+          type: string
+    ApiResponseBrand:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Brand'
         errorCode:
           type: string
         message:
@@ -619,11 +952,11 @@ components:
           type: array
           items:
             type: string
-    ApiResponseObject:
+    ApiResponseUser:
       type: object
       properties:
         result:
-          type: object
+          $ref: '#/components/schemas/User'
         errorCode:
           type: string
         message:
@@ -631,6 +964,31 @@ components:
         responseCode:
           type: integer
           format: int32
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userName:
+          type: string
+        email:
+          type: string
+        roles:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
     LoginRequest:
       type: object
       properties:
@@ -638,13 +996,11 @@ components:
           type: string
         password:
           type: string
-    ApiResponseListSlider:
+    ApiResponseJwtResponse:
       type: object
       properties:
         result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Slider'
+          $ref: '#/components/schemas/JwtResponse'
         errorCode:
           type: string
         message:
@@ -652,13 +1008,374 @@ components:
         responseCode:
           type: integer
           format: int32
-    ApiResponseListProduct:
+    JwtResponse:
+      type: object
+      properties:
+        jwtToken:
+          type: string
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    ApiResponsePageUser:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageUser'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageUser:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        unpaged:
+          type: boolean
+        paged:
+          type: boolean
+    Sort:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    ApiResponsePageSlider:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageSlider'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageSlider:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slider'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ApiResponsePageRole:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageRole'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageRole:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ApiResponsePageProduct:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageProduct'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageProduct:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ApiResponsePageCategory:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageCategory'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageCategory:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ApiResponsePageBrand:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageBrand'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageBrand:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ApiResponseListBrand:
       type: object
       properties:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/Product'
+            $ref: '#/components/schemas/Brand'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    ApiResponsePageBanner:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageBanner'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageBanner:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Banner'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    ApiResponseObject:
+      type: object
+      properties:
+        result:
+          type: object
         errorCode:
           type: string
         message:

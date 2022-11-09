@@ -1,0 +1,64 @@
+<div>
+  <app-content-header [title]="title"></app-content-header>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <a (click)="renderTo('Add')" class="btn btn-success float-right m-2"
+            >Add
+          </a>
+        </div>
+        <div class="col-md-12">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Content</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let banner of bannerData; index as i">
+                <th scope="row">{{ i+1 }}</th>
+                <td>
+                  <img
+                    src="{{
+                      '../../../assets/image/banners/' +
+                        (i + 1) +
+                        '/' +
+                        banner.imageName
+                    }}"
+                    style="
+                      max-width: 240px;
+                      max-height: 120px;
+                      width: auto;
+                      height: auto;
+                    "
+                    alt="{{ banner.imageName }}"
+                  />
+                </td>
+                <td>{{ banner.name }}</td>
+                <td>{{ banner.content }}</td>
+                <td fxLayout="row" fxLayoutGap="15px">
+                  <a class="btn btn-default" (click)="renderTo('Edit', banner.id)"
+                    >Edit</a
+                  >
+                  <a class="btn btn-danger action-delete" (click)="deleteBanner(banner.id)">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <mat-paginator
+      #paginator
+      [length]="100"
+      [pageSize]="5"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

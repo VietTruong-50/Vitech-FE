@@ -1,4 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
-.form{
+@import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/fontawesome-free/css/all.min.css');
+@import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/adminlte.min.css');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #333;
+}
+
+.form {
     padding: 15px;
 }
+
+ul {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    list-style: none;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+a {
+    text-decoration: none !important;
+}
+

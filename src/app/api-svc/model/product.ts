@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Brand } from './brand';
 import { Category } from './category';
 import { ImageModel } from './imageModel';
 
@@ -17,9 +18,11 @@ export interface Product {
     id?: number;
     name?: string;
     content?: string;
+    quantity?: number;
     actualPrice?: number;
     featureImageName?: string;
     productImages?: Set<ImageModel>;
     category?: Category;
+    brand?: Brand;
 }
 

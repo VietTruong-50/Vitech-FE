@@ -34,7 +34,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a [routerLink]="['/admin', 'categories']" href="" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Danh mục sản phẩm
@@ -42,15 +42,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a [routerLink]="['/admin', 'banners']" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Menus
+                            Banner
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a [routerLink]="['/admin', 'products']" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Sản phẩm
@@ -58,7 +58,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/sliders" class="nav-link">
+                    <a [routerLink]="['/admin', 'sliders']" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Slider
@@ -66,15 +66,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a [routerLink]="['/admin', 'brands']" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Setting
+                            Danh sách hãng
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a [routerLink]="['/admin', 'users']" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Danh sách user
@@ -82,7 +82,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a [routerLink]="['/admin', 'roles']" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Danh sách vai trò
@@ -93,7 +93,7 @@
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Tạp dữ liệu bảng Permission
+                            Tạo dữ liệu bảng Permission
                         </p>
                     </a>
                 </li>
