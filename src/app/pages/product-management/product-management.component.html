@@ -23,12 +23,7 @@
                 <th scope="row">{{ i + 1 }}</th>
                 <td>
                   <img
-                    src="{{
-                      '../../../assets/image/products/' +
-                        product.id +
-                        '/feature_img/' +
-                        product.featureImageName
-                    }}"
+                    [src]="imgSrc"
                     style="
                       max-width: 240px;
                       max-height: 120px;
@@ -41,9 +36,9 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.content }}</td>
                 <td>{{ product.actualPrice }}</td>
-                <td fxLayout="row" fxLayoutGap="15px">
+                <td fxLayoutGap="15px">
                   <a class="btn btn-default" (click)="renderTo('Edit', product.id)">Edit</a>
-                  <a class="btn btn-danger action-delete">Delete</a>
+                  <a class="btn btn-danger action-delete" (click)="deleteProduct(product.id)">Delete</a>
                 </td>
               </tr>
             </tbody>

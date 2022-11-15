@@ -133,6 +133,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponseObject'
   /api/categories/{id}:
+    get:
+      tags:
+      - category-controller
+      operationId: getCategoryById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCategory'
     put:
       tags:
       - category-controller
@@ -215,7 +233,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseBrand'
   /api/banners/{id}:
@@ -770,6 +788,11 @@ components:
           format: int64
         imageName:
           type: string
+        imageByte:
+          type: array
+          items:
+            type: string
+            format: byte
         type:
           type: string
     ProductRequest:
@@ -792,6 +815,11 @@ components:
             $ref: '#/components/schemas/ImageModel'
         featureImageName:
           type: string
+        featureImageByte:
+          type: array
+          items:
+            type: string
+            format: byte
         category_id:
           type: integer
           format: int64
@@ -851,6 +879,11 @@ components:
           format: double
         featureImageName:
           type: string
+        featureImageByte:
+          type: array
+          items:
+            type: string
+            format: byte
         productImages:
           uniqueItems: true
           type: array

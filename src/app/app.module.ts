@@ -10,14 +10,14 @@ import { FooterComponentComponent } from './shared/footer-component/footer-compo
 import { SliderManagementComponent } from './pages/slider-management/slider-management.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiHttpInterceptor } from './shared/api-http-interceptor';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { ContentHeaderComponent } from './shared/content-header/content-header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CruSliderComponent } from './pages/slider-management/cru-slider/cru-slider.component';
 import { BannerManagementComponent } from './pages/banner-management/banner-management.component';
 import { CruBannerComponent } from './pages/banner-management/cru-banner/cru-banner.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductManagementComponent } from './pages/product-management/product-management.component';
 import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
@@ -28,8 +28,8 @@ import { HomepageHeaderComponent } from './shared/homepage-header/homepage-heade
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomepageFooterComponent } from './shared/homepage-footer/homepage-footer.component';
 import { NewsLetterComponent } from './shared/news-letter/news-letter.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { CruProductComponent } from './pages/product-management/cru-product/cru-product.component';
 import { CategoryManagementComponent } from './pages/category-management/category-management.component';
 import { CruCategoryComponent } from './pages/category-management/cru-category/cru-category.component';
@@ -39,6 +39,12 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { RoleManagementComponent } from './pages/role-management/role-management.component';
 import { BrandManagementComponent } from './pages/brand-management/brand-management.component';
 import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { HomepageUserComponent } from './pages/homepage-user/homepage-user.component';
+import { MasterUserComponent } from './shared/master-user/master-user.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { StoreUserComponent } from './pages/store-user/store-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +70,10 @@ import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.
     UserManagementComponent,
     RoleManagementComponent,
     BrandManagementComponent,
-    CruBrandComponent
+    CruBrandComponent,
+    HomepageUserComponent,
+    MasterUserComponent,
+    StoreUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,9 +88,16 @@ import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.
     MatDialogModule,
     FlexLayoutModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
+    SlickCarouselModule,
+    MatCardModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true}, HasRoleGuard, AuthService],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },
+    HasRoleGuard,
+    AuthService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

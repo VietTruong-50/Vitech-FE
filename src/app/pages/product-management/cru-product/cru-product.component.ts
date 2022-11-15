@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrandControllerService, ProductControllerService } from 'src/app/api-svc';
+import {
+  BrandControllerService,
+  CategoryControllerService,
+  ProductControllerService,
+} from 'src/app/api-svc';
 
 @Component({
   selector: 'app-cru-product',
@@ -10,18 +15,22 @@ import { BrandControllerService, ProductControllerService } from 'src/app/api-sv
 })
 export class CruProductComponent implements OnInit {
   title: string = 'Add product';
+
   formGroup: FormGroup;
-  imageSrc: string | undefined;
+  imageSrc!: string | SafeUrl;
   id: string | null = '';
-  imageDomain = '../../../assets/image/products/';
   brandData: any;
+  categoryData: any
+  // imageDomain = '../../../assets/image/products/';
 
   constructor(
     private formBuilder: FormBuilder,
     private productController: ProductControllerService,
     private route: ActivatedRoute,
     private router: Router,
-    private brandController: BrandControllerService
+    private brandController: BrandControllerService,
+    private sanitizer: DomSanitizer,
+    private categoryController: CategoryControllerService
   ) {
     this.formGroup = this.formBuilder.group({
       name: [],
@@ -31,46 +40,67 @@ export class CruProductComponent implements OnInit {
       images: [],
       quantity: [],
       categoryId: [],
-      brand: []
+      brandId: [],
     });
-
-    if (this.route.snapshot.paramMap.get('id') != null) {
-      this.id = this.route.snapshot.paramMap.get('id');
-
-      this.productController
-        .findProductById(Number(this.id))
-        .subscribe((response) => {
-          if(response.errorCode == null){
-            console.log(response.result);
-            
-            this.formGroup.patchValue({
-              name: response.result?.name,
-              content: response.result?.content,
-              price: response.result?.actualPrice,
-              quantity: response.result?.quantity,
-              categoryId: response.result?.category?.id,
-              images: response.result?.productImages,
-              brand: response.result?.brand
-            });
-  
-            this.imageSrc =
-              this.imageDomain +
-              this.id +
-              '/feature_img/' +
-              response.result?.featureImageName;
-  
-            response.result?.productImages?.forEach((img) => {
-              this.listImg.push(
-                this.imageDomain + this.id + '/details/' + img.imageName
-              );
-            });
-          }
-        });
-    }
   }
 
   ngOnInit(): void {
-    this.getBrandData()
+    this.getBrandData();
+    this.getCategoryData();
+    if (this.route.snapshot.paramMap.get('id') != null) {
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.getProductById();
+    }
+  }
+
+  getProductById() {
+    this.productController
+      .findProductById(Number(this.id))
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          console.log(response.result);
+
+          if (response.result?.featureImageByte) {
+            let objectURL =
+              'data:image/jpeg;base64,' + response.result.featureImageByte;
+
+            this.imageSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+
+          response.result?.productImages?.forEach((img) => {
+            let objectURL = 'data:image/jpeg;base64,' + img.imageByte;
+
+            let itemSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+
+            this.listPreviewImg.push(itemSrc);
+          });
+
+          this.formGroup.patchValue({
+            name: response.result?.name,
+            content: response.result?.content,
+            price: response.result?.actualPrice,
+            quantity: response.result?.quantity,
+            categoryId: response.result?.category?.id,
+            brandId: response.result?.brand,
+          });
+        }
+      });
+  }
+
+  getBrandData() {
+    this.brandController.getBrandData().subscribe((response) => {
+      if (response.errorCode == null) {
+        this.brandData = response.result;
+      }
+    });
+  }
+
+  getCategoryData(){
+    this.categoryController.getAllCategory(30, 0, "createdAt").subscribe(response => {
+      if (response.errorCode == null) {
+        this.categoryData = response.result?.content;
+      }
+    })
   }
 
   readURL(event: any): void {
@@ -87,19 +117,22 @@ export class CruProductComponent implements OnInit {
     }
   }
 
-  listImg: string[] = [];
+  listPreviewImg: SafeUrl[] = [];
   fileList: any[] = [];
+
   readURLs(event: any) {
     if (event.target.files && event.target.files[0]) {
       for (var i = 0; i < event.target.files.length; i++) {
         this.fileList.push(event.target.files[i]);
       }
+
       this.formGroup.controls['images'].setValue(this.fileList);
-      this.listImg = [];
+      this.listPreviewImg = [];
+
       for (var img of event.target.files) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.listImg.push(e.target?.result as string);
+          this.listPreviewImg.push(e.target?.result as string);
         };
 
         reader.readAsDataURL(img);
@@ -111,24 +144,25 @@ export class CruProductComponent implements OnInit {
     let data = this.formGroup.getRawValue();
     console.log(data);
 
-    // this.productController
-    //   .createNewProduct(
-    //     {
-    //       name: data.name,
-    //       content: data.content,
-    //       actualPrice: data.price,
-    //       quantity: data.quantity,
-    //       brand_id: data.brandId
-    //     },
-    //     data.feature_img,
-    //     this.formGroup.controls['images'].value
-    //   )
-    //   .subscribe((response) => {
-    //     if (response.errorCode == null) {
-    //       this.router.navigate(['/admin/products']);
-    //       console.log(response.result);
-    //     }
-    //   });
+    this.productController
+      .createNewProduct(
+        {
+          name: data.name ? data.name : "null",
+          content: data.content ? data.content : "null",
+          actualPrice: data.price ? data.price : 0,
+          quantity: data.quantity ? data.quantity : 0,
+          category_id: data.categoryId ? data.categoryId : null,
+          brand_id: data.brandId ? data.brandId : null
+        },
+        data.feature_img,
+        this.formGroup.controls['images'].value
+      )
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          this.router.navigate(['/admin/products']);
+          console.log(response.result);
+        }
+      });
   }
 
   updateProduct() {
@@ -139,13 +173,15 @@ export class CruProductComponent implements OnInit {
       .updateProduct(
         Number(this.id),
         {
-          name: data.name,
-          content: data.content,
-          actualPrice: data.price,
-          quantity: data.quantity,
+          name: data.name ? data.name : "null",
+          content: data.content ? data.content : "null",
+          actualPrice: data.price ? data.price : 0,
+          quantity: data.quantity ? data.quantity : 0,
+          category_id: data.categoryId ? data.categoryId : null,
+          brand_id: data.brandId ? data.brandId : null
         },
         data.feature_img,
-        data.images
+        data.images ? data.images : null
       )
       .subscribe((response) => {
         if (response.errorCode == null) {
@@ -155,11 +191,5 @@ export class CruProductComponent implements OnInit {
       });
   }
 
-  getBrandData(){
-    this.brandController.getBrandData().subscribe(response => {
-      if(response.errorCode == null){
-        this.brandData = response.result;
-      }
-    })
-  }
+ 
 }

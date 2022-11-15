@@ -1,0 +1,258 @@
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <!-- section title -->
+      <div class="col-md-12">
+        <div class="section-title">
+          <h3 class="title">New Products</h3>
+          <div class="section-nav" fxLayout="row" fxLayoutAlign="center center">
+            <ul
+              class="section-tab-nav tab-nav"
+              fxLayout="row"
+              fxLayoutGap="10px"
+            >
+              <li class="active">
+                <a>Laptops</a>
+              </li>
+              <li><a>Smartphones</a></li>
+              <li><a>Cameras</a></li>
+              <li><a>Accessories</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /section title -->
+
+      <!-- Products tab & slick -->
+      <div class="col-md-12">
+        <div class="row">
+          <ngx-slick-carousel
+            class="carousel"
+            #slickModal="slick-carousel"
+            [config]="slideConfig"
+            (init)="slickInit($event)"
+            (breakpoint)="breakpoint($event)"
+            (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)"
+          >
+            <div
+              ngxSlickItem
+              *ngFor="let slide of slides"
+              fxLayout="column"
+              fxLayoutAlign="none center"
+              class="slide"
+            >
+              <div class="product slick-slide" style="width: 255px">
+                <div class="product-img">
+                  <img src="{{ slide.img }}" alt="" width="100%" />
+                  <div class="product-label">
+                    <span class="sale">-30%</span>
+                    <span class="new">NEW</span>
+                  </div>
+                </div>
+                <div class="product-body">
+                  <p class="product-category">Category</p>
+                  <h3 class="product-name">
+                    <a href="#" tabindex="-1">product name goes here</a>
+                  </h3>
+                  <h4 class="product-price">
+                    $980.00 <del class="product-old-price">$990.00</del>
+                  </h4>
+                  <!-- <div class="product-rating">
+                  </div> -->
+                  <div class="product-btns">
+                    <button class="add-to-wishlist" tabindex="-1">
+                      <i class="fa fa-heart"></i
+                      ><span class="tooltipp">add to wishlist</span>
+                    </button>
+                    <button class="add-to-compare" tabindex="-1">
+                      <i class="fa fa-exchange"></i
+                      ><span class="tooltipp">add to compare</span>
+                    </button>
+                    <button class="quick-view" tabindex="-1">
+                      <i class="fa fa-eye"></i
+                      ><span class="tooltipp">quick view</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="add-to-cart">
+                  <button class="add-to-cart-btn" tabindex="-1">
+                    <i class="fa fa-shopping-cart"></i> add to cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="hot-deal" class="section">
+    <!-- container -->
+    <div class="container">
+      <!-- row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="hot-deal">
+            <ul class="hot-deal-countdown">
+              <li>
+                <div>
+                  <h3>02</h3>
+                  <span>Days</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>10</h3>
+                  <span>Hours</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>34</h3>
+                  <span>Mins</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>60</h3>
+                  <span>Secs</span>
+                </div>
+              </li>
+            </ul>
+            <h2 class="text-uppercase">hot deal this week</h2>
+            <p>New Collection Up to 50% OFF</p>
+            <a class="primary-btn cta-btn" href="#">Shop now</a>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" fxLayout="column">
+        <div>
+          <h3 class="title">Laptops</h3>
+          <div class="section-nav" fxLayout="row wrap" fxLayoutGap="32px">
+            <div
+            class="product product-card"
+            *ngFor="let slide of slides"
+            fxLayout="column"
+            style="width: 255px;"
+          >
+            <div class="product-img">
+              <img src="{{ slide.img }}" alt="" width="100%" />
+              <div class="product-label">
+                <span class="sale">-30%</span>
+                <span class="new">NEW</span>
+              </div>
+            </div>
+            <div class="product-body">
+              <p class="product-category">Category</p>
+              <h3 class="product-name">
+                <a href="#" tabindex="-1">product name goes here</a>
+              </h3>
+              <h4 class="product-price">
+                $980.00 <del class="product-old-price">$990.00</del>
+              </h4>
+              <!-- <div class="product-rating">
+              </div> -->
+              <div class="product-btns">
+                <button class="add-to-wishlist" tabindex="-1">
+                  <i class="fa fa-heart"></i
+                  ><span class="tooltipp">add to wishlist</span>
+                </button>
+                <button class="add-to-compare" tabindex="-1">
+                  <i class="fa fa-exchange"></i
+                  ><span class="tooltipp">add to compare</span>
+                </button>
+                <button class="quick-view" tabindex="-1">
+                  <i class="fa fa-eye"></i
+                  ><span class="tooltipp">quick view</span>
+                </button>
+              </div>
+            </div>
+            <div class="add-to-cart">
+              <button class="add-to-cart-btn" tabindex="-1">
+                <i class="fa fa-shopping-cart"></i> add to cart
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="title">Smartphones</h3>
+          <div fxLayout="column" fxLayoutGap="30px">
+            <div class="section-nav" fxLayout="row wrap" fxLayoutGap="32px">
+              <div
+                class="product product-card"
+                *ngFor="let slide of slides"
+                fxLayout="column"
+                style="width: 255px;"
+              >
+                <div class="product-img">
+                  <img src="{{ slide.img }}" alt="" width="100%" />
+                  <div class="product-label">
+                    <span class="sale">-30%</span>
+                    <span class="new">NEW</span>
+                  </div>
+                </div>
+                <div class="product-body">
+                  <p class="product-category">Category</p>
+                  <h3 class="product-name">
+                    <a href="#" tabindex="-1">product name goes here</a>
+                  </h3>
+                  <h4 class="product-price">
+                    $980.00 <del class="product-old-price">$990.00</del>
+                  </h4>
+                  <!-- <div class="product-rating">
+                  </div> -->
+                  <div class="product-btns">
+                    <button class="add-to-wishlist" tabindex="-1">
+                      <i class="fa fa-heart"></i
+                      ><span class="tooltipp">add to wishlist</span>
+                    </button>
+                    <button class="add-to-compare" tabindex="-1">
+                      <i class="fa fa-exchange"></i
+                      ><span class="tooltipp">add to compare</span>
+                    </button>
+                    <button class="quick-view" tabindex="-1">
+                      <i class="fa fa-eye"></i
+                      ><span class="tooltipp">quick view</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="add-to-cart">
+                  <button class="add-to-cart-btn" tabindex="-1">
+                    <i class="fa fa-shopping-cart"></i> add to cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+              <button mat-raised-button>
+                View all
+                <i class="fa-solid fa-angles-right" style="font-size: 12px"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="title">Cameras</h3>
+          <div class="section-nav" fxLayout="row wrap"></div>
+        </div>
+
+        <div>
+          <h3 class="title">Accessories</h3>
+          <div class="section-nav" fxLayout="row wrap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

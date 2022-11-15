@@ -21,6 +21,7 @@ export interface Product {
     quantity?: number;
     actualPrice?: number;
     featureImageName?: string;
+    featureImageByte?: Array<string>;
     productImages?: Set<ImageModel>;
     category?: Category;
     brand?: Brand;

@@ -7,19 +7,20 @@ import { CruBannerComponent } from './pages/banner-management/cru-banner/cru-ban
 import { BrandManagementComponent } from './pages/brand-management/brand-management.component';
 import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.component';
 import { CategoryManagementComponent } from './pages/category-management/category-management.component';
+import { CruCategoryComponent } from './pages/category-management/cru-category/cru-category.component';
+import { HomepageUserComponent } from './pages/homepage-user/homepage-user.component';
 import { CruProductComponent } from './pages/product-management/cru-product/cru-product.component';
 import { ProductManagementComponent } from './pages/product-management/product-management.component';
 import { RoleManagementComponent } from './pages/role-management/role-management.component';
 import { CruSliderComponent } from './pages/slider-management/cru-slider/cru-slider.component';
 import { SliderManagementComponent } from './pages/slider-management/slider-management.component';
+import { StoreUserComponent } from './pages/store-user/store-user.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { HomepageHeaderComponent } from './shared/homepage-header/homepage-header.component';
 import { MasterComponentComponent } from './shared/master-component/master-component.component';
+import { MasterUserComponent } from './shared/master-user/master-user.component';
 
 const routes: Routes = [
-  {
-    path: 'sign-in',
-    component: SignInComponent,
-  },
   {
     path: 'admin',
     component: MasterComponentComponent,
@@ -66,6 +67,14 @@ const routes: Routes = [
         component: CategoryManagementComponent,
       },
       {
+        path: 'categories/add-category',
+        component: CruCategoryComponent,
+      },
+      {
+        path: 'categories/edit-category/:id',
+        component: CruCategoryComponent,
+      },
+      {
         path: 'users',
         // canActivate: [HasRoleGuard],
         // data: {
@@ -92,6 +101,24 @@ const routes: Routes = [
       {
         path: 'brands/edit-brand/:id',
         component: CruBrandComponent,
+      },
+    ],
+  },
+  {
+    path: '',
+    component: MasterUserComponent,
+    children: [
+      {
+        path: 'homepage',
+        component: HomepageUserComponent,
+      },
+      {
+        path: 'sign-in',
+        component: SignInComponent,
+      },
+      {
+        path: 'store',
+        component: StoreUserComponent,
       },
     ],
   },

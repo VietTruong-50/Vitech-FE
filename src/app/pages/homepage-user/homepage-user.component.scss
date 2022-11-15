@@ -1,0 +1,51 @@
+::ng-deep .slick-slider {
+  width: 88%;
+  margin: auto;
+}
+
+::ng-deep .slick-track {
+  height: 600px;
+}
+
+::ng-deep .slick-slide{
+  height: 90%;
+}
+
+::ng-deep body .slick-prev {
+  left: -74px;
+}
+
+::ng-deep .slick-prev:before,
+::ng-deep .slick-next:before {
+  font-size: 70px;
+  color: darkred;
+}
+
+::ng-deep .slick-prev:hover:before,
+::ng-deep .slick-prev:focus:before,
+::ng-deep .slick-next:hover:before,
+::ng-deep .slick-next:focus:before {
+  color: gray;
+}
+
+// ::ng-deep .mat-card-image {
+//   width: calc(100% + 16px) !important;
+//   margin: 0px -16px 16px -8px !important;
+// }
+
+
+.mat-card{
+  width: 255px !important;
+}
+
+.slide-img {
+  width: 263px;
+}
+
+.product-code, .product-name{
+  font-size: 15px;
+}
+
+.product-card{
+  margin-bottom: 60px;
+}

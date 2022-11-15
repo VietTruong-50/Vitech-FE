@@ -3,21 +3,31 @@
     <div class="container" fxLayout="row" fxLayoutAlign="space-between">
       <ul fxLayout="row" class="header-links">
         <li>
-          <a href="#" class="text-white"><i class="fa fa-phone"></i> +021-95-51-84</a>
+          <a href="#" class="text-white"
+            ><i class="fa fa-phone"></i> +021-95-51-84</a
+          >
         </li>
         <li>
-          <a href="#" class="text-white"><i class="fa fa-envelope"></i> email@email.com</a>
+          <a href="#" class="text-white"
+            ><i class="fa fa-envelope"></i> email@email.com</a
+          >
         </li>
         <li>
-          <a href="#" class="text-white"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a>
+          <a href="#" class="text-white"
+            ><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a
+          >
         </li>
       </ul>
       <ul class="header-links" fxLayout="row">
         <li>
-          <a href="#" class="text-white"><i class="fa fa-dollar-sign"></i> USD</a>
+          <a href="#" class="text-white"
+            ><i class="fa fa-dollar-sign"></i> USD</a
+          >
         </li>
         <li>
-          <a href="#" class="text-white"><i class="fa fa-user"></i> My Account</a>
+          <a href="#" class="text-white"
+            ><i class="fa fa-user"></i> My Account</a
+          >
         </li>
       </ul>
     </div>
@@ -26,15 +36,15 @@
   <div id="header" fxLayout="row">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" fxLayout="row" fxLayoutAlign="center center">
           <div class="header-logo">
             <a href="#" class="logo">
-              <img src="../../../assets/css/user/img/logo.png" alt="" />
+              <img src="../../../assets/img/AdminLTELogo.png" alt="" />
             </a>
           </div>
         </div>
 
-        <div class="col-md-6" fxLayout="row">
+        <div class="col-md-6" fxLayout="row" fxLayoutAlign="center center">
           <div class="header-search w-100">
             <form>
               <select class="input-select">
@@ -48,7 +58,102 @@
           </div>
         </div>
 
+        <!-- ACCOUNT -->
+        <div
+          class="col-md-3 clearfix"
+          fxFlex="row"
+          fxLayoutAlign="center center"
+        >
+          <div class="header-ctn" fxFlex="row" fxLayoutAlign="center center">
+            <div>
+              <a fxLayout="column" fxLayoutAlign="center center">
+                <i class="fa fa-heart"></i>
+                <span>Your Wishlist</span>
+                <div class="qty">2</div>
+              </a>
+            </div>
+
+            <div class="dropdown">
+              <a fxLayout="column" fxLayoutAlign="center center">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Your Cart</span>
+                <div class="qty">3</div>
+              </a>
+              <div class="cart-dropdown">
+                <div class="cart-list">
+                  <div class="product-widget">
+                    <div class="product-img">
+                      <img
+                        src="../../../assets/image/product01.png"
+                        class="w-100"
+                        alt=""
+                      />
+                    </div>
+                    <div class="product-body">
+                      <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                      </h3>
+                      <h4 class="product-price">
+                        <span class="qty">1x</span>$980.00
+                      </h4>
+                    </div>
+                    <button class="delete">
+                      <i class="fa fa-window-close"></i>
+                    </button>
+                  </div>
+
+                  <div class="product-widget">
+                    <div class="product-img">
+                      <img
+                        src="../../../assets/image/product02.png"
+                        class="w-100"
+                        alt=""
+                      />
+                    </div>
+                    <div class="product-body">
+                      <h3 class="product-name">
+                        <a href="#">product name goes here</a>
+                      </h3>
+                      <h4 class="product-price">
+                        <span class="qty">3x</span>$980.00
+                      </h4>
+                    </div>
+                    <button class="delete">
+                      <i class="fa fa-window-close"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="cart-summary">
+                  <small>3 Item(s) selected</small>
+                  <h5>SUBTOTAL: $2940.00</h5>
+                </div>
+                <div class="cart-btns">
+                  <a href="#">View Cart</a>
+                  <a href="#"
+                    >Checkout <i class="fa fa-arrow-circle-right"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div> 
+  </div>
 </header>
+
+<nav id="navigation">
+  <div class="container">
+    <div id="responsive-nav">
+      <ul class="main-nav nav navbar-nav" fxLayout="row" fxLayoutGap="30px">
+        <li class="active"><a>Home</a></li>
+        <li><a>Hot Deals</a></li>
+        <li><a>Categories</a></li>
+        <li><a>Laptops</a></li>
+        <li><a>Smartphones</a></li>
+        <li><a>Cameras</a></li>
+        <li><a>Accessories</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

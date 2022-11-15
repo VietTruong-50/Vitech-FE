@@ -8,7 +8,7 @@
           type="text"
           formControlName="name"
           class="form-control"
-          placeholder="name banner"
+          placeholder="name"
         />
       </div>
       <div class="form-group">
@@ -38,10 +38,22 @@
         />
       </div>
       <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-select" formControlName="categoryId">
+          <option [selected]="category.id == formGroup.controls['categoryId'].value?.id" 
+          *ngFor="let category of categoryData" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
         <label for="brand">Brand</label>
-        <select class="form-select" formControlName="brand">
-          <option selected>Open this select menu</option>
-          <option *ngFor="let brand of brandData" value="{{ brand.id }}">
+        <select class="form-select" formControlName="brandId">
+          <option
+            [selected]="brand.id == formGroup.controls['brandId'].value?.id"
+            *ngFor="let brand of brandData"
+            [value]="brand.id"
+          >
             {{ brand.brandName }}
           </option>
         </select>
@@ -67,19 +79,22 @@
           class="form-control-file"
           (change)="readURLs($event)"
         />
-        <ng-container *ngFor="let img of listImg">
-          <img
-            [src]="img"
-            alt=""
-            width="100%"
-            style="
-              max-width: 240px;
-              max-height: 120px;
-              width: auto;
-              height: auto;
-              margin: 10px;
-            "
-          />
+        <ng-container>
+          <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile *ngFor="let img of listPreviewImg"
+              ><img
+                [src]="img"
+                alt=""
+                width="100%"
+                style="
+                  max-width: 240px;
+                  max-height: 120px;
+                  width: auto;
+                  height: auto;
+                  margin: 10px;
+                "
+            /></mat-grid-tile>
+          </mat-grid-list>
         </ng-container>
       </div>
     </form>

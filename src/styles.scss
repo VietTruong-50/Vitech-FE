@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/fontawesome-free/css/all.min.css');
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/adminlte.min.css');
-
+@import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/style.css');  
+ 
 body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -24,6 +25,7 @@ ul {
 }
 
 .container {
+    max-width: 1180px !important;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -34,3 +36,12 @@ a {
     text-decoration: none !important;
 }
 
+.section {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+// .row {
+//     margin-right: -15px;
+//     margin-left: -15px;
+// }
