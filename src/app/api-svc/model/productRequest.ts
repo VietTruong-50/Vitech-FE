@@ -13,6 +13,8 @@
 
  export interface ProductRequest { 
     name: string;
+    productCode: string;
+    parameters: string;
     content: string;
     actualPrice: number;
     quantity: number;

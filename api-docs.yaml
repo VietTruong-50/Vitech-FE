@@ -733,6 +733,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponsePageRole'
+  /api/products/categories/{categoryName}:
+    get:
+      tags:
+      - product-controller
+      operationId: findProductsByCategoryName
+      parameters:
+      - name: categoryName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListProduct'
+  /api/products/brands/{brandName}:
+    get:
+      tags:
+      - product-controller
+      operationId: findProductsByBrandName
+      parameters:
+      - name: brandName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListProduct'
   /api/brands/all:
     get:
       tags:
@@ -799,6 +835,10 @@ components:
       type: object
       properties:
         name:
+          type: string
+        productCode:
+          type: string
+        parameters:
           type: string
         content:
           type: string
@@ -868,6 +908,10 @@ components:
           type: integer
           format: int64
         name:
+          type: string
+        productCode:
+          type: string
+        parameters:
           type: string
         content:
           type: string
@@ -1107,15 +1151,15 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
-        pageNumber:
-          type: integer
-          format: int32
         pageSize:
           type: integer
           format: int32
-        unpaged:
-          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
         paged:
+          type: boolean
+        unpaged:
           type: boolean
     Sort:
       type: object
@@ -1258,6 +1302,20 @@ components:
           $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
+    ApiResponseListProduct:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
     ApiResponsePageCategory:
       type: object
       properties:

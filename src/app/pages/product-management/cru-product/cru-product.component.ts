@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import {
   BrandControllerService,
   CategoryControllerService,
@@ -15,13 +16,39 @@ import {
 })
 export class CruProductComponent implements OnInit {
   title: string = 'Add product';
-
   formGroup: FormGroup;
   imageSrc!: string | SafeUrl;
   id: string | null = '';
   brandData: any;
-  categoryData: any
+  categoryData: any;
   // imageDomain = '../../../assets/image/products/';
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '25rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [['bold']],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText',
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +61,8 @@ export class CruProductComponent implements OnInit {
   ) {
     this.formGroup = this.formBuilder.group({
       name: [],
+      code: [],
+      parameters: [],
       content: [],
       price: [],
       feature_img: [],
@@ -77,11 +106,13 @@ export class CruProductComponent implements OnInit {
 
           this.formGroup.patchValue({
             name: response.result?.name,
+            code: response.result?.productCode,
+            parameters: response.result?.parameters,
             content: response.result?.content,
             price: response.result?.actualPrice,
             quantity: response.result?.quantity,
             categoryId: response.result?.category?.id,
-            brandId: response.result?.brand,
+            brandId: response.result?.brand?.id,
           });
         }
       });
@@ -95,12 +126,14 @@ export class CruProductComponent implements OnInit {
     });
   }
 
-  getCategoryData(){
-    this.categoryController.getAllCategory(30, 0, "createdAt").subscribe(response => {
-      if (response.errorCode == null) {
-        this.categoryData = response.result?.content;
-      }
-    })
+  getCategoryData() {
+    this.categoryController
+      .getAllCategory(30, 0, 'createdAt')
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          this.categoryData = response.result?.content;
+        }
+      });
   }
 
   readURL(event: any): void {
@@ -147,12 +180,14 @@ export class CruProductComponent implements OnInit {
     this.productController
       .createNewProduct(
         {
-          name: data.name ? data.name : "null",
-          content: data.content ? data.content : "null",
+          name: data.name ? data.name : 'null',
+          content: data.content ? data.content : 'null',
           actualPrice: data.price ? data.price : 0,
           quantity: data.quantity ? data.quantity : 0,
-          category_id: data.categoryId ? data.categoryId : null,
-          brand_id: data.brandId ? data.brandId : null
+          productCode: data.code ? data.code : '',
+          parameters: data.parameters ? data.parameters : '', 
+          category_id: data.categoryId ? data.categoryId : 0,
+          brand_id: data.brandId ? data.brandId : 0,
         },
         data.feature_img,
         this.formGroup.controls['images'].value
@@ -173,12 +208,14 @@ export class CruProductComponent implements OnInit {
       .updateProduct(
         Number(this.id),
         {
-          name: data.name ? data.name : "null",
-          content: data.content ? data.content : "null",
+          name: data.name ? data.name : 'null',
+          content: data.content ? data.content : 'null',
           actualPrice: data.price ? data.price : 0,
           quantity: data.quantity ? data.quantity : 0,
+          productCode: data.code ? data.code : '',
+          parameters: data.parameters ? data.parameters : '', 
           category_id: data.categoryId ? data.categoryId : null,
-          brand_id: data.brandId ? data.brandId : null
+          brand_id: data.brandId ? data.brandId : null,
         },
         data.feature_img,
         data.images ? data.images : null
@@ -190,6 +227,4 @@ export class CruProductComponent implements OnInit {
         }
       });
   }
-
- 
 }

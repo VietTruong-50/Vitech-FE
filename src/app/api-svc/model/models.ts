@@ -3,6 +3,7 @@ export * from './apiResponseBrand';
 export * from './apiResponseCategory';
 export * from './apiResponseJwtResponse';
 export * from './apiResponseListBrand';
+export * from './apiResponseListProduct';
 export * from './apiResponseObject';
 export * from './apiResponsePageBanner';
 export * from './apiResponsePageBrand';

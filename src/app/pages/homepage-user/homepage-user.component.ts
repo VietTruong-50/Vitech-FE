@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import {
+  CategoryControllerService,
+  Product,
+  ProductControllerService,
+} from 'src/app/api-svc';
 
 @Component({
   selector: 'app-homepage-user',
@@ -6,35 +12,70 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage-user.component.scss'],
 })
 export class HomepageUserComponent implements OnInit {
-  slides = [
-    { img: '../../../assets/image/product01.png' },
-    { img: '../../../assets/image/product02.png' },
-    { img: '../../../assets/image/product03.png' },
-    { img: '../../../assets/image/product01.png' },
-    { img: '../../../assets/image/product02.png' },
-  ];
-
   slideConfig = {
-    "slidesToShow": 3,
-    "slidesToScroll": 1,
-    "dots": true,
-    "infinite": true,
-    "autoplay": true,
-    "autoplaySpeed": 1500
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 1500,
+    touchMove: false,
   };
 
-  slickInit(e: any) {
-    console.log('slick initialized');
+  constructor(
+    private productController: ProductControllerService,
+    private sanitizer: DomSanitizer,
+    private categoryController: CategoryControllerService
+  ) {}
+  
+  ngOnInit(): void {
+    this.getData();
+    this.getCategoryData();
+    this.getProductsByCategory('Laptops');
   }
-  breakpoint(e: any) {
-    console.log('breakpoint');
+
+  productData: any;
+  listCategory: any;
+
+  getData() {
+    this.productController
+      .getAllProduct(5, 0, 'createdAt')
+      .subscribe((response) => {
+        response.result?.content?.forEach((item) => {
+          if (item.featureImageByte) {
+            let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
+
+            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        });
+
+        this.productData = response.result?.content;
+      });
   }
-  afterChange(e: any) {
-    console.log('afterChange');
+
+  productsByCategory: any;
+
+  getProductsByCategory(name: string) {
+    this.productController
+      .findProductsByCategoryName(name)
+      .subscribe((response) => {
+        response.result!.forEach((item) => {
+          if (item.featureImageByte) {
+            let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
+
+            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        });
+
+        this.productsByCategory = response.result;
+      });
   }
-  beforeChange(e: any) {
-    console.log('beforeChange');
+
+  getCategoryData() {
+    this.categoryController
+      .getAllCategory(10, 0, 'name')
+      .subscribe((response) => {
+        this.listCategory = response.result?.content;
+      });
   }
-  constructor() {}
-  ngOnInit(): void {}
 }

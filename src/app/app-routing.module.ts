@@ -8,7 +8,9 @@ import { BrandManagementComponent } from './pages/brand-management/brand-managem
 import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.component';
 import { CategoryManagementComponent } from './pages/category-management/category-management.component';
 import { CruCategoryComponent } from './pages/category-management/cru-category/cru-category.component';
+import { CheckoutCartComponent } from './pages/checkout-cart/checkout-cart.component';
 import { HomepageUserComponent } from './pages/homepage-user/homepage-user.component';
+import { ProductDetailUserComponent } from './pages/product-detail-user/product-detail-user.component';
 import { CruProductComponent } from './pages/product-management/cru-product/cru-product.component';
 import { ProductManagementComponent } from './pages/product-management/product-management.component';
 import { RoleManagementComponent } from './pages/role-management/role-management.component';
@@ -119,6 +121,14 @@ const routes: Routes = [
       {
         path: 'store',
         component: StoreUserComponent,
+      },
+      {
+        path: 'product',
+        component: ProductDetailUserComponent,
+      },
+      {
+        path: 'checkout',
+        component: CheckoutCartComponent,
       },
     ],
   },

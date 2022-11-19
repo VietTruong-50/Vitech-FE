@@ -1,57 +1,86 @@
-<div>
+<div class="content">
   <app-content-header [title]="title"></app-content-header>
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <a class="btn btn-success float-right m-2" (click)="renderTo('Add')">Add </a>
-        </div>
-        <div class="col-md-12">
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Content</th>
-                <th scope="col">Price</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let product of productData; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  <img
-                    [src]="imgSrc"
-                    style="
-                      max-width: 240px;
-                      max-height: 120px;
-                      width: auto;
-                      height: auto;
-                    "
-                    alt="{{ product.featureImageName }}"
-                  />
-                </td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.content }}</td>
-                <td>{{ product.actualPrice }}</td>
-                <td fxLayoutGap="15px">
-                  <a class="btn btn-default" (click)="renderTo('Edit', product.id)">Edit</a>
-                  <a class="btn btn-danger action-delete" (click)="deleteProduct(product.id)">Delete</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="col-md-12">
+      <div>
+        <a class="btn btn-success float-right m-2" (click)="renderTo('Add')"
+          >Add
+        </a>
       </div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{
+              dataSource.filteredData.indexOf(element) +
+                1 +
+                pageIndex * pageSize
+            }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="featureImageName">
+          <th mat-header-cell *matHeaderCellDef>Image</th>
+          <td mat-cell *matCellDef="let element">
+            <img
+              [src]="element.imgUrl"
+              style="
+                max-width: 240px;
+                max-height: 120px;
+                width: auto;
+                height: auto;
+              "
+              alt="{{ element.featureImageName }}"
+            />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productCode">
+          <th mat-header-cell *matHeaderCellDef>Product code</th>
+          <td mat-cell *matCellDef="let element">{{ element.productCode }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actualPrice">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element">{{ element.actualPrice }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <span
+              fxLayout="row wrap"
+              fxLayoutAlign="center center"
+              style="gap: 4px"
+            >
+              <a class="btn btn-default" (click)="renderTo('Edit', element.id)"
+                >Edit</a
+              >
+              <a
+                class="btn btn-danger action-delete"
+                (click)="deleteProduct(element.id)"
+                >Delete</a
+              >
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        (page)="onPaginate($event)"
+        #paginator
+        [length]="100"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
-    <mat-paginator
-      #paginator
-      [length]="100"
-      [pageSize]="5"
-      aria-label="Select page"
-    >
-    </mat-paginator>
   </div>
 </div>

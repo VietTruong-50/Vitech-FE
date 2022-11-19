@@ -23,6 +23,7 @@
       <div class="form-group">
         <label for="brand">Parent category</label>
         <select class="form-select" formControlName="parent_id">
+          <option value="0">Choose parent category</option>
           <option
           [selected]="cate.id == formGroup.controls['parent_id'].value"
             *ngFor="let cate of cateData"

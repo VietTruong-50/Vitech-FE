@@ -20,6 +20,7 @@ model/apiResponseBrand.ts
 model/apiResponseCategory.ts
 model/apiResponseJwtResponse.ts
 model/apiResponseListBrand.ts
+model/apiResponseListProduct.ts
 model/apiResponseObject.ts
 model/apiResponsePageBanner.ts
 model/apiResponsePageBrand.ts

@@ -74,12 +74,12 @@
             </div>
 
             <div class="dropdown">
-              <a fxLayout="column" fxLayoutAlign="center center">
+              <a (click)="showCart()" fxLayout="column" fxLayoutAlign="center center">
                 <i class="fa fa-shopping-cart"></i>
                 <span>Your Cart</span>
                 <div class="qty">3</div>
               </a>
-              <div class="cart-dropdown">
+              <div [hidden]="!isShowCart" class="cart-dropdown">
                 <div class="cart-list">
                   <div class="product-widget">
                     <div class="product-img">
@@ -146,13 +146,12 @@
   <div class="container">
     <div id="responsive-nav">
       <ul class="main-nav nav navbar-nav" fxLayout="row" fxLayoutGap="30px">
-        <li class="active"><a>Home</a></li>
+        <li [ngClass]="currentRoute == '/homepage' ? 'active' : ' '" (click)="renderTo('homepage')"><a>Home</a></li>
         <li><a>Hot Deals</a></li>
         <li><a>Categories</a></li>
-        <li><a>Laptops</a></li>
-        <li><a>Smartphones</a></li>
-        <li><a>Cameras</a></li>
-        <li><a>Accessories</a></li>
+        <li><a>Brands</a></li>
+        <li [ngClass]="currentRoute == '/store' ? 'active' : ' '"><a (click)="renderTo('store')">Store</a></li>
+        <li><a>Policies</a></li>
       </ul>
     </div>
   </div>

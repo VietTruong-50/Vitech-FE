@@ -87,6 +87,19 @@ export class CruCategoryComponent implements OnInit {
   }
 
   updateCategory(){
-    console.log(this.formGroup.getRawValue())
+    let data = this.formGroup.getRawValue()
+    this.categoryController
+      .updateCategory(Number(this.id) ,{
+        name: data.name ? data.name : "",
+        description: data.description ? data.description : "",
+        parent_id: data.parent_id
+          ? data.parent_id
+          : 0,
+      })
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          this.router.navigate(['admin/categories']);
+        }
+      });
   }
 }

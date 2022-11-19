@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ProductControllerService } from 'src/app/api-svc';
+import { Product } from 'src/app/api-svc/model/product'
 
 @Component({
   selector: 'app-product-management',
@@ -10,39 +14,49 @@ import { ProductControllerService } from 'src/app/api-svc';
 })
 export class ProductManagementComponent implements OnInit {
   title: string = 'List products';
-  productData: any;
-  imgSrc: SafeUrl | undefined;
+
+  pageIndex: number = 0;
+  pageSize: number = 5;
+
+  displayedColumns: string[] = ['position', 'featureImageName', 'productCode', 'name', 'actualPrice', 'action'];
+  dataSource: MatTableDataSource<Product> = new MatTableDataSource();
 
   constructor(
     private productController: ProductControllerService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.updateUrlPath(0, 5);
   }
 
-  getData() {
-    this.productController.getAllProduct(5, 0, 'name').subscribe((response) => {
-      this.productData = response.result?.content;
-      response.result?.content?.forEach((item) => {
-        if (item.featureImageByte) {
-          let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
+  getData(pageIndex?: number) {
+    this.productController
+      .getAllProduct(this.pageSize, pageIndex ? pageIndex : 0, 'name')
+      .subscribe((response) => {
+        response.result?.content?.forEach((item) => {
+          if (item.featureImageByte) {
+            let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
 
-          this.imgSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        }
+            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+          }
+        });
+
+        this.dataSource = new MatTableDataSource<Product>(
+          response.result?.content
+        );
       });
-    });
   }
 
-  deleteProduct(id: number){
-    this.productController.deleteProduct(id).subscribe(response => {
-      if(response.errorCode == null){
+  deleteProduct(id: number) {
+    this.productController.deleteProduct(id).subscribe((response) => {
+      if (response.errorCode == null) {
         this.getData();
-        window.alert("Delete success")
+        window.alert('Delete success');
       }
-    })
+    });
   }
 
   renderTo(type: string, id?: number) {
@@ -55,5 +69,17 @@ export class ProductManagementComponent implements OnInit {
         queryParams: { type: type },
       });
     }
+  }
+
+  onPaginate($event: PageEvent) {
+    this.updateUrlPath($event.pageIndex, $event.pageSize);
+  }
+
+  updateUrlPath(pageIndex: number, pageSize: number) {
+    this.pageIndex = pageIndex;
+    this.pageSize = pageSize;
+    const pureUrl = this.router.url.split('?').shift();
+    this.location.go(`${pureUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+    this.getData(this.pageIndex);
   }
 }

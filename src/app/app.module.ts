@@ -41,10 +41,19 @@ import { BrandManagementComponent } from './pages/brand-management/brand-managem
 import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 import { HomepageUserComponent } from './pages/homepage-user/homepage-user.component';
 import { MasterUserComponent } from './shared/master-user/master-user.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { StoreUserComponent } from './pages/store-user/store-user.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { ProductDetailUserComponent } from './pages/product-detail-user/product-detail-user.component';
+import { CheckoutCartComponent } from './pages/checkout-cart/checkout-cart.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ToNumberPipe } from './pipes/to-number.pipe';
+import { ToHtmlPipe } from './pipes/to-html.pipe';
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +83,11 @@ import { StoreUserComponent } from './pages/store-user/store-user.component';
     HomepageUserComponent,
     MasterUserComponent,
     StoreUserComponent,
+    ProductDetailUserComponent,
+    CheckoutCartComponent,
+    ToNumberPipe,
+    ToHtmlPipe,
+    TruncateTextPipe
   ],
   imports: [
     BrowserModule,
@@ -91,7 +105,11 @@ import { StoreUserComponent } from './pages/store-user/store-user.component';
     MatIconModule,
     MatGridListModule,
     SlickCarouselModule,
-    MatCardModule
+    MatCardModule,
+    NgxSliderModule,
+    MatTabsModule,
+    AngularEditorModule,
+    MatTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

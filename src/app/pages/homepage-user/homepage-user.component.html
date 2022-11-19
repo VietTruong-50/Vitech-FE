@@ -13,12 +13,12 @@
               fxLayout="row"
               fxLayoutGap="10px"
             >
-              <li class="active">
-                <a>Laptops</a>
+              <li (click)="getProductsByCategory('Laptops')" class="active"><a>Laptops</a></li>
+              <li *ngFor="let category of listCategory">
+                <a (click)="getProductsByCategory(category.name)">{{
+                  category.name != "Laptops" ? category.name : " "
+                }}</a>
               </li>
-              <li><a>Smartphones</a></li>
-              <li><a>Cameras</a></li>
-              <li><a>Accessories</a></li>
             </ul>
           </div>
         </div>
@@ -32,33 +32,34 @@
             class="carousel"
             #slickModal="slick-carousel"
             [config]="slideConfig"
-            (init)="slickInit($event)"
-            (breakpoint)="breakpoint($event)"
-            (afterChange)="afterChange($event)"
-            (beforeChange)="beforeChange($event)"
           >
             <div
               ngxSlickItem
-              *ngFor="let slide of slides"
+              *ngFor="let product of productsByCategory"
               fxLayout="column"
               fxLayoutAlign="none center"
               class="slide"
             >
               <div class="product slick-slide" style="width: 255px">
                 <div class="product-img">
-                  <img src="{{ slide.img }}" alt="" width="100%" />
+                  <img [src]="product.imgUrl" alt="" width="100%" />
                   <div class="product-label">
                     <span class="sale">-30%</span>
                     <span class="new">NEW</span>
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">Category</p>
+                  <p class="product-category">{{ product.category.name }}</p>
                   <h3 class="product-name">
-                    <a href="#" tabindex="-1">product name goes here</a>
+                    <a href="#" tabindex="-1">{{
+                      product.name | truncateText: 40
+                    }}</a>
                   </h3>
                   <h4 class="product-price">
-                    $980.00 <del class="product-old-price">$990.00</del>
+                    $980.00
+                    <del class="product-old-price">{{
+                      product.actualPrice + "$"
+                    }}</del>
                   </h4>
                   <!-- <div class="product-rating">
                   </div> -->
@@ -134,69 +135,20 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-md-12" fxLayout="column">
-        <div>
-          <h3 class="title">Laptops</h3>
-          <div class="section-nav" fxLayout="row wrap" fxLayoutGap="32px">
-            <div
-            class="product product-card"
-            *ngFor="let slide of slides"
-            fxLayout="column"
-            style="width: 255px;"
-          >
-            <div class="product-img">
-              <img src="{{ slide.img }}" alt="" width="100%" />
-              <div class="product-label">
-                <span class="sale">-30%</span>
-                <span class="new">NEW</span>
-              </div>
-            </div>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name">
-                <a href="#" tabindex="-1">product name goes here</a>
-              </h3>
-              <h4 class="product-price">
-                $980.00 <del class="product-old-price">$990.00</del>
-              </h4>
-              <!-- <div class="product-rating">
-              </div> -->
-              <div class="product-btns">
-                <button class="add-to-wishlist" tabindex="-1">
-                  <i class="fa fa-heart"></i
-                  ><span class="tooltipp">add to wishlist</span>
-                </button>
-                <button class="add-to-compare" tabindex="-1">
-                  <i class="fa fa-exchange"></i
-                  ><span class="tooltipp">add to compare</span>
-                </button>
-                <button class="quick-view" tabindex="-1">
-                  <i class="fa fa-eye"></i
-                  ><span class="tooltipp">quick view</span>
-                </button>
-              </div>
-            </div>
-            <div class="add-to-cart">
-              <button class="add-to-cart-btn" tabindex="-1">
-                <i class="fa fa-shopping-cart"></i> add to cart
-              </button>
-            </div>
-          </div>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="title">Smartphones</h3>
-          <div fxLayout="column" fxLayoutGap="30px">
-            <div class="section-nav" fxLayout="row wrap" fxLayoutGap="32px">
-              <div
+      <div class="col-md-12" fxLayout="column" fxLayoutGap="15px">
+        <div *ngFor="let cate of listCategory" fxLayout="column">
+          <h3 class="title">{{ cate.name | uppercase }}</h3>
+          <div class="section-nav" fxLayout="row wrap" fxLayoutGap="33px">
+            <ng-container *ngFor="let product of productData">
+              <span
                 class="product product-card"
-                *ngFor="let slide of slides"
+                *ngIf="product.category.name == cate.name"
                 fxLayout="column"
-                style="width: 255px;"
+                style="height: 486px"
+                fxFlex="22"
               >
                 <div class="product-img">
-                  <img src="{{ slide.img }}" alt="" width="100%" />
+                  <img [src]="product.imgUrl" alt="" width="100%" />
                   <div class="product-label">
                     <span class="sale">-30%</span>
                     <span class="new">NEW</span>
@@ -205,13 +157,18 @@
                 <div class="product-body">
                   <p class="product-category">Category</p>
                   <h3 class="product-name">
-                    <a href="#" tabindex="-1">product name goes here</a>
+                    <a href="#" tabindex="-1">{{
+                      product.name | truncateText: 40
+                    }}</a>
                   </h3>
                   <h4 class="product-price">
-                    $980.00 <del class="product-old-price">$990.00</del>
+                    $980.00
+                    <del class="product-old-price">{{
+                      product.actualPrice
+                    }}</del>
                   </h4>
                   <!-- <div class="product-rating">
-                  </div> -->
+              </div> -->
                   <div class="product-btns">
                     <button class="add-to-wishlist" tabindex="-1">
                       <i class="fa fa-heart"></i
@@ -232,25 +189,15 @@
                     <i class="fa fa-shopping-cart"></i> add to cart
                   </button>
                 </div>
-              </div>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
-              <button mat-raised-button>
-                View all
-                <i class="fa-solid fa-angles-right" style="font-size: 12px"></i>
-              </button>
-            </div>
+              </span>
+            </ng-container>
           </div>
-        </div>
-
-        <div>
-          <h3 class="title">Cameras</h3>
-          <div class="section-nav" fxLayout="row wrap"></div>
-        </div>
-
-        <div>
-          <h3 class="title">Accessories</h3>
-          <div class="section-nav" fxLayout="row wrap"></div>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button>
+              View all
+              <i class="fa-solid fa-angles-right" style="font-size: 12px"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

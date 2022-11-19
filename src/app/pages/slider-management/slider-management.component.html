@@ -21,7 +21,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let slider of sliderData; index as i">
-                <th scope="row">{{ i+1 }}</th>
+                <th scope="row">{{ i + 1 }}</th>
                 <td>
                   <img
                     src="{{
@@ -45,7 +45,11 @@
                   <a class="btn btn-default" (click)="renderTo('Edit', i + 1)"
                     >Edit</a
                   >
-                  <a class="btn btn-danger action-delete" (click)="deleteSlider(slider.id)">Delete</a>
+                  <a
+                    class="btn btn-danger action-delete"
+                    (click)="deleteSlider(slider.id)"
+                    >Delete</a
+                  >
                 </td>
               </tr>
             </tbody>
@@ -55,6 +59,7 @@
     </div>
     <mat-paginator
       #paginator
+      (page)="onPaginate($event)"
       [length]="100"
       [pageSize]="5"
       aria-label="Select page"

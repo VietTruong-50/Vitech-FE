@@ -1,47 +1,115 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/fontawesome-free/css/all.min.css');
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/adminlte.min.css');
-@import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/style.css');  
- 
+@import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/style.css');
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    color: #333;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: #333;
 }
 
 .form {
-    padding: 15px;
+  padding: 15px;
 }
 
 ul {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    list-style: none;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  list-style: none;
 }
 
 .navbar-nav {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .container {
-    max-width: 1180px !important;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+  max-width: 1180px !important;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .section {
-    padding-top: 30px;
-    padding-bottom: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.form-select {
+  width: 100%;
+  padding: 10px 0;
+}
+
+table {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 10%;
+}
+
+th {
+  padding-right: 12px !important;
+}
+
+.mat-header-row {
+  background-color: #212529; 
+  color: white;
 }
 
 // .row {
 //     margin-right: -15px;
 //     margin-left: -15px;
 // }
+
+//Range slider
+// We need to use ::ng-deep to overcome view encapsulation
+::ng-deep { 
+  .custom-slider .ngx-slider .ngx-slider-bar {
+    background: #ffe4d1;
+    height: 5px;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-selection {
+    background: orange;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-pointer {
+    width: 10px;
+    height: 15px;
+    top: auto;
+    /* to remove the default positioning */
+    bottom: 0;
+    background-color: #D10024;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-pointer:after {
+    display: none;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-bubble {
+    bottom: 14px;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-limit {
+    font-weight: bold;
+    color: red;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-tick {
+    width: 1px;
+    height: 15px;
+    margin-left: 4px;
+    border-radius: 0;
+    background: black;
+    top: -1px;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-tick.ngx-slider-selected {
+    background: #D10024;
+  }
+}

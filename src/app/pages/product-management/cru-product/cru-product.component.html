@@ -3,7 +3,16 @@
   <div class="form">
     <form [formGroup]="formGroup">
       <div class="form-group">
-        <label for="nameSlider">Name banner</label>
+        <label for="code">Product code</label>
+        <input
+          type="text"
+          formControlName="code"
+          class="form-control"
+          placeholder="code"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Name product</label>
         <input
           type="text"
           formControlName="name"
@@ -12,13 +21,21 @@
         />
       </div>
       <div class="form-group">
-        <label for="content">Content</label>
+        <label for="parameters">Product parameters</label>
         <textarea
           class="form-control"
           rows="3"
-          placeholder="Content ..."
-          formControlName="content"
+          placeholder="Parameters ..."
+          formControlName="parameters"
         ></textarea>
+      </div>
+      <div class="form-group">
+        <!-- [innerHtml]="formGroup.controls['content'].value" -->
+        <label for="content">Content</label>
+        <angular-editor
+          formControlName="content"
+          [config]="editorConfig"
+        ></angular-editor>
       </div>
       <div class="form-group">
         <label for="price">Actual price</label>
@@ -26,6 +43,7 @@
           class="form-control"
           placeholder="Price ..."
           formControlName="price"
+          [value]="formGroup.controls['price'].value"
         />
       </div>
       <div class="form-group">
@@ -40,8 +58,13 @@
       <div class="form-group">
         <label for="category">Category</label>
         <select class="form-select" formControlName="categoryId">
-          <option [selected]="category.id == formGroup.controls['categoryId'].value?.id" 
-          *ngFor="let category of categoryData" [value]="category.id">
+          <option
+            [selected]="
+              category.id == formGroup.controls['categoryId'].value?.id
+            "
+            *ngFor="let category of categoryData"
+            [value]="category.id"
+          >
             {{ category.name }}
           </option>
         </select>
