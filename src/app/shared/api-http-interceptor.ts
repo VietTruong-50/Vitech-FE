@@ -32,7 +32,7 @@ export class ApiHttpInterceptor implements HttpInterceptor {
     this.totalRequest++
     console.log(this.totalRequest)
     if (this.totalRequest === 1) {
-      // this.dialog.showSpinnerDialog()
+      this.dialog.showSpinnerDialog()
     }
 
     const dupReq = request.clone({
@@ -48,7 +48,7 @@ export class ApiHttpInterceptor implements HttpInterceptor {
         if (this.totalRequest > 0) this.totalRequest--;
         console.log(this.totalRequest)
         if(this.totalRequest === 0) {
-          // this.dialog.hideSpinnerDialog()
+          this.dialog.hideSpinnerDialog()
         }
 
       }),

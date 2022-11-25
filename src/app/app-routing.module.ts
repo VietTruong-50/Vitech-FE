@@ -6,8 +6,10 @@ import { BannerManagementComponent } from './pages/banner-management/banner-mana
 import { CruBannerComponent } from './pages/banner-management/cru-banner/cru-banner.component';
 import { BrandManagementComponent } from './pages/brand-management/brand-management.component';
 import { CruBrandComponent } from './pages/brand-management/cru-brand/cru-brand.component';
+import { BrandUserComponent } from './pages/brand-user/brand-user.component';
 import { CategoryManagementComponent } from './pages/category-management/category-management.component';
 import { CruCategoryComponent } from './pages/category-management/cru-category/cru-category.component';
+import { CategoryUserComponent } from './pages/category-user/category-user.component';
 import { CheckoutCartComponent } from './pages/checkout-cart/checkout-cart.component';
 import { HomepageUserComponent } from './pages/homepage-user/homepage-user.component';
 import { ProductDetailUserComponent } from './pages/product-detail-user/product-detail-user.component';
@@ -130,6 +132,14 @@ const routes: Routes = [
         path: 'checkout',
         component: CheckoutCartComponent,
       },
+      {
+        path: 'categories',
+        component: CategoryUserComponent
+      },
+      {
+        path: 'brands',
+        component: BrandUserComponent
+      }
     ],
   },
 ];

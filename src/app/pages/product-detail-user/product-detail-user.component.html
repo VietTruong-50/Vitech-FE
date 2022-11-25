@@ -1,16 +1,23 @@
-<div id="breadcrumb" class="section">
+<div id="breadcrumb">
   <!-- container -->
   <div class="container">
     <!-- row -->
     <div class="row">
       <div class="col-md-12">
-        <ul class="breadcrumb-tree">
+        <!-- <ul class="breadcrumb-tree">
           <li><a href="#">Home</a></li>
           <li><a href="#">All Categories</a></li>
           <li><a href="#">Accessories</a></li>
           <li><a href="#">Headphones</a></li>
           <li class="active">Product name goes here</li>
-        </ul>
+        </ul> -->
+        <ejs-breadcrumb [enableNavigation]="true">
+          <e-breadcrumb-items>
+              <e-breadcrumb-item iconCss="e-icons e-home" url="./homepage"></e-breadcrumb-item>
+              <e-breadcrumb-item text="Homepage" url="./homepage"></e-breadcrumb-item>
+              <e-breadcrumb-item text="{{nameProduct}}" url="./breadcrumb/default"></e-breadcrumb-item>
+          </e-breadcrumb-items>
+        </ejs-breadcrumb>
       </div>
     </div>
     <!-- /row -->

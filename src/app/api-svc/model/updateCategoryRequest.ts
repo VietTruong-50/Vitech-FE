@@ -9,16 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { CategoryRequest } from './categoryRequest';
 
-import { SafeUrl } from "@angular/platform-browser";
 
-
-export interface Category { 
-    id?: number;
-    name?: string;
-    description?: string;
-    categoryImageByte?: Array<string>;
-    parent_id?: number;
-    imgUrl: SafeUrl;
+export interface UpdateCategoryRequest { 
+    categoryRequest?: CategoryRequest;
+    category_image: Blob;
 }
 

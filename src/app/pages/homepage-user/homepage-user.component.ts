@@ -73,8 +73,10 @@ export class HomepageUserComponent implements OnInit {
 
   getCategoryData() {
     this.categoryController
-      .getAllCategory(10, 0, 'name')
+      .getAllCategory(10, 0, 'id')
       .subscribe((response) => {
+        console.log(response.result?.content);
+        
         this.listCategory = response.result?.content;
       });
   }

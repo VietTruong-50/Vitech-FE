@@ -1,0 +1,53 @@
+<div id="breadcrumb">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <ul class="breadcrumb-tree">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">All Categories</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li class="active">Headphones (227,490 Results)</li>
+          </ul> -->
+        <ejs-breadcrumb [enableNavigation]="true">
+          <e-breadcrumb-items>
+            <e-breadcrumb-item
+              iconCss="e-icons e-home"
+              url="./homepage"
+            ></e-breadcrumb-item>
+            <e-breadcrumb-item
+              text="Homepage"
+              url="./homepage"
+            ></e-breadcrumb-item>
+            <e-breadcrumb-item
+              text="Categories"
+              url="./breadcrumb/default"
+            ></e-breadcrumb-item>
+          </e-breadcrumb-items>
+        </ejs-breadcrumb>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<div class="section">
+  <!-- container -->
+  <div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div class="w-100" fxLayout="row" fxLayoutAlign="center none">
+      <div class="card-container">
+        <span
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          *ngFor="let cate of categoryData"
+          class="item"
+        >
+          <img [src]="cate.imgUrl" alt="" />
+          <p class="item-name">{{ cate.name }}</p>
+          <div class="item-overlay right"></div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

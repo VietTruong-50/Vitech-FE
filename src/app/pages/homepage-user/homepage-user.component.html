@@ -13,12 +13,13 @@
               fxLayout="row"
               fxLayoutGap="10px"
             >
-              <li (click)="getProductsByCategory('Laptops')" class="active"><a>Laptops</a></li>
-              <li *ngFor="let category of listCategory">
-                <a (click)="getProductsByCategory(category.name)">{{
-                  category.name != "Laptops" ? category.name : " "
-                }}</a>
-              </li>
+              <ng-container *ngFor="let category of listCategory; let i = index">
+                <li [ngClass]="{'active': i === 0}">
+                  <a (click)="getProductsByCategory(category.name)">{{
+                    category.name
+                  }}</a>
+                </li>
+              </ng-container>
             </ul>
           </div>
         </div>

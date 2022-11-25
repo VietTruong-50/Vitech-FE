@@ -56,6 +56,19 @@ export class CategoryControllerService {
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
 
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    private canConsumeForm(consumes: string[]): boolean {
+        const form = 'multipart/form-data';
+        for (const consume of consumes) {
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // @ts-ignore
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
@@ -94,16 +107,20 @@ export class CategoryControllerService {
     }
 
     /**
-     * @param categoryRequest 
+     * @param category 
+     * @param categoryImage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createNewCategory(categoryRequest: CategoryRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseCategory>;
-    public createNewCategory(categoryRequest: CategoryRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseCategory>>;
-    public createNewCategory(categoryRequest: CategoryRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseCategory>>;
-    public createNewCategory(categoryRequest: CategoryRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (categoryRequest === null || categoryRequest === undefined) {
-            throw new Error('Required parameter categoryRequest was null or undefined when calling createNewCategory.');
+    public createNewCategory(category: CategoryRequest, categoryImage: Blob, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseCategory>;
+    public createNewCategory(category: CategoryRequest, categoryImage: Blob, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseCategory>>;
+    public createNewCategory(category: CategoryRequest, categoryImage: Blob, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseCategory>>;
+    public createNewCategory(category: CategoryRequest, categoryImage: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (category === null || category === undefined) {
+            throw new Error('Required parameter category was null or undefined when calling createNewCategory.');
+        }
+        if (categoryImage === null || categoryImage === undefined) {
+            throw new Error('Required parameter categoryImage was null or undefined when calling createNewCategory.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -125,14 +142,30 @@ export class CategoryControllerService {
             localVarHttpContext = new HttpContext();
         }
 
-
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json'
+            'multipart/form-data'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let localVarFormParams: { append(param: string, value: any): any; };
+        let localVarUseForm = false;
+        let localVarConvertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        localVarUseForm = canConsumeForm;
+        if (localVarUseForm) {
+            localVarFormParams = new FormData();
+        } else {
+            localVarFormParams = new HttpParams({encoder: this.encoder});
+        }
+
+        if (category !== undefined) {
+            localVarFormParams = localVarFormParams.append('category', localVarUseForm ? new Blob([JSON.stringify(category)], {type: 'application/json'}) : <any>category) as any || localVarFormParams;
+        }
+        if (categoryImage !== undefined) {
+            localVarFormParams = localVarFormParams.append('category_image', <any>categoryImage) as any || localVarFormParams;
         }
 
         let responseType_: 'text' | 'json' | 'blob' = 'json';
@@ -147,7 +180,7 @@ export class CategoryControllerService {
         }
 
         return this.httpClient.post<ApiResponseCategory>(`${this.configuration.basePath}/api/categories`,
-            categoryRequest,
+            localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -352,19 +385,23 @@ export class CategoryControllerService {
 
     /**
      * @param id 
-     * @param categoryRequest 
+     * @param category 
+     * @param categoryImage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateCategory(id: number, categoryRequest: CategoryRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseCategory>;
-    public updateCategory(id: number, categoryRequest: CategoryRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseCategory>>;
-    public updateCategory(id: number, categoryRequest: CategoryRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseCategory>>;
-    public updateCategory(id: number, categoryRequest: CategoryRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public updateCategory(id: number, category: CategoryRequest, categoryImage: Blob, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseCategory>;
+    public updateCategory(id: number, category: CategoryRequest, categoryImage: Blob, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseCategory>>;
+    public updateCategory(id: number, category: CategoryRequest, categoryImage: Blob, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseCategory>>;
+    public updateCategory(id: number, category: CategoryRequest, categoryImage: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateCategory.');
         }
-        if (categoryRequest === null || categoryRequest === undefined) {
-            throw new Error('Required parameter categoryRequest was null or undefined when calling updateCategory.');
+        if (category === null || category === undefined) {
+            throw new Error('Required parameter category was null or undefined when calling updateCategory.');
+        }
+        if (categoryImage === null || categoryImage === undefined) {
+            throw new Error('Required parameter categoryImage was null or undefined when calling updateCategory.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -386,14 +423,30 @@ export class CategoryControllerService {
             localVarHttpContext = new HttpContext();
         }
 
-
         // to determine the Content-Type header
         const consumes: string[] = [
-            'application/json'
+            'multipart/form-data'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let localVarFormParams: { append(param: string, value: any): any; };
+        let localVarUseForm = false;
+        let localVarConvertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        localVarUseForm = canConsumeForm;
+        if (localVarUseForm) {
+            localVarFormParams = new FormData();
+        } else {
+            localVarFormParams = new HttpParams({encoder: this.encoder});
+        }
+
+        if (category !== undefined) {
+            localVarFormParams = localVarFormParams.append('category', localVarUseForm ? new Blob([JSON.stringify(category)], {type: 'application/json'}) : <any>category) as any || localVarFormParams;
+        }
+        if (categoryImage !== undefined) {
+            localVarFormParams = localVarFormParams.append('category_image', <any>categoryImage) as any || localVarFormParams;
         }
 
         let responseType_: 'text' | 'json' | 'blob' = 'json';
@@ -408,7 +461,7 @@ export class CategoryControllerService {
         }
 
         return this.httpClient.put<ApiResponseCategory>(`${this.configuration.basePath}/api/categories/${encodeURIComponent(String(id))}`,
-            categoryRequest,
+            localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

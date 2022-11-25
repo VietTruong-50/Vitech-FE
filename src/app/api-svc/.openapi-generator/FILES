@@ -36,7 +36,6 @@ model/banner.ts
 model/brand.ts
 model/brandRequest.ts
 model/category.ts
-model/categoryRequest.ts
 model/imageModel.ts
 model/jwtResponse.ts
 model/loginRequest.ts

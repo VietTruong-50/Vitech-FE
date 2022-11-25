@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category, CategoryControllerService } from 'src/app/api-svc';
 
@@ -13,18 +14,25 @@ import { Category, CategoryControllerService } from 'src/app/api-svc';
 export class CategoryManagementComponent implements OnInit {
   title: string = 'List categories';
   categoryData: any;
-  
+
   pageIndex: number = 0;
   pageSize: number = 5;
 
-  displayedColumns: string[] = ['position', 'name', 'description', 'action'];
+  displayedColumns: string[] = [
+    'position',
+    'image',
+    'name',
+    'description',
+    'action',
+  ];
   dataSource: MatTableDataSource<Category> = new MatTableDataSource();
 
   constructor(
     private router: Router,
     private categoryController: CategoryControllerService,
     private activatedRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private sanitizer: DomSanitizer
   ) {
     console.log(this.activatedRoute.root);
   }
@@ -37,9 +45,17 @@ export class CategoryManagementComponent implements OnInit {
     this.categoryController
       .getAllCategory(this.pageSize, pageIndex ? pageIndex : 0, 'name')
       .subscribe((response) => {
+        response.result?.content?.forEach((item) => {
+          if (item.categoryImageByte) {
+            let objectURL = 'data:image/jpeg;base64,' + item.categoryImageByte;
+
+            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        });
+
         this.dataSource = new MatTableDataSource<Category>(
           response.result?.content
-        )
+        );
       });
   }
 
@@ -55,9 +71,7 @@ export class CategoryManagementComponent implements OnInit {
     }
   }
 
-  deleteCategory(id: number){
-
-  }
+  deleteCategory(id: number) {}
 
   onPaginate($event: PageEvent) {
     this.updateUrlPath($event.pageIndex, $event.pageSize);

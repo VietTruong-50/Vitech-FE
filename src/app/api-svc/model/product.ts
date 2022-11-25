@@ -22,12 +22,12 @@ export interface Product {
     parameters?: string;
     content?: string;
     quantity?: number;
-    imgUrl?: SafeUrl;
     actualPrice?: number;
     featureImageName?: string;
     featureImageByte?: Array<string>;
     productImages?: Set<ImageModel>;
     category?: Category;
     brand?: Brand;
+    imgUrl: SafeUrl;
 }
 

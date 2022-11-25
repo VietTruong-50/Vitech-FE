@@ -54,6 +54,9 @@ import { ToNumberPipe } from './pipes/to-number.pipe';
 import { ToHtmlPipe } from './pipes/to-html.pipe';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MatTableModule } from '@angular/material/table';
+import { BreadcrumbAllModule } from '@syncfusion/ej2-angular-navigations';
+import { CategoryUserComponent } from './pages/category-user/category-user.component';
+import { BrandUserComponent } from './pages/brand-user/brand-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +90,9 @@ import { MatTableModule } from '@angular/material/table';
     CheckoutCartComponent,
     ToNumberPipe,
     ToHtmlPipe,
-    TruncateTextPipe
+    TruncateTextPipe,
+    CategoryUserComponent,
+    BrandUserComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +114,8 @@ import { MatTableModule } from '@angular/material/table';
     NgxSliderModule,
     MatTabsModule,
     AngularEditorModule,
-    MatTableModule
+    MatTableModule,
+    BreadcrumbAllModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

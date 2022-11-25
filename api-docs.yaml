@@ -164,10 +164,18 @@ paths:
           format: int64
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CategoryRequest'
-        required: true
+              required:
+              - category
+              - category_image
+              type: object
+              properties:
+                category:
+                  $ref: '#/components/schemas/CategoryRequest'
+                category_image:
+                  type: string
+                  format: binary
       responses:
         "200":
           description: OK
@@ -457,10 +465,18 @@ paths:
       operationId: createNewCategory
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CategoryRequest'
-        required: true
+              required:
+              - category
+              - category_image
+              type: object
+              properties:
+                category:
+                  $ref: '#/components/schemas/CategoryRequest'
+                category_image:
+                  type: string
+                  format: binary
       responses:
         "200":
           description: OK
@@ -898,6 +914,11 @@ components:
           type: string
         description:
           type: string
+        categoryImageByte:
+          type: array
+          items:
+            type: string
+            format: byte
         parent_id:
           type: integer
           format: int64
@@ -944,6 +965,11 @@ components:
           type: string
         description:
           type: string
+        categoryImageByte:
+          type: array
+          items:
+            type: string
+            format: byte
         parent_id:
           type: integer
           format: int64
@@ -1151,10 +1177,10 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
         paged:

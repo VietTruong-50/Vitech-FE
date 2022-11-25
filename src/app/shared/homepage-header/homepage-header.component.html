@@ -148,8 +148,8 @@
       <ul class="main-nav nav navbar-nav" fxLayout="row" fxLayoutGap="30px">
         <li [ngClass]="currentRoute == '/homepage' ? 'active' : ' '" (click)="renderTo('homepage')"><a>Home</a></li>
         <li><a>Hot Deals</a></li>
-        <li><a>Categories</a></li>
-        <li><a>Brands</a></li>
+        <li [ngClass]="currentRoute == '/categories' ? 'active' : ' '"><a (click)="renderTo('categories')">Categories</a></li>
+        <li [ngClass]="currentRoute == '/brands' ? 'active' : ' '"><a (click)="renderTo('brands')">Brands</a></li>
         <li [ngClass]="currentRoute == '/store' ? 'active' : ' '"><a (click)="renderTo('store')">Store</a></li>
         <li><a>Policies</a></li>
       </ul>

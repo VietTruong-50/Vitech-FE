@@ -33,6 +33,17 @@
           </option>
         </select>
       </div>
+      <div class="form-group" style="width: 50%">
+        <label for="image">Feature image</label>
+        <input
+          type="file"
+          class="form-control-file"
+          (change)="readURL($event)"
+        />
+        <ng-container>
+          <img [src]="imageSrc" alt="" width="100%" />
+        </ng-container>
+      </div>
     </form>
 
     <button

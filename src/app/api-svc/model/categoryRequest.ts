@@ -14,6 +14,7 @@
 export interface CategoryRequest { 
     name?: string;
     description?: string;
+    categoryImageByte?: Array<string>;
     parent_id?: number;
 }
 

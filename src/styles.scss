@@ -1,14 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/fontawesome-free/css/all.min.css');
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/adminlte.min.css');
 @import url('D:/Workspace/Vitech/vitech-admin/admin-vitech/src/assets/css/style.css');
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
 
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  color: #333;
+  color: #333; 
 }
-
+ 
 .form {
   padding: 15px;
 }
@@ -49,7 +52,15 @@ a {
 table {
   width: 100%;
   border: 1px solid;
-  border-radius: 10%;
+}
+
+tbody {
+  background-color: whitesmoke !important;
+}
+
+td.mat-cell {
+  color: #212529;
+  border-bottom-color: #212529 !important;
 }
 
 th {
@@ -57,7 +68,7 @@ th {
 }
 
 .mat-header-row {
-  background-color: #212529; 
+  background-color: #212529;
   color: white;
 }
 
@@ -68,7 +79,7 @@ th {
 
 //Range slider
 // We need to use ::ng-deep to overcome view encapsulation
-::ng-deep { 
+::ng-deep {
   .custom-slider .ngx-slider .ngx-slider-bar {
     background: #ffe4d1;
     height: 5px;
@@ -112,4 +123,68 @@ th {
   .custom-slider .ngx-slider .ngx-slider-tick.ngx-slider-selected {
     background: #D10024;
   }
+}
+
+/*Card image with overlay*/
+.item {
+  // padding: 30px;
+  border-radius: 20px;
+  width: 180px;
+  height: 130px;
+  position: relative;
+  border: 2px solid #333;
+  float: left;
+  margin: 2%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.1);
+
+  img {
+      max-width: 100%;
+      opacity: 0.7;
+  }
+}
+
+.item-overlay.right {
+  right: 200%;
+  left: -100%;
+}
+
+.item-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+
+  -moz-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  -webkit-transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+  transition: top 0.3s, right 0.3s, bottom 0.3s, left 0.3s;
+}
+
+.item:hover .item-overlay.right {
+  right: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.item-name {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: absolute;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card-container {
+  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 240px);
+  justify-items: center;
 }

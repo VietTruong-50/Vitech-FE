@@ -19,7 +19,6 @@ export * from './banner';
 export * from './brand';
 export * from './brandRequest';
 export * from './category';
-export * from './categoryRequest';
 export * from './imageModel';
 export * from './jwtResponse';
 export * from './loginRequest';

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductDetailUserComponent implements OnInit {
 
+  nameProduct: string = "Laptop 1";
+
   mainImgSrc: string = '../../../assets/image/product01.png';
 
   slides = [
