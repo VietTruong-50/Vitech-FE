@@ -11,6 +11,7 @@ import { CategoryManagementComponent } from './pages/category-management/categor
 import { CruCategoryComponent } from './pages/category-management/cru-category/cru-category.component';
 import { CategoryUserComponent } from './pages/category-user/category-user.component';
 import { CheckoutCartComponent } from './pages/checkout-cart/checkout-cart.component';
+import { ViewCartComponent } from './pages/checkout-cart/view-cart/view-cart.component';
 import { HomepageUserComponent } from './pages/homepage-user/homepage-user.component';
 import { ProductDetailUserComponent } from './pages/product-detail-user/product-detail-user.component';
 import { CruProductComponent } from './pages/product-management/cru-product/cru-product.component';
@@ -131,6 +132,10 @@ const routes: Routes = [
       {
         path: 'checkout',
         component: CheckoutCartComponent,
+      },
+      {
+        path: 'cart',
+        component: ViewCartComponent,
       },
       {
         path: 'categories',

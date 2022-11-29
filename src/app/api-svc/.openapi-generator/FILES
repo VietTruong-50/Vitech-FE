@@ -21,6 +21,7 @@ model/apiResponseCategory.ts
 model/apiResponseJwtResponse.ts
 model/apiResponseListBrand.ts
 model/apiResponseListProduct.ts
+model/apiResponseLong.ts
 model/apiResponseObject.ts
 model/apiResponsePageBanner.ts
 model/apiResponsePageBrand.ts
@@ -30,11 +31,14 @@ model/apiResponsePageRole.ts
 model/apiResponsePageSlider.ts
 model/apiResponsePageUser.ts
 model/apiResponseProduct.ts
+model/apiResponseShoppingSession.ts
 model/apiResponseSlider.ts
 model/apiResponseUser.ts
 model/banner.ts
 model/brand.ts
 model/brandRequest.ts
+model/cartItem.ts
+model/cartItemRequest.ts
 model/category.ts
 model/imageModel.ts
 model/jwtResponse.ts
@@ -50,6 +54,7 @@ model/pageUser.ts
 model/pageableObject.ts
 model/product.ts
 model/role.ts
+model/shoppingSession.ts
 model/signupRequest.ts
 model/slider.ts
 model/sort.ts

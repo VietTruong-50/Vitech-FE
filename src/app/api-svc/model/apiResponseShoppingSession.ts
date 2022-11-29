@@ -9,16 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ShoppingSession } from './shoppingSession';
 
-import { SafeUrl } from "@angular/platform-browser";
 
-
-export interface Category { 
-    id?: number;
-    name?: string;
-    description?: string;
-    imgUrl: SafeUrl;
-    categoryImageByte?: Array<string>;
-    parent_id?: number;
+export interface ApiResponseShoppingSession { 
+    result?: ShoppingSession;
+    errorCode?: string;
+    message?: object;
+    responseCode?: number;
 }
 

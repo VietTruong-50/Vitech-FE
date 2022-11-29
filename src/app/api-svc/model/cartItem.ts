@@ -9,22 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PageableObject } from './pageableObject';
 import { Product } from './product';
-import { Sort } from './sort';
 
 
-export interface PageProduct { 
-    totalPages?: number;
-    totalElements?: number;
-    size?: number;
-    content?: Array<Product>;
-    number?: number;
-    sort?: Sort;
-    numberOfElements?: number;
-    pageable?: PageableObject;
-    first?: boolean;
-    last?: boolean;
-    empty?: boolean;
+export interface CartItem { 
+    id?: number;
+    product?: Product;
+    quantity?: number;
 }
 

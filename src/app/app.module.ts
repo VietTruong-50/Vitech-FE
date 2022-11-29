@@ -57,6 +57,10 @@ import { MatTableModule } from '@angular/material/table';
 import { BreadcrumbAllModule } from '@syncfusion/ej2-angular-navigations';
 import { CategoryUserComponent } from './pages/category-user/category-user.component';
 import { BrandUserComponent } from './pages/brand-user/brand-user.component';
+import { ViewCartComponent } from './pages/checkout-cart/view-cart/view-cart.component';
+import { UserAccountComponent } from './shared/user-account/user-account.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +96,9 @@ import { BrandUserComponent } from './pages/brand-user/brand-user.component';
     ToHtmlPipe,
     TruncateTextPipe,
     CategoryUserComponent,
-    BrandUserComponent
+    BrandUserComponent,
+    ViewCartComponent,
+    UserAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +121,9 @@ import { BrandUserComponent } from './pages/brand-user/brand-user.component';
     MatTabsModule,
     AngularEditorModule,
     MatTableModule,
-    BreadcrumbAllModule
+    BreadcrumbAllModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },
@@ -123,5 +131,5 @@ import { BrandUserComponent } from './pages/brand-user/brand-user.component';
     AuthService,
   ],
   bootstrap: [AppComponent],
-})
+}) 
 export class AppModule {}

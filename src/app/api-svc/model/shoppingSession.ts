@@ -9,16 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { CartItem } from './cartItem';
 
-import { SafeUrl } from "@angular/platform-browser";
 
-
-export interface Category { 
+export interface ShoppingSession { 
     id?: number;
-    name?: string;
-    description?: string;
-    imgUrl: SafeUrl;
-    categoryImageByte?: Array<string>;
-    parent_id?: number;
+    cartItems?: Set<CartItem>;
 }
 

@@ -25,7 +25,7 @@
           >
         </li>
         <li>
-          <a href="#" class="text-white"
+          <a (click)="openUserAccountDialog()" class="text-white"
             ><i class="fa fa-user"></i> My Account</a
           >
         </li>
@@ -48,9 +48,10 @@
           <div class="header-search w-100">
             <form>
               <select class="input-select">
-                <option value="0">All Categories</option>
-                <option value="1">Category 01</option>
-                <option value="1">Category 02</option>
+                <option value="0" selected>All Categories</option>
+                <option value="{{ cate.id }}" *ngFor="let cate of categoryData">
+                  {{ cate.name }}
+                </option>
               </select>
               <input class="input" placeholder="Search here" />
               <button class="search-btn">Search</button>
@@ -74,48 +75,30 @@
             </div>
 
             <div class="dropdown">
-              <a (click)="showCart()" fxLayout="column" fxLayoutAlign="center center">
+              <a
+                (click)="showCart()"
+                fxLayout="column"
+                fxLayoutAlign="center center"
+              >
                 <i class="fa fa-shopping-cart"></i>
                 <span>Your Cart</span>
-                <div class="qty">3</div>
+                <div class="qty">{{ cartLength }}</div>
               </a>
               <div [hidden]="!isShowCart" class="cart-dropdown">
                 <div class="cart-list">
-                  <div class="product-widget">
+                  <div class="product-widget" *ngFor="let item of cartData">
                     <div class="product-img">
-                      <img
-                        src="../../../assets/image/product01.png"
-                        class="w-100"
-                        alt=""
-                      />
+                      <img [src]="item.product.imgUrl" class="w-100" alt="" />
                     </div>
                     <div class="product-body">
                       <h3 class="product-name">
-                        <a href="#">product name goes here</a>
+                        <a href="#">{{
+                          item.product.name | truncateText: 45
+                        }}</a>
                       </h3>
                       <h4 class="product-price">
-                        <span class="qty">1x</span>$980.00
-                      </h4>
-                    </div>
-                    <button class="delete">
-                      <i class="fa fa-window-close"></i>
-                    </button>
-                  </div>
-
-                  <div class="product-widget">
-                    <div class="product-img">
-                      <img
-                        src="../../../assets/image/product02.png"
-                        class="w-100"
-                        alt=""
-                      />
-                    </div>
-                    <div class="product-body">
-                      <h3 class="product-name">
-                        <a href="#">product name goes here</a>
-                      </h3>
-                      <h4 class="product-price">
-                        <span class="qty">3x</span>$980.00
+                        <span class="qty">{{ item.quantity }}x</span
+                        >{{ item.product.actualPrice }}
                       </h4>
                     </div>
                     <button class="delete">
@@ -124,12 +107,12 @@
                   </div>
                 </div>
                 <div class="cart-summary">
-                  <small>3 Item(s) selected</small>
-                  <h5>SUBTOTAL: $2940.00</h5>
+                  <small>{{ cartLength }} Item(s) selected</small>
+                  <h5>SUBTOTAL: ${{ totalValues }}</h5>
                 </div>
                 <div class="cart-btns">
-                  <a href="#">View Cart</a>
-                  <a href="#"
+                  <a href="/cart">View Cart</a>
+                  <a href="/checkout"
                     >Checkout <i class="fa fa-arrow-circle-right"></i
                   ></a>
                 </div>
@@ -146,11 +129,22 @@
   <div class="container">
     <div id="responsive-nav">
       <ul class="main-nav nav navbar-nav" fxLayout="row" fxLayoutGap="30px">
-        <li [ngClass]="currentRoute == '/homepage' ? 'active' : ' '" (click)="renderTo('homepage')"><a>Home</a></li>
+        <li
+          [ngClass]="currentRoute == '/homepage' ? 'active' : ' '"
+          (click)="renderTo('homepage')"
+        >
+          <a>Home</a>
+        </li>
         <li><a>Hot Deals</a></li>
-        <li [ngClass]="currentRoute == '/categories' ? 'active' : ' '"><a (click)="renderTo('categories')">Categories</a></li>
-        <li [ngClass]="currentRoute == '/brands' ? 'active' : ' '"><a (click)="renderTo('brands')">Brands</a></li>
-        <li [ngClass]="currentRoute == '/store' ? 'active' : ' '"><a (click)="renderTo('store')">Store</a></li>
+        <li [ngClass]="currentRoute == '/categories' ? 'active' : ' '">
+          <a (click)="renderTo('categories')">Categories</a>
+        </li>
+        <li [ngClass]="currentRoute == '/brands' ? 'active' : ' '">
+          <a (click)="renderTo('brands')">Brands</a>
+        </li>
+        <li [ngClass]="currentRoute == '/store' ? 'active' : ' '">
+          <a (click)="renderTo('store')">Store</a>
+        </li>
         <li><a>Policies</a></li>
       </ul>
     </div>

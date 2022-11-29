@@ -21,6 +21,7 @@ export interface Product {
     productCode?: string;
     parameters?: string;
     content?: string;
+    imgUrl: SafeUrl;
     quantity?: number;
     actualPrice?: number;
     featureImageName?: string;
@@ -28,6 +29,5 @@ export interface Product {
     productImages?: Set<ImageModel>;
     category?: Category;
     brand?: Brand;
-    imgUrl: SafeUrl;
 }
 

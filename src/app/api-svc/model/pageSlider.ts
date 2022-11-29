@@ -15,16 +15,16 @@ import { Sort } from './sort';
 
 
 export interface PageSlider { 
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     size?: number;
     content?: Array<Slider>;
     number?: number;
     sort?: Sort;
-    first?: boolean;
-    last?: boolean;
     numberOfElements?: number;
     pageable?: PageableObject;
+    first?: boolean;
+    last?: boolean;
     empty?: boolean;
 }
 
