@@ -59,8 +59,12 @@ import { CategoryUserComponent } from './pages/category-user/category-user.compo
 import { BrandUserComponent } from './pages/brand-user/brand-user.component';
 import { ViewCartComponent } from './pages/checkout-cart/view-cart/view-cart.component';
 import { UserAccountComponent } from './shared/user-account/user-account.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { UserProfileComponent } from './shared/user-account/user-profile/user-profile.component';
+import { UserOrderComponent } from './shared/user-account/user-order/user-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,7 +102,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     CategoryUserComponent,
     BrandUserComponent,
     ViewCartComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    UserProfileComponent,
+    UserOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,7 +129,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTableModule,
     BreadcrumbAllModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatListModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },
@@ -131,5 +139,5 @@ import { MatNativeDateModule } from '@angular/material/core';
     AuthService,
   ],
   bootstrap: [AppComponent],
-}) 
+})
 export class AppModule {}

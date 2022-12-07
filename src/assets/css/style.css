@@ -972,17 +972,17 @@ textarea.input {
   text-align: center;
   -webkit-transform: translateY(0%);
   -ms-transform: translateY(0%);
-  transform: translateY(0%);
+  transform: translateY(140%);
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
   z-index: 2;
 }
 
-.product:hover .add-to-cart {
+/* .product:hover .add-to-cart {
   -webkit-transform: translateY(100%);
   -ms-transform: translateY(100%);
   transform: translateY(100%);
-}
+} */
 
 .product .add-to-cart .add-to-cart-btn {
   position: relative;

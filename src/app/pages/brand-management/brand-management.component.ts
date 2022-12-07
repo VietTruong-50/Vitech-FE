@@ -17,7 +17,7 @@ export class BrandManagementComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 5;
 
-  displayedColumns: string[] = ['position', 'name', 'description', 'action'];
+  displayedColumns: string[] = ['position', 'name', 'description', 'category', 'action'];
   dataSource: MatTableDataSource<Brand> = new MatTableDataSource();
 
   constructor(

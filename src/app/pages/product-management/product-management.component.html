@@ -2,7 +2,23 @@
   <app-content-header [title]="title"></app-content-header>
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="col-md-12">
-      <div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="float-left" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+        <h4>Filter by</h4>
+          <div>
+            <select class="form-select" (change)="onChange($event)">
+              <option selected>Category</option>
+              <option [value]="cate.id" *ngFor="let cate of categoryData">{{cate.name}}</option>
+            </select>
+          </div>
+          <div>
+            <select class="form-select">
+              <option selected>Brand</option>
+              <option [value]="brand.id" *ngFor="let brand of brandData">{{brand.brandName}}</option>
+            </select>
+          </div>
+        </div>
+
         <a class="btn btn-success float-right m-2" (click)="renderTo('Add')"
           >Add
         </a>

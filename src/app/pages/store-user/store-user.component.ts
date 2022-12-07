@@ -66,6 +66,19 @@ export class StoreUserComponent implements OnInit {
       });
   }
 
+  // currentlyChecked: CheckBoxType;
+
+  // selectCheckBox(targetType: CheckBoxType) {
+  //   // If the checkbox was already checked, clear the currentlyChecked variable
+  //   if(this.currentlyChecked === targetType) {
+  //     this.currentlyChecked = CheckBoxType.NONE;
+  //     return;
+  //   }
+
+  //   this.currentlyChecked = targetType;
+  //   console.log(this.currentlyChecked)
+  // }
+
   pageSize: number = 10;
   pageIndex: number = 0;
 

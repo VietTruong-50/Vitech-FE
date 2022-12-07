@@ -1,44 +1,45 @@
-<!-- <div>
-  <div fxLayout="column" fxLayoutAlign="center none">
-    <div class="">
-      <p class="">Thông tin tài khoản</p>
+<div id="breadcrumb">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ejs-breadcrumb [enableNavigation]="true">
+          <e-breadcrumb-items>
+            <e-breadcrumb-item
+              iconCss="e-icons e-home"
+              url="./homepage"
+            ></e-breadcrumb-item>
+            <e-breadcrumb-item
+              text="Homepage"
+              url="./homepage"
+            ></e-breadcrumb-item>
+            <e-breadcrumb-item
+              text="Account"
+              url="./breadcrumb/default"
+            ></e-breadcrumb-item>
+          </e-breadcrumb-items>
+        </ejs-breadcrumb>
+      </div>
     </div>
-    <div class="form">
-      <form>
-        <div class="form-group">
-          <label for="name">Họ tên</label>
-          <input type="text" class="form-control" placeholder="Họ tên" />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" placeholder="Email" />
-        </div>
-        <div class="form-group">
-          <label for="phone">Số điện thoại</label>
-          <input type="tel" class="form-control" placeholder="Phone" />
-        </div>
-        <div class="form-group">
-          <label for="date">Ngày sinh</label>
-          <input type="date" class="form-control datepicker" value="" />
-        </div>
-        <div class="form-group">
-          <label for="sex">Giới tính</label>
-          <div fxLayout="row" fxLayoutGap="30px">
-            <label class="">
-              <input name="sex" type="radio" value="M" /> Nam
-            </label>
-            <label class="">
-              <input name="sex" type="radio" value="F" /> Nữ
-            </label>
-            <label class="">
-              <input name="sex" type="radio" value="O" /> Khác
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-            <button class="primary-btn order-submit">Cập nhật</button>
-        </div>
-      </form>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<div class="section">
+  <div class="container" fxLayout="column" fxLayoutAlign="center none">
+    <div fxLayout="column" fxLayoutGap="30px">
+      <div class="">
+        <p class="">Thông tin tài khoản</p>
+      </div>
+      <div>
+        <mat-tab-group>
+          <mat-tab label="Thông tin tài khoản"> <app-user-profile></app-user-profile> </mat-tab>
+          <mat-tab label="Sổ địa chỉ"> </mat-tab>
+          <mat-tab label="Đơn hàng"> <app-user-order></app-user-order>  </mat-tab>
+        </mat-tab-group>
+      </div>
     </div>
   </div>
-</div> -->
+
+</div>

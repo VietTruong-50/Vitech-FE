@@ -8,7 +8,7 @@
           type="text"
           formControlName="brandName"
           class="form-control"
-          placeholder="name brand"
+          placeholder="Name brand"
         />
       </div>
       <div class="form-group">
@@ -19,6 +19,19 @@
           placeholder="Description ..."
           formControlName="description"
         ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="brand">Category</label>
+        <select class="form-select" formControlName="category">
+          <option value="0">Choose category</option>
+          <option
+          [selected]="cate.id == formGroup.controls['category'].value"
+            *ngFor="let cate of cateData"
+            [value]="cate.id"
+          >
+            {{ cate.name }}
+          </option>
+        </select>
       </div>
     </form>
 

@@ -20,7 +20,6 @@ export class HomepageHeaderComponent implements OnInit {
     private userController: UserControllerService,
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService,
-    private dialog: MatDialog
   ) {
     this.currentRoute = this.router.url;
   }
@@ -39,17 +38,11 @@ export class HomepageHeaderComponent implements OnInit {
     this.router.navigate([url]);
   }
 
-  openUserAccountDialog(){
-    this.dialog.open(UserAccountComponent, {
-      width: '50vw'
-    })
-  }
-
   cartData: any;
   cartLength: number = 0;
 
   getCartData() {
-    this.userController.getShoppingCart(10).subscribe((response) => {
+    this.userController.getShoppingCart(1).subscribe((response) => {
       response.result?.cartItems?.forEach((item) => {
         if (item.product!.featureImageByte) {
           let objectURL =
@@ -67,7 +60,7 @@ export class HomepageHeaderComponent implements OnInit {
   totalValues: number = 0;
 
   getTotalValues() {
-    this.userController.getTotalValues(10).subscribe((response) => {
+    this.userController.getTotalValues(1).subscribe((response) => {
       this.totalValues = response.result!;
     });
   }

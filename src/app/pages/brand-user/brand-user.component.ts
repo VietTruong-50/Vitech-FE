@@ -17,9 +17,9 @@ export class BrandUserComponent implements OnInit {
   }
 
   getData(){
-    this.brandController.getBrandData().subscribe(response => {
-      this.brandsData = response.result;
-    })
+    // this.brandController.getBrandData().subscribe(response => {
+    //   this.brandsData = response.result;
+    // })
   }
 
 }

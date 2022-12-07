@@ -21,10 +21,10 @@ export interface PageProduct {
     content?: Array<Product>;
     number?: number;
     sort?: Sort;
-    numberOfElements?: number;
-    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
+    numberOfElements?: number;
+    pageable?: PageableObject;
     empty?: boolean;
 }
 

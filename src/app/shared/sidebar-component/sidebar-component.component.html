@@ -1,105 +1,155 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="../../../assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+  <!-- Brand Logo -->
+  <a href="index3.html" class="brand-link">
+    <img
+      src="../../../assets/img/AdminLTELogo.png"
+      alt="AdminLTE Logo"
+      class="brand-image img-circle elevation-3"
+      style="opacity: 0.8"
+    />
+    <span class="brand-text font-weight-light">AdminLTE 3</span>
+  </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="../../../assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info row">
-                <a href="#" class="d-block">Alexander Pierce</a>
-                <a href="" class="btn btn-default">Logout</a>
-            </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'categories']" href="" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Danh mục sản phẩm
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'banners']" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Banner
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'products']" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Sản phẩm
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'sliders']" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Slider
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'brands']" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Danh sách hãng
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'users']" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Danh sách user
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/admin', 'roles']" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Danh sách vai trò
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Tạo dữ liệu bảng Permission
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <div class="image">
+        <img
+          src="../../../assets/img/user2-160x160.jpg"
+          class="img-circle elevation-2"
+          alt="User Image"
+        />
+      </div>
+      <div class="info row">
+        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="" class="btn btn-default">Logout</a>
+      </div>
     </div>
-    <!-- /.sidebar -->
+
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+      <div class="input-group" data-widget="sidebar-search">
+        <input
+          class="form-control form-control-sidebar"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-sidebar">
+            <i class="fas fa-search fa-fw"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false"
+      >
+        <li class="nav-item">
+          <a [routerLink]="['/admin', 'banners']" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Banner</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a [routerLink]="['/admin', 'sliders']" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Slider</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Sản phẩm
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'categories']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý loại sản phẩm</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'products']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý sản phẩm</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'brands']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý nhà sản xuất</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Người dùng
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'users']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách người dùng</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'users']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách nhân viên</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'roles']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách vai trò</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/admin', 'roles']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo dữ liệu bảng Permission</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Đơn hàng
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a [routerLink]="['/admin', 'users']" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quản lý đơn hàng</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
 </aside>

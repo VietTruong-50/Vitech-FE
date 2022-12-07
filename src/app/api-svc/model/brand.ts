@@ -9,11 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Category } from './category';
 
 
 export interface Brand { 
     id?: number;
     brandName?: string;
     description?: string;
+    category?: Category;
 }
 

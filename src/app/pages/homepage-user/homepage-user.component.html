@@ -14,8 +14,8 @@
               fxLayoutGap="10px"
             >
               <ng-container *ngFor="let category of listCategory; let i = index">
-                <li [ngClass]="{'active': i === 0}">
-                  <a (click)="getProductsByCategory(category.name)">{{
+                <li (click)="getProductsByCategory(category.name)" [ngClass]="{'active': i === 0}">
+                  <a>{{
                     category.name
                   }}</a>
                 </li>
@@ -50,17 +50,18 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">{{ product.category.name }}</p>
+                  <p class="product-category">{{product.brand.brandName}}</p>
                   <h3 class="product-name">
                     <a href="#" tabindex="-1">{{
                       product.name | truncateText: 40
                     }}</a>
                   </h3>
+                  <del class="product-old-price">{{
+                    product.actualPrice
+                  }} VND</del>
                   <h4 class="product-price">
-                    $980.00
-                    <del class="product-old-price">{{
-                      product.actualPrice + "$"
-                    }}</del>
+                    {{product.discountPrice}} VND
+                    
                   </h4>
                   <!-- <div class="product-rating">
                   </div> -->
@@ -143,7 +144,7 @@
             <ng-container *ngFor="let product of productData">
               <span
                 class="product product-card"
-                *ngIf="product.category.name == cate.name"
+                *ngIf="product.brand.category.name == cate.name"
                 fxLayout="column"
                 style="height: 486px"
                 fxFlex="22"
@@ -156,17 +157,17 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">Category</p>
+                  <p class="product-category">{{product.brand.brandName}}</p>
                   <h3 class="product-name">
                     <a href="#" tabindex="-1">{{
                       product.name | truncateText: 40
                     }}</a>
                   </h3>
                   <h4 class="product-price">
-                    $980.00
+                    {{product.discountPrice}}VND
                     <del class="product-old-price">{{
                       product.actualPrice
-                    }}</del>
+                    }}VND</del>
                   </h4>
                   <!-- <div class="product-rating">
               </div> -->

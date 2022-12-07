@@ -24,6 +24,7 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { HomepageHeaderComponent } from './shared/homepage-header/homepage-header.component';
 import { MasterComponentComponent } from './shared/master-component/master-component.component';
 import { MasterUserComponent } from './shared/master-user/master-user.component';
+import { UserAccountComponent } from './shared/user-account/user-account.component';
 
 const routes: Routes = [
   {
@@ -144,6 +145,10 @@ const routes: Routes = [
       {
         path: 'brands',
         component: BrandUserComponent
+      },
+      {
+        path: 'account',
+        component: UserAccountComponent
       }
     ],
   },

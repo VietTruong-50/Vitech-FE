@@ -21,10 +21,10 @@ export interface PageBrand {
     content?: Array<Brand>;
     number?: number;
     sort?: Sort;
-    numberOfElements?: number;
-    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
+    numberOfElements?: number;
+    pageable?: PageableObject;
     empty?: boolean;
 }
 

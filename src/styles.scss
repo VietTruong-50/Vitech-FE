@@ -134,10 +134,10 @@ th {
   position: relative;
   border: 2px solid #333;
   float: left;
-  margin: 2%;
+  margin: 2%; 
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.1);
-
+ 
   img {
       max-width: 100%;
       opacity: 0.7;
@@ -187,4 +187,8 @@ th {
   display: grid;
   grid-template-columns: repeat(4, 240px);
   justify-items: center;
+}
+
+.mat-tab-label{
+  color: #212529 !important;
 }

@@ -8,7 +8,7 @@
           type="text"
           formControlName="code"
           class="form-control"
-          placeholder="code"
+          placeholder="Code"
         />
       </div>
       <div class="form-group">
@@ -17,7 +17,7 @@
           type="text"
           formControlName="name"
           class="form-control"
-          placeholder="name"
+          placeholder="Name"
         />
       </div>
       <div class="form-group">
@@ -41,9 +41,18 @@
         <label for="price">Actual price</label>
         <input
           class="form-control"
-          placeholder="Price ..."
+          placeholder="Price"
           formControlName="price"
           [value]="formGroup.controls['price'].value"
+        />
+      </div>
+      <div class="form-group">
+        <label for="discountPrice">Discount price</label>
+        <input
+          class="form-control"
+          placeholder="Discount price"
+          formControlName="discountPrice"
+          [value]="formGroup.controls['discountPrice'].value"
         />
       </div>
       <div class="form-group">
@@ -57,11 +66,10 @@
       </div>
       <div class="form-group">
         <label for="category">Category</label>
-        <select class="form-select" formControlName="categoryId">
+        <select class="form-select" (change)="onChange($event)">
+          <option value="0" selected>Choose category</option>
           <option
-            [selected]="
-              category.id == formGroup.controls['categoryId'].value?.id
-            "
+            [selected]="category.id == formGroup.controls['categoryId'].value"
             *ngFor="let category of categoryData"
             [value]="category.id"
           >
@@ -73,7 +81,7 @@
         <label for="brand">Brand</label>
         <select class="form-select" formControlName="brandId">
           <option
-            [selected]="brand.id == formGroup.controls['brandId'].value?.id"
+            [selected]="brand.id == formGroup.controls['brandId'].value"
             *ngFor="let brand of brandData"
             [value]="brand.id"
           >

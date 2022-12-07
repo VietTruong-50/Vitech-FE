@@ -778,13 +778,30 @@ paths:
         required: true
         schema:
           type: string
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseListProduct'
+                $ref: '#/components/schemas/ApiResponsePageProduct'
   /api/products/brands/{brandName}:
     get:
       tags:
@@ -803,6 +820,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseListProduct'
+  /api/categories/{cateId}/brands:
+    get:
+      tags:
+      - brand-controller
+      operationId: getBrandDataByCategory
+      parameters:
+      - name: cateId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListBrand'
   /api/cart/{id}:
     get:
       tags:
@@ -841,18 +877,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseLong'
-  /api/brands/all:
-    get:
-      tags:
-      - brand-controller
-      operationId: getBrandData
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponseListBrand'
   /api/account/{id}:
     get:
       tags:
@@ -976,9 +1000,6 @@ components:
           items:
             type: string
             format: byte
-        category_id:
-          type: integer
-          format: int64
         brand_id:
           type: integer
           format: int64
@@ -1004,6 +1025,8 @@ components:
           type: string
         description:
           type: string
+        category:
+          $ref: '#/components/schemas/Category'
     Category:
       type: object
       properties:
@@ -1019,9 +1042,6 @@ components:
           items:
             type: string
             format: byte
-        parent_id:
-          type: integer
-          format: int64
     Product:
       type: object
       properties:
@@ -1054,8 +1074,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ImageModel'
-        category:
-          $ref: '#/components/schemas/Category'
         brand:
           $ref: '#/components/schemas/Brand'
     CategoryRequest:
@@ -1070,9 +1088,6 @@ components:
           items:
             type: string
             format: byte
-        parent_id:
-          type: integer
-          format: int64
     ApiResponseCategory:
       type: object
       properties:
@@ -1092,6 +1107,9 @@ components:
           type: string
         description:
           type: string
+        categoryId:
+          type: integer
+          format: int64
     ApiResponseBrand:
       type: object
       properties:
@@ -1282,15 +1300,15 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean
     PageableObject:
@@ -1301,15 +1319,15 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
-        pageSize:
-          type: integer
-          format: int32
         pageNumber:
           type: integer
           format: int32
-        paged:
-          type: boolean
+        pageSize:
+          type: integer
+          format: int32
         unpaged:
+          type: boolean
+        paged:
           type: boolean
     Sort:
       type: object
@@ -1353,15 +1371,15 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean
     ApiResponsePageRole:
@@ -1397,15 +1415,15 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean
     ApiResponsePageProduct:
@@ -1441,15 +1459,15 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean
     ApiResponseListProduct:
@@ -1499,17 +1517,31 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean
+    ApiResponseListBrand:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
     ApiResponseShoppingSession:
       type: object
       properties:
@@ -1539,6 +1571,9 @@ components:
         id:
           type: integer
           format: int64
+        total:
+          type: number
+          format: double
         cartItems:
           uniqueItems: true
           type: array
@@ -1590,31 +1625,17 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean
-    ApiResponseListBrand:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Brand'
-        errorCode:
-          type: string
-        message:
-          type: object
-        responseCode:
-          type: integer
-          format: int32
     ApiResponsePageBanner:
       type: object
       properties:
@@ -1648,14 +1669,14 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
         numberOfElements:
           type: integer
           format: int32
         pageable:
           $ref: '#/components/schemas/PageableObject'
-        first:
-          type: boolean
-        last:
-          type: boolean
         empty:
           type: boolean

@@ -22,7 +22,7 @@ export class CategoryManagementComponent implements OnInit {
     'position',
     'image',
     'name',
-    'description',
+    // 'parent_id',
     'action',
   ];
   dataSource: MatTableDataSource<Category> = new MatTableDataSource();
@@ -56,6 +56,10 @@ export class CategoryManagementComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Category>(
           response.result?.content
         );
+
+        this.categoryData = response.result?.content
+        console.log(this.categoryData);
+        
       });
   }
 

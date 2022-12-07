@@ -295,13 +295,17 @@ export class BrandControllerService {
     }
 
     /**
+     * @param cateId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBrandData(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListBrand>;
-    public getBrandData(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListBrand>>;
-    public getBrandData(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListBrand>>;
-    public getBrandData(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getBrandDataByCategory(cateId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListBrand>;
+    public getBrandDataByCategory(cateId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListBrand>>;
+    public getBrandDataByCategory(cateId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListBrand>>;
+    public getBrandDataByCategory(cateId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (cateId === null || cateId === undefined) {
+            throw new Error('Required parameter cateId was null or undefined when calling getBrandDataByCategory.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -334,7 +338,7 @@ export class BrandControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseListBrand>(`${this.configuration.basePath}/api/brands/all`,
+        return this.httpClient.get<ApiResponseListBrand>(`${this.configuration.basePath}/api/categories/${encodeURIComponent(String(cateId))}/brands`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

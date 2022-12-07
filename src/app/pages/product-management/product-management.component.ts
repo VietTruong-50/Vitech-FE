@@ -4,8 +4,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { ProductControllerService } from 'src/app/api-svc';
-import { Product } from 'src/app/api-svc/model/product'
+import {
+  BrandControllerService,
+  CategoryControllerService,
+  ProductControllerService,
+} from 'src/app/api-svc';
+import { Product } from 'src/app/api-svc/model/product';
 
 @Component({
   selector: 'app-product-management',
@@ -18,18 +22,56 @@ export class ProductManagementComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 5;
 
-  displayedColumns: string[] = ['position', 'featureImageName', 'productCode', 'name', 'actualPrice', 'action'];
+  displayedColumns: string[] = [
+    'position',
+    'featureImageName',
+    'productCode',
+    'name',
+    'actualPrice',
+    'action',
+  ];
   dataSource: MatTableDataSource<Product> = new MatTableDataSource();
 
   constructor(
     private productController: ProductControllerService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private location: Location
+    private location: Location,
+    private categoryController: CategoryControllerService,
+    private brandController: BrandControllerService
   ) {}
 
   ngOnInit(): void {
+    this.getCategoryData();
     this.updateUrlPath(0, 5);
+  }
+
+  categoryData: any;
+
+  getCategoryData() {
+    this.categoryController
+      .getAllCategory(30, 0, 'createdAt')
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          this.categoryData = response.result?.content;
+        }
+      });
+  }
+
+  brandData: any;
+
+  getBrandData(id: number) {
+    this.brandController.getBrandDataByCategory(id).subscribe((response) => {
+      if (response.errorCode == null) {
+        this.brandData = response.result;
+      }
+    });
+  }
+
+  onChange(deviceValue: any) {
+    let id = deviceValue.target.value;
+    console.log(id);
+    this.getBrandData(id);
   }
 
   getData(pageIndex?: number) {
@@ -40,7 +82,7 @@ export class ProductManagementComponent implements OnInit {
           if (item.featureImageByte) {
             let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
 
-            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           }
         });
 

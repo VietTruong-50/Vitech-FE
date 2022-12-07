@@ -14,5 +14,6 @@
 export interface BrandRequest { 
     brandName?: string;
     description?: string;
+    categoryId?: number;
 }
 

@@ -380,15 +380,41 @@ export class ProductControllerService {
 
     /**
      * @param categoryName 
+     * @param size 
+     * @param page 
+     * @param sortBy 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findProductsByCategoryName(categoryName: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListProduct>;
-    public findProductsByCategoryName(categoryName: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListProduct>>;
-    public findProductsByCategoryName(categoryName: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListProduct>>;
-    public findProductsByCategoryName(categoryName: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public findProductsByCategoryName(categoryName: string, size: number, page: number, sortBy: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponsePageProduct>;
+    public findProductsByCategoryName(categoryName: string, size: number, page: number, sortBy: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponsePageProduct>>;
+    public findProductsByCategoryName(categoryName: string, size: number, page: number, sortBy: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponsePageProduct>>;
+    public findProductsByCategoryName(categoryName: string, size: number, page: number, sortBy: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (categoryName === null || categoryName === undefined) {
             throw new Error('Required parameter categoryName was null or undefined when calling findProductsByCategoryName.');
+        }
+        if (size === null || size === undefined) {
+            throw new Error('Required parameter size was null or undefined when calling findProductsByCategoryName.');
+        }
+        if (page === null || page === undefined) {
+            throw new Error('Required parameter page was null or undefined when calling findProductsByCategoryName.');
+        }
+        if (sortBy === null || sortBy === undefined) {
+            throw new Error('Required parameter sortBy was null or undefined when calling findProductsByCategoryName.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (size !== undefined && size !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>size, 'size');
+        }
+        if (page !== undefined && page !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>page, 'page');
+        }
+        if (sortBy !== undefined && sortBy !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>sortBy, 'sortBy');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -422,9 +448,10 @@ export class ProductControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseListProduct>(`${this.configuration.basePath}/api/products/categories/${encodeURIComponent(String(categoryName))}`,
+        return this.httpClient.get<ApiResponsePageProduct>(`${this.configuration.basePath}/api/products/categories/${encodeURIComponent(String(categoryName))}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

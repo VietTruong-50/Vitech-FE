@@ -27,7 +27,7 @@ export class CruCategoryComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [],
       name: [],
-      parent_id: [],
+      // parent_id: [],
       description: [],
       image: [],
     });
@@ -49,7 +49,7 @@ export class CruCategoryComponent implements OnInit {
             this.formGroup.patchValue({
               id: response.result?.id,
               name: response.result?.name,
-              parent_id: response.result?.parent_id,
+              // parent_id: response.result?.parent_id,
               description: response.result?.description,
             });
           }
@@ -87,7 +87,7 @@ export class CruCategoryComponent implements OnInit {
           description: data.description ? data.description : '',
           parent_id: data.parent_id ? data.parent_id : 0,
         },
-        data.image
+        data.image ? data.image : new Blob()
       )
       .subscribe((response) => {
         if (response.errorCode == null) {
@@ -106,9 +106,9 @@ export class CruCategoryComponent implements OnInit {
         {
           name: data.name ? data.name : '',
           description: data.description ? data.description : '',
-          parent_id: data.parent_id ? data.parent_id : 0,
+          // parent_id: data.parent_id ? data.parent_id : 0,
         },
-        data.image
+        data.image ? data.image : new Blob()
       )
       .subscribe((response) => {
         if (response.errorCode == null) {

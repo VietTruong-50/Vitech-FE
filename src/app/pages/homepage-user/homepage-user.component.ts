@@ -4,6 +4,7 @@ import {
   CategoryControllerService,
   Product,
   ProductControllerService,
+  UserControllerService,
 } from 'src/app/api-svc';
 
 @Component({
@@ -25,9 +26,10 @@ export class HomepageUserComponent implements OnInit {
   constructor(
     private productController: ProductControllerService,
     private sanitizer: DomSanitizer,
-    private categoryController: CategoryControllerService
+    private categoryController: CategoryControllerService,
+    private userController: UserControllerService
   ) {}
-  
+
   ngOnInit(): void {
     this.getData();
     this.getCategoryData();
@@ -57,9 +59,9 @@ export class HomepageUserComponent implements OnInit {
 
   getProductsByCategory(name: string) {
     this.productController
-      .findProductsByCategoryName(name)
+      .findProductsByCategoryName(name, 6, 0, 'createdAt')
       .subscribe((response) => {
-        response.result!.forEach((item) => {
+        response.result?.content!.forEach((item) => {
           if (item.featureImageByte) {
             let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
 
@@ -67,7 +69,8 @@ export class HomepageUserComponent implements OnInit {
           }
         });
 
-        this.productsByCategory = response.result;
+        this.productsByCategory = response.result?.content;
+        console.log(this.productsByCategory);
       });
   }
 
@@ -76,8 +79,26 @@ export class HomepageUserComponent implements OnInit {
       .getAllCategory(10, 0, 'id')
       .subscribe((response) => {
         console.log(response.result?.content);
-        
+
         this.listCategory = response.result?.content;
       });
+  }
+
+  addItemToCart(itemId: number) {
+    this.userController
+      .addItemToCart({
+        productId: itemId,
+        quantity: 1,
+        shopping_session_id: 1,
+      })
+      .subscribe((response) => {
+        console.log('Add to cart successfully');
+      });
+  }
+
+  removeItemFromCart(itemId: number) {
+    this.userController
+      .removeItemFromCart(1, itemId)
+      .subscribe((reponse) => {});
   }
 }

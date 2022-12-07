@@ -11,7 +11,6 @@
  */
 import { SafeUrl } from '@angular/platform-browser';
 import { Brand } from './brand';
-import { Category } from './category';
 import { ImageModel } from './imageModel';
 
 
@@ -24,10 +23,10 @@ export interface Product {
     imgUrl: SafeUrl;
     quantity?: number;
     actualPrice?: number;
+    discountPrice?: number;
     featureImageName?: string;
     featureImageByte?: Array<string>;
     productImages?: Set<ImageModel>;
-    category?: Category;
     brand?: Brand;
 }
 

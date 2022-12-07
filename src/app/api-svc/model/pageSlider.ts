@@ -21,10 +21,10 @@ export interface PageSlider {
     content?: Array<Slider>;
     number?: number;
     sort?: Sort;
-    numberOfElements?: number;
-    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
+    numberOfElements?: number;
+    pageable?: PageableObject;
     empty?: boolean;
 }
 
