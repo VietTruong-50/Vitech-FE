@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'admin',
     component: MasterComponentComponent,
+    canActivate: [HasRoleGuard],
+    data: {
+      role: 'ROLE_ADMIN',
+    },
     children: [
       {
         path: 'sliders',
@@ -82,10 +86,6 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        // canActivate: [HasRoleGuard],
-        // data: {
-        //   role: "ROLE_ADMIN"
-        // },
         component: UserManagementComponent,
       },
       {
@@ -140,15 +140,11 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        component: CategoryUserComponent
+        component: CategoryUserComponent,
       },
       {
         path: 'brands',
         component: BrandUserComponent
-      },
-      {
-        path: 'account',
-        component: UserAccountComponent
       }
     ],
   },

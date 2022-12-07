@@ -41,6 +41,8 @@ export class AuthService {
             response.result?.roles?.includes('ROLE_MOD')
           ) {
             this.router.navigate(['admin']);
+          }else{
+            this.router.navigate(['homepage'])
           }
         }
       });
