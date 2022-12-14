@@ -35,12 +35,13 @@ export class AuthService {
             '/'
           );
           this.user = response?.result as JwtResponse;
-          localStorage.setItem('roles', JSON.stringify(Object.assign({}, response?.result?.roles)))
+          localStorage.setItem('roles', JSON.stringify(response?.result?.roles));
           if (
             response.result?.roles?.includes('ROLE_ADMIN') ||
             response.result?.roles?.includes('ROLE_MOD')
           ) {
             this.router.navigate(['admin']);
+            location.href = "/admin"
           }else{
             this.router.navigate(['homepage'])
           }

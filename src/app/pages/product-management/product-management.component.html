@@ -8,14 +8,17 @@
           <div>
             <select class="form-select" (change)="onChange($event)">
               <option selected>Category</option>
-              <option [value]="cate.id" *ngFor="let cate of categoryData">{{cate.name}}</option>
+              <option [value]="cate.name" *ngFor="let cate of categoryData">{{cate.name}}</option>
             </select>
           </div>
           <div>
             <select class="form-select">
               <option selected>Brand</option>
-              <option [value]="brand.id" *ngFor="let brand of brandData">{{brand.brandName}}</option>
+              <option [value]="brand.name" *ngFor="let brand of subCateData">{{brand.subCateName}}</option>
             </select>
+          </div>
+          <div>
+            <button class="btn btn-success float-right m-2" (click)="findAllByCategory()">Filter</button>
           </div>
         </div>
 

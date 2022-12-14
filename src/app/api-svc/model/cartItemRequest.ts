@@ -14,6 +14,6 @@
 export interface CartItemRequest { 
     productId?: number;
     quantity?: number;
-    shopping_session_id?: number;
+    shoppingSessionId?: number;
 }
 

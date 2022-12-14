@@ -9,4 +9,8 @@ import { filter, pairwise } from 'rxjs';
 })
 export class AppComponent {
   title = 'admin-vitech';
+
+  constructor(private router: Router){
+ 
+  }
 }

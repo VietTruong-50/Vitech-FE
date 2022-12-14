@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {
-  BrandControllerService,
+  SubCategoryControllerService,
   CategoryControllerService,
   ProductControllerService,
 } from 'src/app/api-svc';
@@ -38,7 +38,7 @@ export class ProductManagementComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private location: Location,
     private categoryController: CategoryControllerService,
-    private brandController: BrandControllerService
+    private subCategoryController: SubCategoryControllerService
   ) {}
 
   ngOnInit(): void {
@@ -58,19 +58,25 @@ export class ProductManagementComponent implements OnInit {
       });
   }
 
-  brandData: any;
+  subCateData: any;
 
-  getBrandData(id: number) {
-    this.brandController.getBrandDataByCategory(id).subscribe((response) => {
-      if (response.errorCode == null) {
-        this.brandData = response.result;
-      }
-    });
+  getBrandData(name: string) {
+    this.subCategoryController
+      .getSubCategoryDataByCategory(name)
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          this.subCateData = response.result;
+        }
+      });
   }
+
+  categorySearch: string = 'Category';
 
   onChange(deviceValue: any) {
     let id = deviceValue.target.value;
-    console.log(id);
+    this.categorySearch = id;
+    console.log(this.categorySearch);
+    
     this.getBrandData(id);
   }
 
@@ -101,6 +107,33 @@ export class ProductManagementComponent implements OnInit {
     });
   }
 
+  findAllByCategory(pageIndex?: number) {
+    if (this.categorySearch != 'Category') {
+      this.productController
+        .findProductsByCategoryName(
+          this.categorySearch,
+          this.pageSize,
+          pageIndex ? pageIndex : 0,
+          'name'
+        )
+        .subscribe((response) => {
+          response.result?.content?.forEach((item) => {
+            if (item.featureImageByte) {
+              let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
+
+              item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+            }
+          });
+
+          this.dataSource = new MatTableDataSource<Product>(
+            response.result?.content
+          );
+        });
+    }else{
+      this.getData(pageIndex ? pageIndex : 0);
+    }
+  }
+
   renderTo(type: string, id?: number) {
     if (type == 'Add') {
       this.router.navigate(['/admin/products', 'add-product'], {
@@ -122,6 +155,11 @@ export class ProductManagementComponent implements OnInit {
     this.pageSize = pageSize;
     const pureUrl = this.router.url.split('?').shift();
     this.location.go(`${pureUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
-    this.getData(this.pageIndex);
+
+    if (this.categorySearch != 'Category') {
+      this.findAllByCategory(pageIndex);
+    } else {
+      this.getData(this.pageIndex);
+    }
   }
 }

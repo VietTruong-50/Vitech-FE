@@ -46,7 +46,7 @@
           [value]="formGroup.controls['price'].value"
         />
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="discountPrice">Discount price</label>
         <input
           class="form-control"
@@ -54,7 +54,7 @@
           formControlName="discountPrice"
           [value]="formGroup.controls['discountPrice'].value"
         />
-      </div>
+      </div> -->
       <div class="form-group">
         <label for="quantity">Quantity</label>
         <input
@@ -69,9 +69,9 @@
         <select class="form-select" (change)="onChange($event)">
           <option value="0" selected>Choose category</option>
           <option
-            [selected]="category.id == formGroup.controls['categoryId'].value"
+            [selected]="category.name == formGroup.controls['categoryName'].value"
             *ngFor="let category of categoryData"
-            [value]="category.id"
+            [value]="category.name"
           >
             {{ category.name }}
           </option>
@@ -85,7 +85,7 @@
             *ngFor="let brand of brandData"
             [value]="brand.id"
           >
-            {{ brand.brandName }}
+            {{ brand.subCateName }}
           </option>
         </select>
       </div>

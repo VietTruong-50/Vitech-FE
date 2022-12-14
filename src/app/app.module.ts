@@ -65,6 +65,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { UserProfileComponent } from './shared/user-account/user-profile/user-profile.component';
 import { UserOrderComponent } from './shared/user-account/user-order/user-order.component';
+import { WishlistUserComponent } from './pages/wishlist-user/wishlist-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,6 +106,7 @@ import { UserOrderComponent } from './shared/user-account/user-order/user-order.
     UserAccountComponent,
     UserProfileComponent,
     UserOrderComponent,
+    WishlistUserComponent,
   ],
   imports: [
     BrowserModule,

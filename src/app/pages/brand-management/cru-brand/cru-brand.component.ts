@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrandControllerService, CategoryControllerService } from 'src/app/api-svc';
+import { CategoryControllerService, SubCategoryControllerService } from 'src/app/api-svc';
 
 @Component({
   selector: 'app-cru-brand',
@@ -17,24 +17,24 @@ export class CruBrandComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private brandController: BrandControllerService,
+    private subCategoryController: SubCategoryControllerService,
     private categoryController: CategoryControllerService
   ) {
     this.title = this.route.snapshot.queryParamMap.get('type') + ' brand';
     this.formGroup = this.formBuilder.group({
-      brandName: [],
+      subCateName: [],
       description: [],
       category: []
     });
     if (this.route.snapshot.paramMap.get('id') != null) {
       this.id = this.route.snapshot.paramMap.get('id');
 
-      this.brandController
-        .getBrandById(Number(this.id))
+      this.subCategoryController
+        .getSubCategoryById(Number(this.id))
         .subscribe((response) => {
           if (response.errorCode == null) {
             this.formGroup.patchValue({
-              brandName: response.result?.brandName,
+              subCateName: response.result?.subCateName,
               description: response.result?.description,
               category: response.result?.category?.id
             });
@@ -61,9 +61,9 @@ export class CruBrandComponent implements OnInit {
 
 
   addBrand() {
-    this.brandController
-      .createNewBrand({
-        brandName: this.formGroup.controls['brandName'].value,
+    this.subCategoryController
+      .createNewSubCategory({
+        subCateName: this.formGroup.controls['subCateName'].value,
         description: this.formGroup.controls['description'].value,
         categoryId: this.formGroup.controls['category'].value
       })
@@ -75,8 +75,8 @@ export class CruBrandComponent implements OnInit {
   }
 
   updateBrand() {
-    this.brandController.updateBrand(Number(this.id), {
-      brandName: this.formGroup.controls['brandName'].value,
+    this.subCategoryController.updateSubCategory(Number(this.id), {
+      subCateName: this.formGroup.controls['subCateName'].value,
       description: this.formGroup.controls['description'].value,
       categoryId: this.formGroup.controls['category'].value
     }).subscribe(response => {

@@ -18,6 +18,7 @@ export interface Category {
     name?: string;
     description?: string;
     categoryImageByte?: Array<string>;
-    imgUrl: SafeUrl;
+    imgUrl: SafeUrl
+
 }
 

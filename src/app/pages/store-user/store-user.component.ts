@@ -2,7 +2,7 @@ import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
-  BrandControllerService,
+  SubCategoryControllerService,
   CategoryControllerService,
   ProductControllerService,
 } from 'src/app/api-svc';
@@ -31,7 +31,7 @@ export class StoreUserComponent implements OnInit {
 
   constructor(
     private categoryController: CategoryControllerService,
-    private brandController: BrandControllerService,
+    private subCategoryController: SubCategoryControllerService,
     private productController: ProductControllerService,
     private sanitizer: DomSanitizer,
     // private routerService: RouterService
@@ -59,8 +59,8 @@ export class StoreUserComponent implements OnInit {
   }
 
   getBrandData() {
-    this.brandController
-      .getAllBrand(10, 0, 'brandName')
+    this.subCategoryController
+      .getAllSubCategory(10, 0, 'brandName')
       .subscribe((response) => {
         this.listBrands = response.result?.content;
       });

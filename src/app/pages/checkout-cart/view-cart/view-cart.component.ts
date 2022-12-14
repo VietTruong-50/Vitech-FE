@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CategoryControllerService, UserControllerService } from 'src/app/api-svc';
+import { CategoryControllerService, CustomerControllerService, UserControllerService } from 'src/app/api-svc';
 
 @Component({
   selector: 'app-view-cart',
@@ -9,7 +9,7 @@ import { CategoryControllerService, UserControllerService } from 'src/app/api-sv
 })
 export class ViewCartComponent implements OnInit {
   constructor(
-    private userController: UserControllerService,
+    private customerController: CustomerControllerService,
     private sanitizer: DomSanitizer,
    
   ) {}
@@ -24,7 +24,7 @@ export class ViewCartComponent implements OnInit {
   total: number = 0;
 
   getCartData() {
-    this.userController.getShoppingCart(10).subscribe((response) => {
+    this.customerController.getShoppingCart(10).subscribe((response) => {
       response.result?.cartItems?.forEach((item) => {
         if (item.product!.featureImageByte) {
           let objectURL =
@@ -40,7 +40,7 @@ export class ViewCartComponent implements OnInit {
   }
 
   getTotalValue(){
-    this.userController.getTotalValues(10).subscribe((response) => {
+    this.customerController.getTotalValues(10).subscribe((response) => {
       this.total = response.result!;
     });
   }

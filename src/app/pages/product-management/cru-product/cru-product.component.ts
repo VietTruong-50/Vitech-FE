@@ -4,9 +4,9 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import {
-  BrandControllerService,
   CategoryControllerService,
   ProductControllerService,
+  SubCategoryControllerService,
 } from 'src/app/api-svc';
 
 @Component({
@@ -55,7 +55,7 @@ export class CruProductComponent implements OnInit {
     private productController: ProductControllerService,
     private route: ActivatedRoute,
     private router: Router,
-    private brandController: BrandControllerService,
+    private subCategoryController: SubCategoryControllerService,
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService
   ) {
@@ -65,11 +65,11 @@ export class CruProductComponent implements OnInit {
       parameters: [],
       content: [],
       price: [],
-      discountPrice: [],
+      // discountPrice: [],
       feature_img: [],
       images: [],
       quantity: [],
-      categoryId: [],
+      categoryName: [],
       brandId: [],
     });
   }
@@ -112,17 +112,17 @@ export class CruProductComponent implements OnInit {
             content: response.result?.content,
             price: response.result?.actualPrice,
             quantity: response.result?.quantity,
-            categoryId: response.result?.brand?.category?.id,
-            brandId: response.result?.brand?.id,
+            categoryName: response.result?.subCategory?.category?.name,
+            brandId: response.result?.subCategory?.id,
           });
 
-          this.getBrandData(this.formGroup.controls['categoryId'].value);
+          this.getBrandData(this.formGroup.controls['categoryName'].value);
         }
       });
   }
 
-  getBrandData(id: number) {
-    this.brandController.getBrandDataByCategory(id).subscribe((response) => {
+  getBrandData(name: string) {
+    this.subCategoryController.getSubCategoryDataByCategory(name).subscribe((response) => {
       if (response.errorCode == null) {
         this.brandData = response.result;
       }
@@ -196,7 +196,7 @@ export class CruProductComponent implements OnInit {
           productCode: data.code ? data.code : '',
           parameters: data.parameters ? data.parameters : '',
           discountPrice: data.discountPrice ? data.discountPrice: 0,
-          // category_id: data.categoryId ? data.categoryId : 0,
+          // category_id: data.categoryName ? data.categoryName : 0,
           brand_id: data.brandId ? data.brandId : null,
         },
         data.feature_img,
@@ -225,7 +225,7 @@ export class CruProductComponent implements OnInit {
           productCode: data.code ? data.code : '',
           parameters: data.parameters ? data.parameters : '',
           discountPrice: data.discountPrice ? data.discountPrice: 0,
-          // category_id: data.categoryId ? data.categoryId : 0,
+          // category_id: data.categoryName ? data.categoryName : 0,
           brand_id: data.brandId ? data.brandId : null,
         },
         data.feature_img,
@@ -238,4 +238,5 @@ export class CruProductComponent implements OnInit {
         }
       });
   }
+  
 }

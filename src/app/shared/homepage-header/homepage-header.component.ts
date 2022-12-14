@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryControllerService, UserControllerService } from 'src/app/api-svc';
+import { CategoryControllerService, CustomerControllerService, UserControllerService } from 'src/app/api-svc';
 import { UserAccountComponent } from '../user-account/user-account.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class HomepageHeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userController: UserControllerService,
+    private customerController: CustomerControllerService,
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService,
   ) {
@@ -25,8 +25,8 @@ export class HomepageHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCartData();
-    this.getTotalValues();
+    // this.getCartData();
+    // this.getTotalValues();
     this.getCategoriesData()
   }
 
@@ -42,7 +42,7 @@ export class HomepageHeaderComponent implements OnInit {
   cartLength: number = 0;
 
   getCartData() {
-    this.userController.getShoppingCart(1).subscribe((response) => {
+    this.customerController.getShoppingCart(1).subscribe((response) => {
       response.result?.cartItems?.forEach((item) => {
         if (item.product!.featureImageByte) {
           let objectURL =
@@ -60,7 +60,7 @@ export class HomepageHeaderComponent implements OnInit {
   totalValues: number = 0;
 
   getTotalValues() {
-    this.userController.getTotalValues(1).subscribe((response) => {
+    this.customerController.getTotalValues(1).subscribe((response) => {
       this.totalValues = response.result!;
     });
   }

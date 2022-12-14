@@ -30,10 +30,10 @@ const routes: Routes = [
   {
     path: 'admin',
     component: MasterComponentComponent,
-    canActivate: [HasRoleGuard],
-    data: {
-      role: 'ROLE_ADMIN',
-    },
+    // canActivate: [HasRoleGuard],
+    // data: {
+    //   role: 'ROLE_ADMIN',
+    // },
     children: [
       {
         path: 'sliders',
@@ -51,7 +51,6 @@ const routes: Routes = [
         path: 'sliders/edit-slider/:id',
         component: CruSliderComponent,
       },
-
       {
         path: 'banners/add-banner',
         component: CruBannerComponent,
@@ -115,6 +114,10 @@ const routes: Routes = [
     component: MasterUserComponent,
     children: [
       {
+        path: '',
+        component: HomepageUserComponent,
+      },
+      {
         path: 'homepage',
         component: HomepageUserComponent,
       },
@@ -144,8 +147,8 @@ const routes: Routes = [
       },
       {
         path: 'brands',
-        component: BrandUserComponent
-      }
+        component: BrandUserComponent,
+      },
     ],
   },
 ];

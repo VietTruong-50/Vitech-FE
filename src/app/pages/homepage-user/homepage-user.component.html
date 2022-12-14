@@ -50,18 +50,18 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">{{product.brand.brandName}}</p>
+                  <p class="product-category">{{product.subCategory.subCateName}}</p>
                   <h3 class="product-name">
                     <a href="#" tabindex="-1">{{
                       product.name | truncateText: 40
                     }}</a>
                   </h3>
-                  <del class="product-old-price">{{
-                    product.actualPrice
-                  }} VND</del>
+                  <del class="product-old-price"></del>
                   <h4 class="product-price">
-                    {{product.discountPrice}} VND
-                    
+                    <!-- {{product.discountPrice}} VND -->
+                    {{
+                      product.actualPrice
+                    }} VND
                   </h4>
                   <!-- <div class="product-rating">
                   </div> -->
@@ -144,7 +144,7 @@
             <ng-container *ngFor="let product of productData">
               <span
                 class="product product-card"
-                *ngIf="product.brand.category.name == cate.name"
+                *ngIf="product.subCategory.category.name == cate.name"
                 fxLayout="column"
                 style="height: 486px"
                 fxFlex="22"
@@ -157,14 +157,14 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">{{product.brand.brandName}}</p>
+                  <p class="product-category">{{product.subCategory.subCateName}}</p>
                   <h3 class="product-name">
                     <a href="#" tabindex="-1">{{
                       product.name | truncateText: 40
                     }}</a>
                   </h3>
                   <h4 class="product-price">
-                    {{product.discountPrice}}VND
+                    <!-- {{product.discountPrice}}VND -->
                     <del class="product-old-price">{{
                       product.actualPrice
                     }}VND</del>

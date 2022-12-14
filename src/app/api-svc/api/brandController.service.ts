@@ -19,13 +19,13 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ApiResponseBrand } from '../model/apiResponseBrand';
+import { ApiResponseListSubCategory } from '../model/apiResponseListSubCategory';
 // @ts-ignore
-import { ApiResponseListBrand } from '../model/apiResponseListBrand';
+import { ApiResponsePageSubCategory } from '../model/apiResponsePageSubCategory';
 // @ts-ignore
-import { ApiResponsePageBrand } from '../model/apiResponsePageBrand';
+import { ApiResponseSubCategory } from '../model/apiResponseSubCategory';
 // @ts-ignore
-import { BrandRequest } from '../model/brandRequest';
+import { SubCategoryRequest } from '../model/subCategoryRequest';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -94,16 +94,16 @@ export class BrandControllerService {
     }
 
     /**
-     * @param brandRequest 
+     * @param subCategoryRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createNewBrand(brandRequest: BrandRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<ApiResponseBrand>;
-    public createNewBrand(brandRequest: BrandRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<ApiResponseBrand>>;
-    public createNewBrand(brandRequest: BrandRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<ApiResponseBrand>>;
-    public createNewBrand(brandRequest: BrandRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (brandRequest === null || brandRequest === undefined) {
-            throw new Error('Required parameter brandRequest was null or undefined when calling createNewBrand.');
+    public createNewBrand(subCategoryRequest: SubCategoryRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<ApiResponseSubCategory>;
+    public createNewBrand(subCategoryRequest: SubCategoryRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<ApiResponseSubCategory>>;
+    public createNewBrand(subCategoryRequest: SubCategoryRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<ApiResponseSubCategory>>;
+    public createNewBrand(subCategoryRequest: SubCategoryRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (subCategoryRequest === null || subCategoryRequest === undefined) {
+            throw new Error('Required parameter subCategoryRequest was null or undefined when calling createNewBrand.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -146,8 +146,8 @@ export class BrandControllerService {
             }
         }
 
-        return this.httpClient.post<ApiResponseBrand>(`${this.configuration.basePath}/api/brands`,
-            brandRequest,
+        return this.httpClient.post<ApiResponseSubCategory>(`${this.configuration.basePath}/api/brands`,
+            subCategoryRequest,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -166,9 +166,9 @@ export class BrandControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllBrand(size: number, page: number, sortBy: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponsePageBrand>;
-    public getAllBrand(size: number, page: number, sortBy: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponsePageBrand>>;
-    public getAllBrand(size: number, page: number, sortBy: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponsePageBrand>>;
+    public getAllBrand(size: number, page: number, sortBy: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponsePageSubCategory>;
+    public getAllBrand(size: number, page: number, sortBy: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponsePageSubCategory>>;
+    public getAllBrand(size: number, page: number, sortBy: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponsePageSubCategory>>;
     public getAllBrand(size: number, page: number, sortBy: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (size === null || size === undefined) {
             throw new Error('Required parameter size was null or undefined when calling getAllBrand.');
@@ -225,7 +225,7 @@ export class BrandControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponsePageBrand>(`${this.configuration.basePath}/api/brands`,
+        return this.httpClient.get<ApiResponsePageSubCategory>(`${this.configuration.basePath}/api/brands`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -243,9 +243,9 @@ export class BrandControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBrandById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseBrand>;
-    public getBrandById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseBrand>>;
-    public getBrandById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseBrand>>;
+    public getBrandById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseSubCategory>;
+    public getBrandById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseSubCategory>>;
+    public getBrandById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseSubCategory>>;
     public getBrandById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getBrandById.');
@@ -282,7 +282,7 @@ export class BrandControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseBrand>(`${this.configuration.basePath}/api/brands/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<ApiResponseSubCategory>(`${this.configuration.basePath}/api/brands/${encodeURIComponent(String(id))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -299,9 +299,9 @@ export class BrandControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getBrandDataByCategory(cateId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListBrand>;
-    public getBrandDataByCategory(cateId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListBrand>>;
-    public getBrandDataByCategory(cateId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListBrand>>;
+    public getBrandDataByCategory(cateId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListSubCategory>;
+    public getBrandDataByCategory(cateId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListSubCategory>>;
+    public getBrandDataByCategory(cateId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListSubCategory>>;
     public getBrandDataByCategory(cateId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (cateId === null || cateId === undefined) {
             throw new Error('Required parameter cateId was null or undefined when calling getBrandDataByCategory.');
@@ -338,7 +338,7 @@ export class BrandControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseListBrand>(`${this.configuration.basePath}/api/categories/${encodeURIComponent(String(cateId))}/brands`,
+        return this.httpClient.get<ApiResponseListSubCategory>(`${this.configuration.basePath}/api/categories/${encodeURIComponent(String(cateId))}/brands`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -352,19 +352,19 @@ export class BrandControllerService {
 
     /**
      * @param id 
-     * @param brandRequest 
+     * @param subCategoryRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateBrand(id: number, brandRequest: BrandRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseBrand>;
-    public updateBrand(id: number, brandRequest: BrandRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseBrand>>;
-    public updateBrand(id: number, brandRequest: BrandRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseBrand>>;
-    public updateBrand(id: number, brandRequest: BrandRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public updateBrand(id: number, subCategoryRequest: SubCategoryRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseSubCategory>;
+    public updateBrand(id: number, subCategoryRequest: SubCategoryRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseSubCategory>>;
+    public updateBrand(id: number, subCategoryRequest: SubCategoryRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseSubCategory>>;
+    public updateBrand(id: number, subCategoryRequest: SubCategoryRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateBrand.');
         }
-        if (brandRequest === null || brandRequest === undefined) {
-            throw new Error('Required parameter brandRequest was null or undefined when calling updateBrand.');
+        if (subCategoryRequest === null || subCategoryRequest === undefined) {
+            throw new Error('Required parameter subCategoryRequest was null or undefined when calling updateBrand.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -407,8 +407,8 @@ export class BrandControllerService {
             }
         }
 
-        return this.httpClient.put<ApiResponseBrand>(`${this.configuration.basePath}/api/brands/${encodeURIComponent(String(id))}`,
-            brandRequest,
+        return this.httpClient.put<ApiResponseSubCategory>(`${this.configuration.basePath}/api/brands/${encodeURIComponent(String(id))}`,
+            subCategoryRequest,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

@@ -21,10 +21,10 @@ export interface PageCategory {
     content?: Array<Category>;
     number?: number;
     sort?: Sort;
+    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
     numberOfElements?: number;
-    pageable?: PageableObject;
     empty?: boolean;
 }
 

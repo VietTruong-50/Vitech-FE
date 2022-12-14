@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Brand, BrandControllerService } from 'src/app/api-svc';
+import { SubCategory, SubCategoryControllerService } from 'src/app/api-svc';
 
 @Component({
   selector: 'app-brand-management',
@@ -18,10 +18,10 @@ export class BrandManagementComponent implements OnInit {
   pageSize: number = 5;
 
   displayedColumns: string[] = ['position', 'name', 'description', 'category', 'action'];
-  dataSource: MatTableDataSource<Brand> = new MatTableDataSource();
+  dataSource: MatTableDataSource<SubCategory> = new MatTableDataSource();
 
   constructor(
-    private brandController: BrandControllerService,
+    private subCategoryController: SubCategoryControllerService,
     private router: Router,
     private location: Location
   ) {}
@@ -31,8 +31,8 @@ export class BrandManagementComponent implements OnInit {
   }
 
   getData(pageIndex?: number) {
-    this.brandController
-      .getAllBrand(this.pageSize, pageIndex ? pageIndex : 0, 'createdAt')
+    this.subCategoryController
+      .getAllSubCategory(this.pageSize, pageIndex ? pageIndex : 0, 'createdAt')
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource(response.result?.content);
       });

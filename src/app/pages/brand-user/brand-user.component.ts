@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandControllerService } from 'src/app/api-svc';
+import { SubCategoryControllerService } from 'src/app/api-svc';
 
 @Component({
   selector: 'app-brand-user',
@@ -10,14 +10,14 @@ export class BrandUserComponent implements OnInit {
 
   brandsData: any;
 
-  constructor(private brandController: BrandControllerService) { }
+  constructor(private subCategoryController: SubCategoryControllerService) { }
 
   ngOnInit(): void {
     this.getData()
   }
 
   getData(){
-    // this.brandController.getBrandData().subscribe(response => {
+    // this.subCategoryController.getBrandData().subscribe(response => {
     //   this.brandsData = response.result;
     // })
   }

@@ -16,6 +16,18 @@ export interface User {
     id?: number;
     userName?: string;
     email?: string;
+    genderEnum?: User.GenderEnumEnum;
+    address?: string;
+    salary?: number;
     roles?: Set<Role>;
 }
+export namespace User {
+    export type GenderEnumEnum = 'MALE' | 'FEMALE' | 'OTHER';
+    export const GenderEnumEnum = {
+        Male: 'MALE' as GenderEnumEnum,
+        Female: 'FEMALE' as GenderEnumEnum,
+        Other: 'OTHER' as GenderEnumEnum
+    };
+}
+
 

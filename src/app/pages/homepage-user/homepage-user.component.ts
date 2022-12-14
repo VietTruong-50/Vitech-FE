@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   CategoryControllerService,
+  CustomerControllerService,
   Product,
   ProductControllerService,
   UserControllerService,
@@ -27,13 +28,13 @@ export class HomepageUserComponent implements OnInit {
     private productController: ProductControllerService,
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService,
-    private userController: UserControllerService
+    private customerController: CustomerControllerService
   ) {}
 
   ngOnInit(): void {
     this.getData();
     this.getCategoryData();
-    this.getProductsByCategory('Laptops');
+    this.getProductsByCategory('Laptop');
   }
 
   productData: any;
@@ -85,11 +86,11 @@ export class HomepageUserComponent implements OnInit {
   }
 
   addItemToCart(itemId: number) {
-    this.userController
+    this.customerController
       .addItemToCart({
         productId: itemId,
         quantity: 1,
-        shopping_session_id: 1,
+        shoppingSessionId: 1,
       })
       .subscribe((response) => {
         console.log('Add to cart successfully');
@@ -97,7 +98,7 @@ export class HomepageUserComponent implements OnInit {
   }
 
   removeItemFromCart(itemId: number) {
-    this.userController
+    this.customerController
       .removeItemFromCart(1, itemId)
       .subscribe((reponse) => {});
   }

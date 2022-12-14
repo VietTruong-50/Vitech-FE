@@ -16,5 +16,6 @@ export interface SignupRequest {
     password: string;
     email: string;
     roles?: Set<string>;
+    customer?: boolean;
 }
 

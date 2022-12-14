@@ -69,9 +69,9 @@ export class CruCategoryComponent implements OnInit {
       .getAllCategory(30, 0, 'createdAt')
       .subscribe((reponse) => {
         if (reponse.errorCode == null) {
-          this.cateParent = reponse.result?.content?.filter(
-            (item) => item.id == this.formGroup.controls['parent_id'].value
-          );
+          // this.cateParent = reponse.result?.content?.filter(
+          //   (item) => item.id == this.formGroup.controls['parent_id'].value
+          // );
           this.cateData = reponse.result?.content;
           console.log(this.cateParent);
         }
@@ -85,7 +85,7 @@ export class CruCategoryComponent implements OnInit {
         {
           name: data.name ? data.name : '',
           description: data.description ? data.description : '',
-          parent_id: data.parent_id ? data.parent_id : 0,
+          // parent_id: data.parent_id ? data.parent_id : 0,
         },
         data.image ? data.image : new Blob()
       )
