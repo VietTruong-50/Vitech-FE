@@ -21,6 +21,7 @@ import { CruSliderComponent } from './pages/slider-management/cru-slider/cru-sli
 import { SliderManagementComponent } from './pages/slider-management/slider-management.component';
 import { StoreUserComponent } from './pages/store-user/store-user.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { WishlistUserComponent } from './pages/wishlist-user/wishlist-user.component';
 import { HomepageHeaderComponent } from './shared/homepage-header/homepage-header.component';
 import { MasterComponentComponent } from './shared/master-component/master-component.component';
 import { MasterUserComponent } from './shared/master-user/master-user.component';
@@ -149,6 +150,10 @@ const routes: Routes = [
         path: 'brands',
         component: BrandUserComponent,
       },
+      {
+        path: 'wishlist',
+        component: WishlistUserComponent
+      }
     ],
   },
 ];

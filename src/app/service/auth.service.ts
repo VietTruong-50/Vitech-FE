@@ -23,6 +23,7 @@ export class AuthService {
       .authenticateUser({
         username: username,
         password: password,
+        shoppingSessionId: Number(sessionStorage.getItem('cartId'))
       })
       .subscribe((response) => {
         console.log(response.result);

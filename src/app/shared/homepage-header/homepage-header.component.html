@@ -66,7 +66,7 @@
           fxLayoutAlign="center center"
         >
           <div class="header-ctn" fxFlex="row" fxLayoutAlign="center center">
-            <div>
+            <div (click)="renderTo('wishlist')">
               <a fxLayout="column" fxLayoutAlign="center center">
                 <i class="fa fa-heart"></i>
                 <span>Your Wishlist</span>
@@ -101,18 +101,18 @@
                         >{{ item.product.actualPrice }}
                       </h4>
                     </div>
-                    <button class="delete">
+                    <button class="delete" (click)="removeItem(item.id)">
                       <i class="fa fa-window-close"></i>
                     </button>
                   </div>
                 </div>
                 <div class="cart-summary">
                   <small>{{ cartLength }} Item(s) selected</small>
-                  <h5>SUBTOTAL: ${{ totalValues }}</h5>
+                  <h5>SUBTOTAL: ${{ getTotalValues }}</h5>
                 </div>
                 <div class="cart-btns">
-                  <a href="/cart">View Cart</a>
-                  <a href="/checkout"
+                  <a (click)="renderTo('cart')">View Cart</a>
+                  <a (click)="renderTo('checkout')"
                     >Checkout <i class="fa fa-arrow-circle-right"></i
                   ></a>
                 </div>

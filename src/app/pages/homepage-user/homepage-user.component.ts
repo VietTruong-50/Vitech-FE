@@ -7,6 +7,7 @@ import {
   ProductControllerService,
   UserControllerService,
 } from 'src/app/api-svc';
+import { CartService } from 'src/app/service/cart.service';
 
 @Component({
   selector: 'app-homepage-user',
@@ -14,6 +15,7 @@ import {
   styleUrls: ['./homepage-user.component.scss'],
 })
 export class HomepageUserComponent implements OnInit {
+
   slideConfig = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -28,8 +30,11 @@ export class HomepageUserComponent implements OnInit {
     private productController: ProductControllerService,
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService,
-    private customerController: CustomerControllerService
-  ) {}
+    private customerController: CustomerControllerService,
+    private cartService: CartService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.getData();
@@ -85,21 +90,13 @@ export class HomepageUserComponent implements OnInit {
       });
   }
 
-  addItemToCart(itemId: number) {
-    this.customerController
-      .addItemToCart({
-        productId: itemId,
-        quantity: 1,
-        shoppingSessionId: 1,
-      })
-      .subscribe((response) => {
-        console.log('Add to cart successfully');
-      });
+  addItemToCart(product: Product) {
+    this.cartService.addItemToCart(product);
   }
 
   removeItemFromCart(itemId: number) {
-    this.customerController
-      .removeItemFromCart(1, itemId)
-      .subscribe((reponse) => {});
+    this.cartService.removeItemFromCart(itemId);
   }
+
+
 }
