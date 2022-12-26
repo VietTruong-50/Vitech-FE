@@ -1,27 +1,21 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { map, Observable, Subject } from 'rxjs';
-import {
-  CartItem,
-  CustomerControllerService,
-  Product,
-  ShoppingSession,
-} from '../api-svc';
+import { CookieService } from 'ngx-cookie-service';
+import { CartItem, CustomerControllerService, Product } from '../api-svc';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartUpdates = new Subject();
-  public cartUpdates$ = this.cartUpdates.asObservable();
   cartData: CartItem[] = [];
 
   constructor(
     private customerController: CustomerControllerService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cookieService: CookieService
   ) {}
 
-  addItemToCart(product: Product, quantity?: number) {
+  addOrUpdateCartItem(product: Product, quantity?: number) {
     if (localStorage.getItem('cart_items')) {
       console.log(this.cartData);
 
@@ -41,7 +35,7 @@ export class CartService {
 
         valueExist = {
           id: valueExist?.id,
-          quantity: valueExist?.quantity! + (quantity ? quantity : 1),
+          quantity: quantity ? quantity : valueExist?.quantity! + 1,
           product: valueExist?.product,
           itemPrice: valueExist?.itemPrice,
         };
@@ -72,10 +66,20 @@ export class CartService {
 
     this.cartData.splice(index, 1);
 
-    this.saveCart()
+    this.saveCart();
   }
 
   getCartData() {
+    if (this.cookieService.check('authToken')) {
+      this.customerController.getShoppingCart().subscribe((response) => {
+        // this.cartData = response.result?.cartItems
+
+        this.saveCart();
+      });
+    } else {
+      this.loadCart();
+    }
+
     this.cartData.forEach((item) => {
       if (item.product!.featureImageByte) {
         let objectURL =
@@ -84,6 +88,7 @@ export class CartService {
         item.product!.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
       }
     });
+
     return this.cartData;
   }
 
@@ -93,11 +98,11 @@ export class CartService {
   //     .pipe(map((item) => item.result));
   // }
 
-  getTotalValues(){
+  getTotalValues() {
     let totalValues = 0;
-    this.cartData.forEach(item => {
-      totalValues += item.itemPrice!
-    })
+    this.cartData.forEach((item) => {
+      totalValues += item.itemPrice! * item.quantity!;
+    });
     return totalValues;
   }
 }

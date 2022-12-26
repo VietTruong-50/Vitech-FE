@@ -91,11 +91,7 @@ export class HomepageUserComponent implements OnInit {
   }
 
   addItemToCart(product: Product) {
-    this.cartService.addItemToCart(product);
-  }
-
-  removeItemFromCart(itemId: number) {
-    this.cartService.removeItemFromCart(itemId);
+    this.cartService.addOrUpdateCartItem(product);
   }
 
 

@@ -5,8 +5,10 @@ import {
   SubCategoryControllerService,
   CategoryControllerService,
   ProductControllerService,
+  Product,
 } from 'src/app/api-svc';
 import { RouterItem } from 'src/app/interface/RouterItem';
+import { CartService } from 'src/app/service/cart.service';
 import { RouterService } from 'src/app/service/router.service';
 
 @Component({
@@ -34,6 +36,7 @@ export class StoreUserComponent implements OnInit {
     private subCategoryController: SubCategoryControllerService,
     private productController: ProductControllerService,
     private sanitizer: DomSanitizer,
+    private cartService: CartService
     // private routerService: RouterService
   ) {
     // this.previousRoutes.push(this.routerService.getPreviousRoute());
@@ -60,7 +63,7 @@ export class StoreUserComponent implements OnInit {
 
   getBrandData() {
     this.subCategoryController
-      .getAllSubCategory(10, 0, 'brandName')
+      .getAllSubCategory(10, 0, 'subCateName')
       .subscribe((response) => {
         this.listBrands = response.result?.content;
       });
@@ -97,4 +100,9 @@ export class StoreUserComponent implements OnInit {
         this.listProducts = response.result?.content;
       });
   }
+
+  addItemToCart(product: Product) {
+    this.cartService.addOrUpdateCartItem(product);
+  }
+
 }

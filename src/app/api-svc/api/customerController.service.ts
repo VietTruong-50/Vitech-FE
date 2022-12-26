@@ -508,17 +508,13 @@ export class CustomerControllerService {
     }
 
     /**
-     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getShoppingCart(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseShoppingSession>;
-    public getShoppingCart(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseShoppingSession>>;
-    public getShoppingCart(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseShoppingSession>>;
-    public getShoppingCart(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getShoppingCart.');
-        }
+    public getShoppingCart(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseShoppingSession>;
+    public getShoppingCart(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseShoppingSession>>;
+    public getShoppingCart(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseShoppingSession>>;
+    public getShoppingCart(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -551,7 +547,7 @@ export class CustomerControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseShoppingSession>(`${this.configuration.basePath}/api/customer/cart/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<ApiResponseShoppingSession>(`${this.configuration.basePath}/api/customer/cart`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -729,18 +725,14 @@ export class CustomerControllerService {
     }
 
     /**
-     * @param id 
      * @param productId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeItemFromCart(id: number, productId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseObject>;
-    public removeItemFromCart(id: number, productId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseObject>>;
-    public removeItemFromCart(id: number, productId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseObject>>;
-    public removeItemFromCart(id: number, productId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling removeItemFromCart.');
-        }
+    public removeItemFromCart(productId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseObject>;
+    public removeItemFromCart(productId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseObject>>;
+    public removeItemFromCart(productId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseObject>>;
+    public removeItemFromCart(productId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (productId === null || productId === undefined) {
             throw new Error('Required parameter productId was null or undefined when calling removeItemFromCart.');
         }
@@ -776,7 +768,7 @@ export class CustomerControllerService {
             }
         }
 
-        return this.httpClient.delete<ApiResponseObject>(`${this.configuration.basePath}/api/customer/cart/${encodeURIComponent(String(id))}/product/${encodeURIComponent(String(productId))}`,
+        return this.httpClient.delete<ApiResponseObject>(`${this.configuration.basePath}/api/customer/cart/product/${encodeURIComponent(String(productId))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

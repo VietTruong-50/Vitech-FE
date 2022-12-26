@@ -640,6 +640,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponseOrder'
   /api/customer/cart:
+    get:
+      tags:
+      - customer-controller
+      operationId: getShoppingCart
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseShoppingSession'
     post:
       tags:
       - customer-controller
@@ -1088,25 +1099,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ApiResponsePageComment'
-  /api/customer/cart/{id}:
-    get:
-      tags:
-      - customer-controller
-      operationId: getShoppingCart
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponseShoppingSession'
   /api/customer/cart/{id}/total:
     get:
       tags:
@@ -1175,18 +1167,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ApiResponseComment'
-  /api/customer/cart/{id}/product/{productId}:
+  /api/customer/cart/product/{productId}:
     delete:
       tags:
       - customer-controller
       operationId: removeItemFromCart
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
       - name: productId
         in: path
         required: true
@@ -1530,6 +1516,20 @@ components:
         responseCode:
           type: integer
           format: int32
+    CartItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        product:
+          $ref: '#/components/schemas/Product'
+        quantity:
+          type: integer
+          format: int32
+        itemPrice:
+          type: number
+          format: double
     Customer:
       type: object
       properties:
@@ -1555,6 +1555,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Product'
+        shoppingSession:
+          $ref: '#/components/schemas/ShoppingSession'
     Order:
       type: object
       properties:
@@ -1594,6 +1596,20 @@ components:
         price:
           type: number
           format: double
+    ShoppingSession:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        total:
+          type: number
+          format: double
+        cartItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItem'
     CommentRequest:
       type: object
       properties:
@@ -1651,9 +1667,6 @@ components:
         quantity:
           type: integer
           format: int32
-        shoppingSessionId:
-          type: integer
-          format: int64
     ApiResponseShoppingSession:
       type: object
       properties:
@@ -1666,34 +1679,6 @@ components:
         responseCode:
           type: integer
           format: int32
-    CartItem:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        product:
-          $ref: '#/components/schemas/Product'
-        quantity:
-          type: integer
-          format: int32
-        itemPrice:
-          type: number
-          format: double
-    ShoppingSession:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        total:
-          type: number
-          format: double
-        cartItems:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/CartItem'
     LoginRequest:
       type: object
       properties:
@@ -1701,9 +1686,6 @@ components:
           type: string
         password:
           type: string
-        shoppingSessionId:
-          type: integer
-          format: int64
     ApiResponseJwtResponse:
       type: object
       properties:
@@ -1783,12 +1765,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -1802,24 +1784,24 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
         pageNumber:
           type: integer
           format: int32
         pageSize:
           type: integer
           format: int32
-        paged:
-          type: boolean
-        unpaged:
-          type: boolean
     Sort:
       type: object
       properties:
         empty:
           type: boolean
-        sorted:
-          type: boolean
         unsorted:
+          type: boolean
+        sorted:
           type: boolean
     ApiResponsePageSubCategory:
       type: object
@@ -1854,12 +1836,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -1898,12 +1880,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -1942,12 +1924,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -1986,12 +1968,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -2045,12 +2027,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -2102,12 +2084,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32
@@ -2160,12 +2142,12 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         numberOfElements:
           type: integer
           format: int32

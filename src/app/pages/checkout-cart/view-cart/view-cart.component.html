@@ -26,6 +26,7 @@
   </div>
   <!-- /container -->
 </div>
+
 <div class="section">
   <div class="card">
     <div class="row">
@@ -42,31 +43,35 @@
         </div>
         <div class="border-top border-bottom">
           <div
-            *ngFor="let item of cartData"
+            *ngFor="let item of cartData; let i = index"
             class="main"
             fxLayout="row"
             fxLayoutAling="center center"
           >
             <div class="col-2">
-              <img class="img-fluid" [src]="item.product.imgUrl" />
+              <img class="img-fluid" [src]="item.product?.imgUrl" />
             </div>
             <div class="col">
-              <div class="row text-muted">{{ item.product.category.name }}</div>
-              <div class="row">{{ item.product.name }}</div>
+              <div class="row text-muted">{{ item.product?.actualPrice }}</div>
+              <div class="row">{{ item.product?.name }}</div>
             </div>
             <div class="col">
               <input
-                [value]="item.quantity"
+                value="{{ item.quantity }}"
                 type="number"
                 style="width: 40% !important"
                 class="form-control text-center"
-                value="1"
                 min="1"
+                max="100"
+                [(ngModel)]="item.quantity"
+                (change)="updateItemQuantity(item, item.quantity)"
               />
             </div>
             <div class="col">
-              &euro; {{ item.product.actualPrice }}
-              <span class="close">&#10005;</span>
+              &euro; {{ item.product?.actualPrice }}
+              <button (click)="removeItem(item.id)" class="close">
+                &#10005;
+              </button>
             </div>
           </div>
         </div>
@@ -84,9 +89,9 @@
         </div>
         <hr />
         <div class="row" *ngFor="let item of cartData">
-          <div class="col" style="padding-left: 0">{{ item.product.name }}</div>
+          <div class="col" style="padding-left: 0">{{ item.product?.name }}</div>
           <div class="col text-right">
-            &euro; {{ item.product.actualPrice * item.quantity }}
+            &euro; {{ item.product?.actualPrice! * item?.quantity! }}
           </div>
         </div>
         <!-- <form>
@@ -102,7 +107,7 @@
           style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0"
         >
           <div class="col">TOTAL PRICE</div>
-          <div class="col text-right">&euro; {{ total }}</div>
+          <div class="col text-right">&euro; {{ getTotalValues }}</div>
         </div>
         <a href="/checkout" class="primary-btn order-submit">Check out</a>
       </div>

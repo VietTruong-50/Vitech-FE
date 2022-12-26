@@ -48,16 +48,16 @@ export class HomepageHeaderComponent implements OnInit {
 
   getCartData() {
     this.cartData = this.cartService.getCartData();
-    
   }
 
   totalValues: number = 0;
 
   get getTotalValues() {
-    return this.cartService.getTotalValues()
+    return this.cartService.getTotalValues();
   }
 
-  get cartLength(){
+  get cartLength() {
+    this.getCartData();
     return this.cartData.length;
   }
 
@@ -71,7 +71,7 @@ export class HomepageHeaderComponent implements OnInit {
       });
   }
 
-  removeItem(itemId: number){
-    this.cartService.removeItemFromCart(itemId)
+  removeItem(itemId: number) {
+    this.cartService.removeItemFromCart(itemId);
   }
 }

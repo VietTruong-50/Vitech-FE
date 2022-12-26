@@ -21,9 +21,9 @@ export interface PageSubCategory {
     content?: Array<SubCategory>;
     number?: number;
     sort?: Sort;
-    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
+    pageable?: PageableObject;
     numberOfElements?: number;
     empty?: boolean;
 }

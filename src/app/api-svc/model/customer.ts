@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ShoppingSession } from './shoppingSession';
 import { Product } from './product';
 
 
@@ -20,6 +21,7 @@ export interface Customer {
     address?: string;
     role?: string;
     wishListProducts?: Set<Product>;
+    shoppingSession?: ShoppingSession;
 }
 export namespace Customer {
     export type GenderEnumEnum = 'MALE' | 'FEMALE' | 'OTHER';

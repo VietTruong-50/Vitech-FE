@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CategoryControllerService, CustomerControllerService, UserControllerService } from 'src/app/api-svc';
+import {
+  CartItem,
+  CategoryControllerService,
+  CustomerControllerService,
+  UserControllerService,
+} from 'src/app/api-svc';
+import { CartService } from 'src/app/service/cart.service';
 
 @Component({
   selector: 'app-view-cart',
@@ -8,42 +14,37 @@ import { CategoryControllerService, CustomerControllerService, UserControllerSer
   styleUrls: ['./view-cart.component.scss'],
 })
 export class ViewCartComponent implements OnInit {
-  constructor(
-    private customerController: CustomerControllerService,
-    private sanitizer: DomSanitizer,
-   
-  ) {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.getCartData();
-    this.getTotalValue();
   }
 
-  cartData: any;
-  cartLength: number = 0;
+  cartData: CartItem[] = [];
   total: number = 0;
 
   getCartData() {
-    this.customerController.getShoppingCart(10).subscribe((response) => {
-      response.result?.cartItems?.forEach((item) => {
-        if (item.product!.featureImageByte) {
-          let objectURL =
-            'data:image/jpeg;base64,' + item.product!.featureImageByte;
-
-          item.product!.imgUrl =
-            this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        }
-      });
-      this.cartData = response.result?.cartItems;
-      this.cartLength = this.cartData.length;
-    });
+    this.cartData = this.cartService.getCartData();
   }
 
-  getTotalValue(){
-    this.customerController.getTotalValues(10).subscribe((response) => {
-      this.total = response.result!;
-    });
+  removeItem(itemId?: number) {
+    this.cartService.removeItemFromCart(itemId);
+    this.getCartData()
   }
 
+  get getTotalValues() {
+    // this.getCartData()
+    return this.cartService.getTotalValues();
+  }
 
+  get cartLength() {
+    // this.getCartData()
+    return this.cartData.length;
+  }
+
+  quantity: number = 1;
+
+  updateItemQuantity(item: CartItem, quantity?: number){
+    this.cartService.addOrUpdateCartItem(item.product!, quantity)
+  }
 }
