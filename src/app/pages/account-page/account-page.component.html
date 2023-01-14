@@ -1,0 +1,76 @@
+<div id="breadcrumb">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <ul class="breadcrumb-tree">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">All Categories</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Headphones</a></li>
+            <li class="active">Product name goes here</li>
+          </ul> -->
+        <ejs-breadcrumb [enableNavigation]="true">
+          <e-breadcrumb-items>
+            <e-breadcrumb-item
+              iconCss="e-icons e-home"
+              url="./homepage"
+            ></e-breadcrumb-item>
+            <e-breadcrumb-item
+              text="Homepage"
+              url="./homepage"
+            ></e-breadcrumb-item>
+            <e-breadcrumb-item
+              text="Account"
+              url="./breadcrumb/default"
+            ></e-breadcrumb-item>
+          </e-breadcrumb-items>
+        </ejs-breadcrumb>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+
+<div class="section" fxLayout="row" fxLayoutAlign="center">
+  <!-- container -->
+  <div class="profile-container">
+    <mat-sidenav-container class="example-container" autosize>
+      <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+        <mat-nav-list>
+          <div fxLayout="row" fxLayoutGap="5px" style="padding: 20px;">
+            <img src="" alt="" style="width: 50px; height: 50px" />
+            <div fxLayout="column">
+              <span>Tai khoan cua</span>
+              <span>Truong Quoc Viet</span>
+            </div>
+          </div>
+
+          <mat-list-item class="parent">
+            <span class="full-width" [routerLink]="['/account/profile']">Thong tin tai khoan</span>
+            <mat-icon mat-list-icon>home</mat-icon>
+          </mat-list-item>
+          <mat-list-item class="parent">
+            <span class="full-width" [routerLink]="['/account/order']">Quan ly don hang</span>
+            <mat-icon mat-list-icon>home</mat-icon>
+          </mat-list-item>
+          <mat-list-item class="parent">
+            <span class="full-width">Wishlist</span>
+            <mat-icon mat-list-icon>home</mat-icon>
+          </mat-list-item>
+          <mat-list-item class="parent">
+            <span class="full-width">Thong bao</span>
+            <mat-icon mat-list-icon>home</mat-icon>
+          </mat-list-item>
+        </mat-nav-list>
+        <mat-nav-list></mat-nav-list>
+      </mat-sidenav>
+
+      <div class="example-sidenav-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-container>
+  </div>
+</div>

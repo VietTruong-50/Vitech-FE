@@ -15,6 +15,6 @@ import { CartItem } from './cartItem';
 export interface ShoppingSession { 
     id?: number;
     total?: number;
-    cartItems?: Set<CartItem>;
+    cartItems?: Array<CartItem>;
 }
 

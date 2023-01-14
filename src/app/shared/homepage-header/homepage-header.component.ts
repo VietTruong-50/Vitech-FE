@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import {
   CategoryControllerService,
   CustomerControllerService,
   UserControllerService,
 } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
-import { UserAccountComponent } from '../user-account/user-account.component';
 
 @Component({
   selector: 'app-homepage-header',
@@ -26,14 +26,16 @@ export class HomepageHeaderComponent implements OnInit {
     private customerController: CustomerControllerService,
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService,
-    private cartService: CartService
+    private cartService: CartService,
+    private cookieService: CookieService
   ) {
     this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {
-    this.getCartData();
+    // this.getCartData();
     this.getCategoriesData();
+    this.getCustomerCart();
   }
 
   showCart() {
@@ -46,8 +48,8 @@ export class HomepageHeaderComponent implements OnInit {
 
   cartData: any;
 
-  getCartData() {
-    this.cartData = this.cartService.getCartData();
+  getCartData(cartItems?: any) {
+    this.cartData = this.cartService.getCartData(cartItems);
   }
 
   totalValues: number = 0;
@@ -58,7 +60,15 @@ export class HomepageHeaderComponent implements OnInit {
 
   get cartLength() {
     this.getCartData();
-    return this.cartData.length;
+    return this.cartData ? this.cartData.length : 0;
+  }
+
+  getCustomerCart() {
+    if (this.cookieService.check('authToken')) {
+      this.customerController.getShoppingCart().subscribe((rs) => {
+        this.getCartData(rs.result?.cartItems);
+      });
+    }
   }
 
   categoryData: any;

@@ -21,11 +21,13 @@ import { CruSliderComponent } from './pages/slider-management/cru-slider/cru-sli
 import { SliderManagementComponent } from './pages/slider-management/slider-management.component';
 import { StoreUserComponent } from './pages/store-user/store-user.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
-import { WishlistUserComponent } from './pages/wishlist-user/wishlist-user.component';
+import { WishlistUserComponent } from './pages/account-page/wishlist-user/wishlist-user.component';
 import { HomepageHeaderComponent } from './shared/homepage-header/homepage-header.component';
 import { MasterComponentComponent } from './shared/master-component/master-component.component';
 import { MasterUserComponent } from './shared/master-user/master-user.component';
-import { UserAccountComponent } from './shared/user-account/user-account.component';
+import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { UserProfileComponent } from './pages/account-page/user-profile/user-profile.component';
+import { UserOrderComponent } from './pages/account-page/user-order/user-order.component';
 
 const routes: Routes = [
   {
@@ -123,7 +125,7 @@ const routes: Routes = [
         component: HomepageUserComponent,
       },
       {
-        path: 'sign-in',
+        path: 'signin',
         component: SignInComponent,
       },
       {
@@ -151,9 +153,24 @@ const routes: Routes = [
         component: BrandUserComponent,
       },
       {
-        path: 'wishlist',
-        component: WishlistUserComponent
-      }
+        path: 'account',
+        component: AccountPageComponent,
+        children: [
+          {
+            path: 'profile',
+            component: UserProfileComponent,
+          },
+          {
+            path: 'order',
+            component: UserOrderComponent,
+          },
+        ],
+      },
+      // ,
+      // {
+      //   path: 'wishlist',
+      //   component: WishlistUserComponent
+      // }
     ],
   },
 ];

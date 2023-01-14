@@ -23,13 +23,13 @@ import { ApiResponseComment } from '../model/apiResponseComment';
 // @ts-ignore
 import { ApiResponseDouble } from '../model/apiResponseDouble';
 // @ts-ignore
+import { ApiResponseListProduct } from '../model/apiResponseListProduct';
+// @ts-ignore
 import { ApiResponseObject } from '../model/apiResponseObject';
 // @ts-ignore
 import { ApiResponseOrder } from '../model/apiResponseOrder';
 // @ts-ignore
 import { ApiResponsePageComment } from '../model/apiResponsePageComment';
-// @ts-ignore
-import { ApiResponseSetProduct } from '../model/apiResponseSetProduct';
 // @ts-ignore
 import { ApiResponseShoppingSession } from '../model/apiResponseShoppingSession';
 // @ts-ignore
@@ -619,9 +619,9 @@ export class CustomerControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserWishlist(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<ApiResponseSetProduct>;
-    public getUserWishlist(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<ApiResponseSetProduct>>;
-    public getUserWishlist(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<ApiResponseSetProduct>>;
+    public getUserWishlist(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<ApiResponseListProduct>;
+    public getUserWishlist(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<ApiResponseListProduct>>;
+    public getUserWishlist(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<ApiResponseListProduct>>;
     public getUserWishlist(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -655,7 +655,7 @@ export class CustomerControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseSetProduct>(`${this.configuration.basePath}/api/customer/wishlist`,
+        return this.httpClient.get<ApiResponseListProduct>(`${this.configuration.basePath}/api/customer/wishlist`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

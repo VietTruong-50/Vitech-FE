@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, RoutesRecognized } from '@angular/router';
+import { Router, RouterEvent, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs';
+import { CartService } from 'src/app/service/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { filter, pairwise } from 'rxjs';
 export class AppComponent {
   title = 'admin-vitech';
 
-  constructor(private router: Router){
- 
+  constructor(){
+
   }
 }

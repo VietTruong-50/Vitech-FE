@@ -37,9 +37,9 @@ export class HomepageUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
-    this.getCategoryData();
-    this.getProductsByCategory('Laptop');
+    // this.getData();
+    // this.getCategoryData();
+    // this.getProductsByCategory('Laptop');
   }
 
   productData: any;

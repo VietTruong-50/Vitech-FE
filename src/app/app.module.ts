@@ -58,14 +58,16 @@ import { BreadcrumbAllModule } from '@syncfusion/ej2-angular-navigations';
 import { CategoryUserComponent } from './pages/category-user/category-user.component';
 import { BrandUserComponent } from './pages/brand-user/brand-user.component';
 import { ViewCartComponent } from './pages/checkout-cart/view-cart/view-cart.component';
-import { UserAccountComponent } from './shared/user-account/user-account.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
-import { UserProfileComponent } from './shared/user-account/user-profile/user-profile.component';
-import { UserOrderComponent } from './shared/user-account/user-order/user-order.component';
-import { WishlistUserComponent } from './pages/wishlist-user/wishlist-user.component';
+import { UserProfileComponent } from './pages/account-page/user-profile/user-profile.component';
+import { UserOrderComponent } from './pages/account-page/user-order/user-order.component';
+import { WishlistUserComponent } from './pages/account-page/wishlist-user/wishlist-user.component';
+import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,10 +105,10 @@ import { WishlistUserComponent } from './pages/wishlist-user/wishlist-user.compo
     CategoryUserComponent,
     BrandUserComponent,
     ViewCartComponent,
-    UserAccountComponent,
     UserProfileComponent,
     UserOrderComponent,
     WishlistUserComponent,
+    AccountPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,6 +136,7 @@ import { WishlistUserComponent } from './pages/wishlist-user/wishlist-user.compo
     MatNativeDateModule,
     MatExpansionModule,
     MatListModule,
+    MatSidenavModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

@@ -10,15 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { SafeUrl } from "@angular/platform-browser";
-
 
 export interface Category { 
     id?: number;
     name?: string;
     description?: string;
     categoryImageByte?: Array<string>;
-    imgUrl: SafeUrl
-
 }
 

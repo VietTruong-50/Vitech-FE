@@ -26,6 +26,6 @@ export interface Product {
     featureImageByte?: Array<string>;
     productImages?: Set<ImageModel>;
     subCategory?: SubCategory;
-    imgUrl: SafeUrl
+    imgUrl: SafeUrl;
 }
 

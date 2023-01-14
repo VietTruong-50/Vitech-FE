@@ -21,6 +21,7 @@ model/apiResponseCategory.ts
 model/apiResponseComment.ts
 model/apiResponseDouble.ts
 model/apiResponseJwtResponse.ts
+model/apiResponseListProduct.ts
 model/apiResponseListSubCategory.ts
 model/apiResponseObject.ts
 model/apiResponseOrder.ts
@@ -33,7 +34,6 @@ model/apiResponsePageSlider.ts
 model/apiResponsePageSubCategory.ts
 model/apiResponsePageUser.ts
 model/apiResponseProduct.ts
-model/apiResponseSetProduct.ts
 model/apiResponseShoppingSession.ts
 model/apiResponseSlider.ts
 model/apiResponseSubCategory.ts

@@ -8,8 +8,6 @@ import { GlobalConstants } from '../shared/GlobalConstants';
   providedIn: 'root',
 })
 export class AuthService {
-  
-
   constructor(
     private authService: AuthControllerService,
     private cookieService: CookieService,
@@ -22,10 +20,10 @@ export class AuthService {
     this.authService
       .authenticateUser({
         username: username,
-        password: password
+        password: password,
       })
       .subscribe((response) => {
-        console.log(response.result);
+        // console.log(response.result);
 
         if (response.errorCode == null) {
           this.cookieService.set(
@@ -35,15 +33,19 @@ export class AuthService {
             '/'
           );
           this.user = response?.result as JwtResponse;
-          localStorage.setItem('roles', JSON.stringify(response?.result?.roles));
+          localStorage.setItem(
+            'roles',
+            JSON.stringify(response?.result?.roles)
+          );
           if (
             response.result?.roles?.includes('ROLE_ADMIN') ||
             response.result?.roles?.includes('ROLE_MOD')
           ) {
             this.router.navigate(['admin']);
-            location.href = "/admin"
-          }else{
-            this.router.navigate(['homepage'])
+            location.href = '/admin';
+          } else {
+            this.router.navigate(['homepage']);
+            // location.href = "/homepage"
           }
         }
       });

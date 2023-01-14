@@ -45,13 +45,13 @@ export class CategoryManagementComponent implements OnInit {
     this.categoryController
       .getAllCategory(this.pageSize, pageIndex ? pageIndex : 0, 'name')
       .subscribe((response) => {
-        response.result?.content?.forEach((item) => {
-          if (item.categoryImageByte) {
-            let objectURL = 'data:image/jpeg;base64,' + item.categoryImageByte;
+        // response.result?.content?.forEach((item) => {
+        //   if (item.categoryImageByte) {
+        //     let objectURL = 'data:image/jpeg;base64,' + item.categoryImageByte;
 
-            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          }
-        });
+        //     item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        //   }
+        // });
 
         this.dataSource = new MatTableDataSource<Category>(
           response.result?.content

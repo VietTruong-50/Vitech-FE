@@ -7,23 +7,27 @@ import { CartItem, CustomerControllerService, Product } from '../api-svc';
   providedIn: 'root',
 })
 export class CartService {
-  cartData: CartItem[] = [];
+  _cartItems: CartItem[] = [];
 
-  constructor(
-    private customerController: CustomerControllerService,
-    private sanitizer: DomSanitizer,
-    private cookieService: CookieService
-  ) {}
+  set cartItems(list: any) {
+    this._cartItems = list;
+  }
+
+  get cartItems() {
+    return this._cartItems;
+  }
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   addOrUpdateCartItem(product: Product, quantity?: number) {
     if (localStorage.getItem('cart_items')) {
-      console.log(this.cartData);
+      console.log(this._cartItems);
 
-      let index = this.cartData.findIndex(
+      let index = this._cartItems.findIndex(
         (item) => item.product?.actualPrice === product.actualPrice
       );
 
-      let valueExist = this.cartData.find(
+      let valueExist = this._cartItems.find(
         (item) => item.product?.actualPrice === product.actualPrice
       );
 
@@ -31,7 +35,7 @@ export class CartService {
 
       if (index > -1) {
         console.log('Product exist');
-        this.cartData.splice(index, 1);
+        this._cartItems.splice(index, 1);
 
         valueExist = {
           id: valueExist?.id,
@@ -40,9 +44,9 @@ export class CartService {
           itemPrice: valueExist?.itemPrice,
         };
 
-        this.cartData.push(valueExist);
+        this._cartItems.push(valueExist);
       } else {
-        this.cartData.push({
+        this._cartItems.push({
           quantity: quantity ? quantity : 1,
           product: product,
           itemPrice: product.actualPrice,
@@ -54,33 +58,28 @@ export class CartService {
   }
 
   saveCart(): void {
-    localStorage.setItem('cart_items', JSON.stringify(this.cartData));
+    localStorage.setItem('cart_items', JSON.stringify(this._cartItems));
   }
 
   loadCart(): void {
-    this.cartData = JSON.parse(localStorage.getItem('cart_items')!) ?? [];
+    this._cartItems = JSON.parse(localStorage.getItem('cart_items')!) ?? [];
   }
 
   removeItemFromCart(itemId?: number) {
-    let index = this.cartData.findIndex((item) => item.id === itemId);
+    let index = this._cartItems.findIndex((item) => item.id === itemId);
 
-    this.cartData.splice(index, 1);
+    this._cartItems.splice(index, 1);
 
     this.saveCart();
   }
 
-  getCartData() {
-    if (this.cookieService.check('authToken')) {
-      this.customerController.getShoppingCart().subscribe((response) => {
-        // this.cartData = response.result?.cartItems
+  getCartData(cartItem?: any) {
 
-        this.saveCart();
-      });
-    } else {
-      this.loadCart();
+    if(cartItem != null){
+      this._cartItems = cartItem
     }
 
-    this.cartData.forEach((item) => {
+    this._cartItems?.forEach((item) => {
       if (item.product!.featureImageByte) {
         let objectURL =
           'data:image/jpeg;base64,' + item.product!.featureImageByte;
@@ -89,18 +88,12 @@ export class CartService {
       }
     });
 
-    return this.cartData;
+    return this._cartItems;
   }
-
-  // getTotalValues(): Observable<number | undefined> {
-  //   return this.customerController
-  //     .getTotalValues(Number(sessionStorage.getItem('cartId')))
-  //     .pipe(map((item) => item.result));
-  // }
 
   getTotalValues() {
     let totalValues = 0;
-    this.cartData.forEach((item) => {
+    this._cartItems.forEach((item) => {
       totalValues += item.itemPrice! * item.quantity!;
     });
     return totalValues;

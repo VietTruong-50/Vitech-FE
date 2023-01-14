@@ -23,20 +23,20 @@ export class HasRoleGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      console.log(this.authService.user.roles);
+    //   console.log(this.authService.user.roles);
       
-    if (this.authService.user.roles) {
-      const isAuthorized = this.authService.user.roles.includes(
-        route.data['role']
-      );
-      if (!isAuthorized) {
-        console.log('You are not allowed');
+    // if (this.authService.user.roles) {
+    //   const isAuthorized = this.authService.user.roles.includes(
+    //     route.data['role']
+    //   );
+    //   if (!isAuthorized) {
+    //     console.log('You are not allowed');
         
-        window.alert('You are not allowed');
-      }
+    //     window.alert('You are not allowed');
+    //   }
 
-      return isAuthorized;
-    }
+    //   return isAuthorized;
+    // }
 
     return false;
   }

@@ -23,13 +23,13 @@ export class CategoryUserComponent implements OnInit {
     this.categoryController
       .getAllCategory(20, 0, 'name')
       .subscribe((response) => {
-        response.result?.content?.forEach((item) => {
-          if (item.categoryImageByte) {
-            let objectURL = 'data:image/jpeg;base64,' + item.categoryImageByte;
+        // response.result?.content?.forEach((item) => {
+        //   if (item.categoryImageByte) {
+        //     let objectURL = 'data:image/jpeg;base64,' + item.categoryImageByte;
 
-            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          }
-        });
+        //     item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        //   }
+        // });
         
         this.categoryData = response.result?.content;
       });
