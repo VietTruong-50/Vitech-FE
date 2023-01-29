@@ -22,10 +22,11 @@ export interface Product {
     content?: string;
     quantity?: number;
     actualPrice?: number;
+    shortDescription?: string;
     featureImageName?: string;
     featureImageByte?: Array<string>;
     productImages?: Set<ImageModel>;
     subCategory?: SubCategory;
-    imgUrl: SafeUrl;
+    imgUrl: SafeUrl
 }
 

@@ -1,0 +1,16 @@
+.product-code,
+.product-name {
+  font-size: 15px;
+}
+
+.product .add-to-cart {
+  bottom: 35px;
+}
+::ng-deep .mat-tab-body {
+  height: 550px;
+}
+
+::ng-deep .mat-tab-body-content {
+  display: flex;
+  margin-top: 20px;
+}

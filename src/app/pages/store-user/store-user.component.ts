@@ -1,15 +1,16 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
   SubCategoryControllerService,
   CategoryControllerService,
   ProductControllerService,
   Product,
+  CustomerControllerService,
 } from 'src/app/api-svc';
 import { RouterItem } from 'src/app/interface/RouterItem';
 import { CartService } from 'src/app/service/cart.service';
-import { RouterService } from 'src/app/service/router.service';
 
 @Component({
   selector: 'app-store-user',
@@ -31,26 +32,43 @@ export class StoreUserComponent implements OnInit {
     },
   };
 
+  categorySearch: string[] = [];
+  subCategorySearch: string[] = [];
+  searchText: any;
+
   constructor(
     private categoryController: CategoryControllerService,
     private subCategoryController: SubCategoryControllerService,
-    private productController: ProductControllerService,
     private sanitizer: DomSanitizer,
-    private cartService: CartService
-    // private routerService: RouterService
+    private cartService: CartService,
+    private customerController: CustomerControllerService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
-    // this.previousRoutes.push(this.routerService.getPreviousRoute());
-    // console.log(this.previousRoutes);
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (this.route.snapshot.paramMap.get('categorySearch') != 'All') {
+          this.categorySearch = [];
+          this.categorySearch.push(
+            this.route.snapshot.paramMap.get('categorySearch')!
+          );
+        }else{
+          this.categorySearch = ['LAPTOP', 'MOBILE', 'ACCESSORIES']
+        }
+        this.searchText = this.route.snapshot.paramMap.get('searchText');
+
+        this.filterProduct();
+        this.getSubCategoryData();
+      }
+    });
   }
 
   ngOnInit(): void {
     this.getCategoryData();
-    this.getBrandData();
-    this.getProductData();
   }
 
   listCategories: any;
-  listBrands: any;
+  listSubCategories: any;
   listProducts: any;
 
   getCategoryData() {
@@ -61,33 +79,34 @@ export class StoreUserComponent implements OnInit {
       });
   }
 
-  getBrandData() {
+  getSubCategoryData() {
     this.subCategoryController
-      .getAllSubCategory(10, 0, 'subCateName')
+      .getSubCategoryDataByCategory(this.categorySearch)
       .subscribe((response) => {
-        this.listBrands = response.result?.content;
+        this.listSubCategories = response.result;
       });
   }
 
-  // currentlyChecked: CheckBoxType;
+  currentPage: number = 1;
+  itemsPerPage: number = 20;
+  totalElements: number = 100;
 
-  // selectCheckBox(targetType: CheckBoxType) {
-  //   // If the checkbox was already checked, clear the currentlyChecked variable
-  //   if(this.currentlyChecked === targetType) {
-  //     this.currentlyChecked = CheckBoxType.NONE;
-  //     return;
-  //   }
+  addItemToCart(product: Product) {
+    this.cartService.addOrUpdateCartItem(product);
+  }
 
-  //   this.currentlyChecked = targetType;
-  //   console.log(this.currentlyChecked)
-  // }
-
-  pageSize: number = 10;
-  pageIndex: number = 0;
-
-  getProductData() {
-    this.productController
-      .getAllProduct(this.pageSize, this.pageIndex, 'name')
+  filterProduct(event?: any) {
+    this.customerController
+      .filterProduct(
+        0,
+        1000,
+        event != undefined ? event.target.value : 'actualPrice',
+        this.categorySearch,
+        this.subCategorySearch,
+        this.minValue ? this.minValue : 0,
+        this.maxValue ? this.maxValue : 100000000,
+        this.searchText ? this.searchText : ''
+      )
       .subscribe((response) => {
         response.result?.content?.forEach((item) => {
           if (item.featureImageByte) {
@@ -98,11 +117,36 @@ export class StoreUserComponent implements OnInit {
         });
 
         this.listProducts = response.result?.content;
+
+        this.totalElements = this.listProducts.length;
+        this.itemsPerPage = this.totalElements < 20 ? this.totalElements : 20;
       });
   }
 
-  addItemToCart(product: Product) {
-    this.cartService.addOrUpdateCartItem(product);
+  setitemsPerPage(event: any) {
+    this.itemsPerPage =
+      this.totalElements < event.target.value
+        ? this.totalElements
+        : event.target.value;
   }
 
+  getCategorySearchList(event: any, category: any) {
+    if (event.target.checked) {
+      this.categorySearch.push(category.name);
+    } else {
+      this.categorySearch.splice(this.categorySearch.indexOf(category.name), 1);
+    }
+    this.getSubCategoryData();
+  }
+
+  getSubCategorySearchList(event: any, subCategory: any) {
+    if (event.target.checked) {
+      this.subCategorySearch.push(subCategory.subCateName);
+    } else {
+      this.subCategorySearch.splice(
+        this.subCategorySearch.indexOf(subCategory.subCateName),
+        1
+      );
+    }
+  }
 }

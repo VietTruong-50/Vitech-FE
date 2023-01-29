@@ -40,29 +40,29 @@
     <mat-sidenav-container class="example-container" autosize>
       <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
         <mat-nav-list>
-          <div fxLayout="row" fxLayoutGap="5px" style="padding: 20px;">
-            <img src="" alt="" style="width: 50px; height: 50px" />
-            <div fxLayout="column">
+          <div fxLayout="row" fxLayoutGap="10px" style="padding: 20px">
+            <span class="e-avatar e-avatar-xlarge blue">{{ userData ? userData.result.userName.charAt(0) : ' ' }}</span>
+            <div fxLayout="column" fxLayoutAlign="center">
               <span>Tai khoan cua</span>
-              <span>Truong Quoc Viet</span>
+              <span>{{ userData ? userData.result.userName : ' ' }}</span>
             </div>
           </div>
 
-          <mat-list-item class="parent">
-            <span class="full-width" [routerLink]="['/account/profile']">Thong tin tai khoan</span>
-            <mat-icon mat-list-icon>home</mat-icon>
+          <mat-list-item class="parent" [routerLink]="['/account/profile']">
+            <span class="full-width">Thong tin tai khoan</span>
+            <mat-icon mat-list-icon>perm_identity</mat-icon>
           </mat-list-item>
-          <mat-list-item class="parent">
-            <span class="full-width" [routerLink]="['/account/order']">Quan ly don hang</span>
-            <mat-icon mat-list-icon>home</mat-icon>
+          <mat-list-item class="parent" [routerLink]="['/account/order']">
+            <span class="full-width">Quan ly don hang</span>
+            <mat-icon mat-list-icon>list_alt</mat-icon>
           </mat-list-item>
-          <mat-list-item class="parent">
+          <!-- <mat-list-item class="parent">
             <span class="full-width">Wishlist</span>
             <mat-icon mat-list-icon>home</mat-icon>
-          </mat-list-item>
+          </mat-list-item> -->
           <mat-list-item class="parent">
             <span class="full-width">Thong bao</span>
-            <mat-icon mat-list-icon>home</mat-icon>
+            <mat-icon mat-list-icon>notifications</mat-icon>
           </mat-list-item>
         </mat-nav-list>
         <mat-nav-list></mat-nav-list>

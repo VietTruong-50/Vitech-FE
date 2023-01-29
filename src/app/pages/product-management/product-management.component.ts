@@ -62,7 +62,7 @@ export class ProductManagementComponent implements OnInit {
 
   getBrandData(name: string) {
     this.subCategoryController
-      .getSubCategoryDataByCategory(name)
+      .getSubCategoryDataByCategory([name])
       .subscribe((response) => {
         if (response.errorCode == null) {
           this.subCateData = response.result;

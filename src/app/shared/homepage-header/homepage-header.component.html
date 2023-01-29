@@ -9,7 +9,7 @@
         </li>
         <li>
           <a href="#" class="text-white"
-            ><i class="fa fa-envelope"></i> email@email.com</a
+            ><i class="fa fa-envelope"></i> vitechShop247@email.com</a
           >
         </li>
         <li>
@@ -19,14 +19,24 @@
         </li>
       </ul>
       <ul class="header-links" fxLayout="row">
-        <li>
+        <!-- <li>
           <a href="#" class="text-white"
             ><i class="fa fa-dollar-sign"></i> USD</a
           >
-        </li>
-        <li>
-          <a (click)="renderTo('account')" class="text-white"
+        </li> -->
+        <li *ngIf="isLogin()">
+          <a (click)="renderToAccount()" class="text-white"
             ><i class="fa fa-user"></i> My Account</a
+          >
+        </li>
+        <li *ngIf="!isLogin()">
+          <a (click)="renderTo('signin')" class="text-white"
+            ><i class="fa fa-sign-in"></i> Sign in</a
+          >
+        </li>
+        <li *ngIf="isLogin()">
+          <a (click)="signout()" class="text-white"
+            ><i class="fa fa-sign-out"></i> Sign out</a
           >
         </li>
       </ul>
@@ -47,14 +57,19 @@
         <div class="col-md-6" fxLayout="row" fxLayoutAlign="center center">
           <div class="header-search w-100">
             <form>
-              <select class="input-select">
-                <option value="0" selected>All Categories</option>
-                <option value="{{ cate.id }}" *ngFor="let cate of categoryData">
+              <select
+                class="input-select"
+                [(ngModel)]="categorySearch"
+                [ngModelOptions]="{ standalone: true }"
+                ngDefaultControl
+              >
+                <option value="All" selected>All Categories</option>
+                <option value="{{ cate.name }}" *ngFor="let cate of categoryData">
                   {{ cate.name }}
                 </option>
               </select>
-              <input class="input" placeholder="Search here" />
-              <button class="search-btn">Search</button>
+              <input class="input" placeholder="Search here"  [(ngModel)]="searchText"  [ngModelOptions]="{ standalone: true }"/>
+              <button class="search-btn" (click)="search()">Search</button>
             </form>
           </div>
         </div>
@@ -66,11 +81,11 @@
           fxLayoutAlign="center center"
         >
           <div class="header-ctn" fxFlex="row" fxLayoutAlign="center center">
-            <div (click)="renderTo('wishlist')">
+            <div (click)="renderTo('account/wishlist')">
               <a fxLayout="column" fxLayoutAlign="center center">
                 <i class="fa fa-heart"></i>
                 <span>Your Wishlist</span>
-                <div class="qty">2</div>
+                <!-- <div class="qty">2</div> -->
               </a>
             </div>
 
@@ -86,14 +101,14 @@
               </a>
               <div [hidden]="!isShowCart" class="cart-dropdown">
                 <div class="cart-list">
-                  <div class="product-widget" *ngFor="let item of cartData ">
+                  <div class="product-widget" *ngFor="let item of cartData">
                     <div class="product-img">
                       <img [src]="item.product.imgUrl" class="w-100" alt="" />
                     </div>
                     <div class="product-body">
                       <h3 class="product-name">
                         <a href="#">{{
-                          item.product.name | truncateText: 45
+                          item.product.name | truncateText : 45
                         }}</a>
                       </h3>
                       <h4 class="product-price">
@@ -135,7 +150,7 @@
         >
           <a>Home</a>
         </li>
-        <li><a>Hot Deals</a></li>
+        <!-- <li><a>Hot Deals</a></li> -->
         <!-- <li [ngClass]="currentRoute == '/categories' ? 'active' : ' '">
           <a (click)="renderTo('categories')">Categories</a>
         </li>

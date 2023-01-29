@@ -67,6 +67,9 @@ import { UserOrderComponent } from './pages/account-page/user-order/user-order.c
 import { WishlistUserComponent } from './pages/account-page/wishlist-user/wishlist-user.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -109,6 +112,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     UserOrderComponent,
     WishlistUserComponent,
     AccountPageComponent,
+    UserOrderDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -137,6 +141,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatExpansionModule,
     MatListModule,
     MatSidenavModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

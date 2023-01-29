@@ -122,7 +122,7 @@ export class CruProductComponent implements OnInit {
   }
 
   getBrandData(name: string) {
-    this.subCategoryController.getSubCategoryDataByCategory(name).subscribe((response) => {
+    this.subCategoryController.getSubCategoryDataByCategory([name]).subscribe((response) => {
       if (response.errorCode == null) {
         this.brandData = response.result;
       }

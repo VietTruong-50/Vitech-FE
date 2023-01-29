@@ -295,16 +295,21 @@ export class SubCategoryControllerService {
     }
 
     /**
-     * @param name 
+     * @param names 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSubCategoryDataByCategory(name: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListSubCategory>;
-    public getSubCategoryDataByCategory(name: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListSubCategory>>;
-    public getSubCategoryDataByCategory(name: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListSubCategory>>;
-    public getSubCategoryDataByCategory(name: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling getSubCategoryDataByCategory.');
+    public getSubCategoryDataByCategory(names?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListSubCategory>;
+    public getSubCategoryDataByCategory(names?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListSubCategory>>;
+    public getSubCategoryDataByCategory(names?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListSubCategory>>;
+    public getSubCategoryDataByCategory(names?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (names) {
+            names.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'names');
+            })
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -338,9 +343,10 @@ export class SubCategoryControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseListSubCategory>(`${this.configuration.basePath}/api/categories/${encodeURIComponent(String(name))}/SubCategories`,
+        return this.httpClient.get<ApiResponseListSubCategory>(`${this.configuration.basePath}/api/categories/subCategories`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

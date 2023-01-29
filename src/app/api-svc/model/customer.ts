@@ -9,17 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Product } from './product';
 
 
 export interface Customer { 
     id?: number;
     userName?: string;
+    fullName?: string;
     email?: string;
     genderEnum?: Customer.GenderEnumEnum;
     address?: string;
+    phone?: string;
+    dateOfBirth?: string;
     role?: string;
-    wishListProducts?: Array<Product>;
 }
 export namespace Customer {
     export type GenderEnumEnum = 'MALE' | 'FEMALE' | 'OTHER';

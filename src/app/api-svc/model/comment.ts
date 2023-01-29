@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { Customer } from './customer';
-import { Product } from './product';
 
 
 export interface Comment { 
@@ -18,6 +17,5 @@ export interface Comment {
     content?: string;
     dateCreate?: string;
     customer?: Customer;
-    product?: Product;
 }
 

@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { OrderDetail } from './orderDetail';
 import { ShippingMethod } from './shippingMethod';
 import { Customer } from './customer';
 
@@ -22,6 +23,7 @@ export interface Order {
     deliverDate?: string;
     orderDate?: string;
     shippingMethod?: ShippingMethod;
+    orderDetails?: Array<OrderDetail>;
 }
 export namespace Order {
     export type StatusEnum = 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL';

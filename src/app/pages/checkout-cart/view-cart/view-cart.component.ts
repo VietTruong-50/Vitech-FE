@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import {
-  CartItem,
-  CategoryControllerService,
-  CustomerControllerService,
-  UserControllerService,
-} from 'src/app/api-svc';
+import { CartItem } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
 
 @Component({
@@ -29,7 +24,7 @@ export class ViewCartComponent implements OnInit {
 
   removeItem(itemId?: number) {
     this.cartService.removeItemFromCart(itemId);
-    this.getCartData()
+    this.getCartData();
   }
 
   get getTotalValues() {
@@ -44,7 +39,7 @@ export class ViewCartComponent implements OnInit {
 
   quantity: number = 1;
 
-  updateItemQuantity(item: CartItem, quantity?: number){
-    this.cartService.addOrUpdateCartItem(item.product!, quantity)
+  updateItemQuantity(item: CartItem, quantity?: number) {
+    this.cartService.addOrUpdateCartItem(item.product!, quantity);
   }
 }

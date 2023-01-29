@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import {
   CategoryControllerService,
   CustomerControllerService,
@@ -31,15 +32,16 @@ export class HomepageUserComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private categoryController: CategoryControllerService,
     private customerController: CustomerControllerService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {
 
   }
 
   ngOnInit(): void {
-    // this.getData();
-    // this.getCategoryData();
-    // this.getProductsByCategory('Laptop');
+    this.getData();
+    this.getCategoryData();
+    this.getProductsByCategory('Laptop');
   }
 
   productData: any;
@@ -94,5 +96,7 @@ export class HomepageUserComponent implements OnInit {
     this.cartService.addOrUpdateCartItem(product);
   }
 
-
+  renderTo(url: string, id?: number){
+    this.router.navigate([url, id])
+  }
 }

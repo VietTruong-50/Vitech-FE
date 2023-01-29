@@ -43,7 +43,11 @@ export class HomepageHeaderComponent implements OnInit {
   }
 
   renderTo(url: string) {
-    this.router.navigate([url]);
+    if (url == 'account/wishlist' && !this.isLogin()) {
+      this.router.navigate(['signin']);
+    } else {
+      this.router.navigate([url]);
+    }
   }
 
   cartData: any;
@@ -83,5 +87,31 @@ export class HomepageHeaderComponent implements OnInit {
 
   removeItem(itemId: number) {
     this.cartService.removeItemFromCart(itemId);
+  }
+
+  isLogin() {
+    if (this.cookieService.check('authToken')) {
+      return true;
+    }
+    return false;
+  }
+
+  renderToAccount() {
+    this.router.navigate(['account']);
+  }
+
+  categorySearch: string = 'All';
+  searchText: string = '';
+
+  search() {
+    this.router.navigate([
+      '/store',
+      { categorySearch: this.categorySearch, searchText: this.searchText },
+    ]);
+  }
+
+  signout() {
+    this.cookieService.delete('authToken');
+    this.router.navigate(['homepage']);
   }
 }

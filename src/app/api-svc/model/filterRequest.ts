@@ -9,15 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageSize?: number;
-    pageNumber?: number;
-    unpaged?: boolean;
-    paged?: boolean;
+export interface FilterRequest { 
+    categoryId?: number;
+    subCateId?: number;
+    firstPrice?: number;
+    secondPrice?: number;
+    page?: number;
+    size?: number;
+    sortBy?: string;
 }
 

@@ -28,6 +28,7 @@ import { MasterUserComponent } from './shared/master-user/master-user.component'
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { UserProfileComponent } from './pages/account-page/user-profile/user-profile.component';
 import { UserOrderComponent } from './pages/account-page/user-order/user-order.component';
+import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
 
 const routes: Routes = [
   {
@@ -133,10 +134,6 @@ const routes: Routes = [
         component: StoreUserComponent,
       },
       {
-        path: 'product',
-        component: ProductDetailUserComponent,
-      },
-      {
         path: 'checkout',
         component: CheckoutCartComponent,
       },
@@ -153,6 +150,10 @@ const routes: Routes = [
         component: BrandUserComponent,
       },
       {
+        path: 'product/:id',
+        component: ProductDetailUserComponent
+      },
+      {
         path: 'account',
         component: AccountPageComponent,
         children: [
@@ -163,6 +164,10 @@ const routes: Routes = [
           {
             path: 'order',
             component: UserOrderComponent,
+          },
+          {
+            path: 'order/:code',
+            component: UserOrderDetailComponent,
           },
         ],
       },

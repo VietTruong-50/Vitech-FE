@@ -15,10 +15,12 @@ import { Role } from './role';
 export interface User { 
     id?: number;
     userName?: string;
+    fullName?: string;
     email?: string;
     genderEnum?: User.GenderEnumEnum;
     address?: string;
-    salary?: number;
+    phone?: string;
+    dateOfBirth?: string;
     roles?: Set<Role>;
 }
 export namespace User {

@@ -14,11 +14,15 @@
 export interface UserRequest { 
     userName?: string;
     password?: string;
+    fullName?: string;
     email?: string;
     genderEnum?: UserRequest.GenderEnumEnum;
     address?: string;
+    phone?: string;
+    dateOfBirth?: string;
     salary?: number;
     roles?: Array<string>;
+    customer?: boolean;
 }
 export namespace UserRequest {
     export type GenderEnumEnum = 'MALE' | 'FEMALE' | 'OTHER';

@@ -23,8 +23,8 @@ export interface PageSubCategory {
     sort?: Sort;
     first?: boolean;
     last?: boolean;
-    pageable?: PageableObject;
     numberOfElements?: number;
+    pageable?: PageableObject;
     empty?: boolean;
 }
 
