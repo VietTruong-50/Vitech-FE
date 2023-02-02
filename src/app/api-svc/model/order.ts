@@ -11,6 +11,7 @@
  */
 import { OrderDetail } from './orderDetail';
 import { ShippingMethod } from './shippingMethod';
+import { CardPayment } from './cardPayment';
 import { Customer } from './customer';
 
 
@@ -20,9 +21,11 @@ export interface Order {
     customer?: Customer;
     total?: number;
     status?: Order.StatusEnum;
-    deliverDate?: string;
+    deliveryDate?: string;
     orderDate?: string;
     shippingMethod?: ShippingMethod;
+    cardPayment?: CardPayment;
+    paymentMethodEnum?: Order.PaymentMethodEnumEnum;
     orderDetails?: Array<OrderDetail>;
 }
 export namespace Order {
@@ -32,6 +35,11 @@ export namespace Order {
         WaitingDelivery: 'WAITING_DELIVERY' as StatusEnum,
         Success: 'SUCCESS' as StatusEnum,
         Cancel: 'CANCEL' as StatusEnum
+    };
+    export type PaymentMethodEnumEnum = 'ONLINE_PAYING' | 'DELIVERY_PAYING';
+    export const PaymentMethodEnumEnum = {
+        OnlinePaying: 'ONLINE_PAYING' as PaymentMethodEnumEnum,
+        DeliveryPaying: 'DELIVERY_PAYING' as PaymentMethodEnumEnum
     };
 }
 

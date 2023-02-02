@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthControllerService, JwtResponse } from '../api-svc';
 import { GlobalConstants } from '../shared/GlobalConstants';
@@ -15,7 +16,9 @@ export class AuthService {
   ) {
     localStorage.setItem('roles', '');
   }
+
   user!: JwtResponse;
+
   login(username: string, password: string) {
     this.authService
       .authenticateUser({
@@ -47,6 +50,29 @@ export class AuthService {
             this.router.navigate(['homepage']);
             // location.href = "/homepage"
           }
+        }
+      });
+  }
+
+  signUp(userRequest: any) {
+    console.log(userRequest);
+
+    this.authService
+      .register({
+        userName: userRequest.username,
+        password: userRequest.password,
+        address: userRequest.address,
+        customer: true,
+        email: userRequest.email,
+        dateOfBirth: moment(userRequest.dateOfBirth).toISOString(),
+        fullName: userRequest.fullName,
+        genderEnum: userRequest.gender,
+        phone: userRequest.phone,
+      })
+      .subscribe((rs) => {
+        console.log(rs);
+        if (String(rs.message) == 'Error: Email is already taken!') {
+        } else if (String(rs.message) == 'Error: Username is already taken!') {
         }
       });
   }

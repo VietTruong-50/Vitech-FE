@@ -1,40 +1,50 @@
-
-<div class="section">
+<div class="form-section">
   <div class="container" fxLayout="row" fxLayoutAlign="end">
     <div class="row sign-in-form" fxLayout="row" fxLayoutAlign="center">
-      <div fxLayout="column" fxLayoutGap="50px">
-        <p style="font-size: 25px">LOGIN FORM</p>
-        <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="50px">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input
-              name="username"
-              type="text"
-              class="form-control"
-              formControlName="username"
-              placeholder="User name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              name="password"
-              type="password"
-              class="form-control"
-              placeholder="Password"
-              formControlName="password"
-            />
-          </div>
-        </form>
-      </div>
+      <div fxLayout="column" class="w-100" fxLayoutGap="30px">
+        <div fxLayout="column" fxLayoutGap="50px" class="w-100">
+          <p style="font-size: 25px">LOGIN FORM</p>
+          <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="50px">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                name="username"
+                type="text"
+                class="form-control"
+                formControlName="username"
+                placeholder="User name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                name="password"
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                formControlName="password"
+              />
+            </div>
+          </form>
+        </div>
 
-      <div fxLayout="row" fxLayoutAlign="end" style="margin-top: 30px">
-        <button mat-raised-button class="btn btn-primary" (click)="login()">
-          Log in
-        </button>
+        <div fxLayout="row" fxLayoutAlign="end" class="w-100">
+          <button
+            mat-raised-button
+            class="btn btn-primary"
+            (click)="login()"
+            class="w-100"
+          >
+            Log in
+          </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+          <p>
+            New to ViTech?
+            <a href="signup" class="singup-link"> Create an account</a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-

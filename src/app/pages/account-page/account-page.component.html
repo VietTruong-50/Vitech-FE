@@ -41,27 +41,44 @@
       <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
         <mat-nav-list>
           <div fxLayout="row" fxLayoutGap="10px" style="padding: 20px">
-            <span class="e-avatar e-avatar-xlarge blue">{{ userData ? userData.result.userName.charAt(0) : ' ' }}</span>
+            <span class="e-avatar e-avatar-xlarge blue">{{
+              userData ? userData.result.userName.charAt(0) : " "
+            }}</span>
             <div fxLayout="column" fxLayoutAlign="center">
               <span>Tai khoan cua</span>
-              <span>{{ userData ? userData.result.userName : ' ' }}</span>
+              <span>{{ userData ? userData.result.userName : " " }}</span>
             </div>
           </div>
 
-          <mat-list-item class="parent" [routerLink]="['/account/profile']">
-            <span class="full-width">Thong tin tai khoan</span>
+          <mat-list-item
+            class="parent"
+            [routerLink]="['/account/profile']"
+            [class.active]="selectedIndex === 1"
+            (click)="setIndex(1)"
+          >
+            <span class="full-width">Thông tin tài khoản</span>
             <mat-icon mat-list-icon>perm_identity</mat-icon>
           </mat-list-item>
-          <mat-list-item class="parent" [routerLink]="['/account/order']">
-            <span class="full-width">Quan ly don hang</span>
+          <mat-list-item
+            class="parent"
+            [routerLink]="['/account/order']"
+            [class.active]="selectedIndex === 2"
+            (click)="setIndex(2)"
+          >
+            <span class="full-width">Quản lý đơn hàng</span>
             <mat-icon mat-list-icon>list_alt</mat-icon>
           </mat-list-item>
           <!-- <mat-list-item class="parent">
             <span class="full-width">Wishlist</span>
             <mat-icon mat-list-icon>home</mat-icon>
           </mat-list-item> -->
-          <mat-list-item class="parent">
-            <span class="full-width">Thong bao</span>
+          <mat-list-item
+            class="parent"
+            [class.active]="selectedIndex === 3"
+            (click)="setIndex(3)"
+            [routerLink]="['/account/notification']"
+          >
+            <span class="full-width">Thông báo</span>
             <mat-icon mat-list-icon>notifications</mat-icon>
           </mat-list-item>
         </mat-nav-list>

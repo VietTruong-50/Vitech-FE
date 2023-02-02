@@ -161,10 +161,10 @@
           <ul class="product-links">
             <li>Category:</li>
             <li>
-              <a href="#">{{ productData?.subCategory.subCateName }}</a>
+              <a>{{ productData?.subCategory.subCateName }}</a>
             </li>
-            <li>
-              <a href="#">{{ productData?.subCategory.category.name }}</a>
+            <li (click)="search(productData?.subCategory.category.name)">
+              <a>{{ productData?.subCategory.category.name }}</a>
             </li>
           </ul>
         </div>
@@ -294,6 +294,7 @@
                     </ul>
 
                     <pagination-controls
+                      *ngIf="commentsData.length > 0"
                       fxLayout="row"
                       fxLayoutAlign="center center"
                       (pageChange)="currentPage = $event"

@@ -99,4 +99,11 @@ export class HomepageUserComponent implements OnInit {
   renderTo(url: string, id?: number){
     this.router.navigate([url, id])
   }
+
+  viewAll(categorySearch: string) {
+    this.router.navigate([
+      '/store',
+      { categorySearch: categorySearch, searchText: '' },
+    ]);
+  }
 }

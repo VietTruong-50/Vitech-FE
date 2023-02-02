@@ -1,0 +1,28 @@
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="space-between" style="margin: 15px 15px 30px 15px">
+    <p>Thông báo</p>
+  </div>
+  <div fxLayout="column" fxLayoutGap="30px">
+    <div class="w-100">
+      <div
+        style="width: 90%"
+        fxLayout="row"
+        fxLayoutGap="10px"
+        *ngFor="let noti of notificationsData"
+        (click)="renderTo(noti.order.orderCode)"
+      >
+        <div fxFlex="20" fxLayout="row" fxLayoutAlign="center none">
+          <img src="" alt="" width="90px" height="90px" />
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+          <div fxLayout="column">
+            <p><strong>{{ noti.message }}</strong></p>
+            <p>Mã đơn hàng: {{ noti.order.orderCode }}</p>
+            <p>{{ noti.createdAt | date}}</p>
+          </div>
+          <div>{{ noti.order.status == "WAITING_DELIVERY" ? "Đặt hàng thành công" : "Giao hàng thành công"}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,11 +13,14 @@
               fxLayout="row"
               fxLayoutGap="10px"
             >
-              <ng-container *ngFor="let category of listCategory; let i = index">
-                <li (click)="getProductsByCategory(category.name)" [ngClass]="{'active': i === 0}">
-                  <a>{{
-                    category.name
-                  }}</a>
+              <ng-container
+                *ngFor="let category of listCategory; let i = index"
+              >
+                <li
+                  (click)="getProductsByCategory(category.name)"
+                  [ngClass]="{ active: i === 0 }"
+                >
+                  <a>{{ category.name }}</a>
                 </li>
               </ng-container>
             </ul>
@@ -50,18 +53,18 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">{{product.subCategory.subCateName}}</p>
+                  <p class="product-category">
+                    {{ product.subCategory.subCateName }}
+                  </p>
                   <h3 class="product-name">
                     <a (click)="renderTo('product', product.id)">{{
-                      product.name | truncateText: 40
+                      product.name | truncateText : 40
                     }}</a>
                   </h3>
                   <del class="product-old-price"></del>
                   <h4 class="product-price">
-                    <!-- {{product.discountPrice}} VND -->
-                    {{
-                      product.actualPrice
-                    }} VND
+                    <!-- {{product.discountPrice}} <span>đ</span> -->
+                    {{ product.actualPrice }} <span>đ</span>
                   </h4>
                   <!-- <div class="product-rating">
                   </div> -->
@@ -81,7 +84,10 @@
                   </div>
                 </div>
                 <div class="add-to-cart">
-                  <button class="add-to-cart-btn" (click)="addItemToCart(product)">
+                  <button
+                    class="add-to-cart-btn"
+                    (click)="addItemToCart(product)"
+                  >
                     <i class="fa fa-shopping-cart"></i> add to cart
                   </button>
                 </div>
@@ -157,17 +163,19 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">{{product.subCategory.subCateName}}</p>
+                  <p class="product-category">
+                    {{ product.subCategory.subCateName }}
+                  </p>
                   <h3 class="product-name">
                     <a (click)="renderTo('product/detail', product.id)">{{
-                      product.name | truncateText: 40
+                      product.name | truncateText : 40
                     }}</a>
                   </h3>
                   <h4 class="product-price">
-                    <!-- {{product.discountPrice}}VND -->
-                    <del class="product-old-price">{{
+                    {{ product.actualPrice }}<span>đ</span>
+                    <!-- <del class="product-old-price">{{
                       product.actualPrice
-                    }}VND</del>
+                    }}<span>đ</span></del> -->
                   </h4>
                   <!-- <div class="product-rating">
               </div> -->
@@ -187,7 +195,10 @@
                   </div>
                 </div>
                 <div class="add-to-cart">
-                  <button class="add-to-cart-btn" (click)="addItemToCart(product)">
+                  <button
+                    class="add-to-cart-btn"
+                    (click)="addItemToCart(product)"
+                  >
                     <i class="fa fa-shopping-cart"></i> add to cart
                   </button>
                 </div>
@@ -195,7 +206,7 @@
             </ng-container>
           </div>
           <div fxLayout="row" fxLayoutAlign="center center">
-            <button mat-raised-button>
+            <button mat-raised-button (click)="viewAll(cate.name)">
               View all
               <i class="fa-solid fa-angles-right" style="font-size: 12px"></i>
             </button>

@@ -13,15 +13,14 @@
 
 export interface OrderRequest { 
     shippingMethodId?: number;
-    orderStatusEnum?: OrderRequest.OrderStatusEnumEnum;
+    paymentMethodEnum?: OrderRequest.PaymentMethodEnumEnum;
+    cardNumber?: string;
 }
 export namespace OrderRequest {
-    export type OrderStatusEnumEnum = 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL';
-    export const OrderStatusEnumEnum = {
-        WaitingProcess: 'WAITING_PROCESS' as OrderStatusEnumEnum,
-        WaitingDelivery: 'WAITING_DELIVERY' as OrderStatusEnumEnum,
-        Success: 'SUCCESS' as OrderStatusEnumEnum,
-        Cancel: 'CANCEL' as OrderStatusEnumEnum
+    export type PaymentMethodEnumEnum = 'ONLINE_PAYING' | 'DELIVERY_PAYING';
+    export const PaymentMethodEnumEnum = {
+        OnlinePaying: 'ONLINE_PAYING' as PaymentMethodEnumEnum,
+        DeliveryPaying: 'DELIVERY_PAYING' as PaymentMethodEnumEnum
     };
 }
 

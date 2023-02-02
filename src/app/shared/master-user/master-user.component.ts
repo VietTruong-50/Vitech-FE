@@ -8,9 +8,8 @@ import { Router } from '@angular/router';
 })
 export class MasterUserComponent implements OnInit {
 
-  constructor(private router: Router) { 
-    // this.router.navigate(['homepage'])
-
+  constructor() { 
+  
   }
 
   ngOnInit(): void {

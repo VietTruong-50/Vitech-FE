@@ -1,47 +1,124 @@
 <div style="height: 100%">
-  <div fxLayout="column" fxLayoutAlign="start none" style="padding: 8px">
-    <div>
-      <div>
-        <button mat-raised-button>
-            <mat-icon>arrow_back_ios</mat-icon>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="start none"
+    style="padding: 10px; height: 100%"
+    fxLayoutGap="10px"
+  >
+    <div style="margin: 10px 0 0 0" fxFlex="8">
+      <div fxLayout="row" fxLayoutAlign="none center" fxLayoutGap="10px">
+        <button mat-raised-button [routerLink]="['/account/order']">
+          <mat-icon>arrow_back_ios</mat-icon>
         </button>
-        <h5>ĐƠN HÀNG: 22112733930590</h5>
+        <h5>ĐƠN HÀNG: {{ orderCode }}</h5>
       </div>
     </div>
-    <div class="w-100" fxLayout="row" fxLayoutGap="10px">
+    <div class="w-100" fxLayout="row" fxLayoutGap="20px" fxFlex="25">
       <div fxLayout="column" fxFlex="50" class="side">
         <div>
-          <div>Thông tin người nhận</div>
+          <div class="title">Thông tin người nhận</div>
           <div>
             <div>
-              <strong>Người nhận: </strong><span>Trương Quốc Việt</span>
+              <strong>Người nhận: </strong
+              ><span>{{ orderData?.customer.fullName }}</span>
             </div>
             <div>
-              <strong>Hình thức nhận hàng: </strong><span>Giao tiêu chuẩn</span>
+              <strong>Hình thức nhận hàng: </strong
+              ><span>{{ orderData?.shippingMethod.shippingMethod }}</span>
             </div>
             <div>
               <strong>Địa chỉ: </strong
-              ><span
-                >Nhà số 4 ngõ 341 Phố Vọng, Phường Đồng Tâm, Quận Hai Bà Trưng,
-                Thành phố Hà Nội</span
-              >
+              ><span>{{ orderData?.customer.address }}</span>
             </div>
-            <div><strong>Điện thoại: </strong><span>0905054200</span></div>
+            <div>
+              <strong>Điện thoại: </strong
+              ><span>{{ orderData?.customer.phone }}</span>
+            </div>
           </div>
         </div>
       </div>
       <div fxLayout="column" fxFlex="50" class="side">
         <div>
-          <div>Thông tin đơn hàng</div>
-          <div><strong>Trạng thái đơn hàng: </strong><span>Đã hủy</span></div>
+          <div class="title">Thông tin đơn hàng</div>
           <div>
-            <strong>Thời gian tạo: </strong><span>12:41:29 27/11/2022</span>
+            <strong>Trạng thái đơn hàng: </strong
+            ><span *ngFor="let status of orderStatus"
+              ><span *ngIf="status.value == orderData?.status">{{ status.viewValue }}</span></span
+            >
+          </div>
+          <div>
+            <strong>Thời gian tạo: </strong
+            ><span>{{ orderData?.orderDate }}</span>
+          </div>
+          <div>
+            <strong>Thời gian dự kiến: </strong
+            ><span>{{ orderData?.deliveryDate }}</span>
           </div>
         </div>
       </div>
     </div>
+    <div fxFlex="30" fxLayout="column" fxLayoutGap="10px" class="side">
+      <div class="title" fxLayout="row">San pham</div>
+      <div
+        *ngFor="let item of orderData?.orderDetails"
+        fxLayout="row"
+        fxLayoutAlign="none center"
+        fxLayoutGap="10px"
+      >
+        <img
+          alt=""
+          src="https://lh3.googleusercontent.com/c7VuA4P8sHHJCilfzRVp50AQmgZEkJOyOCuh4vvkcT9jxfqTzZVd2gepUFSSqzXVSEljnYlAN319sJD-H1IztNcxPT3UypA=rw"
+          loading="lazy"
+          decoding="async"
+          fxFlex="10"
+          width="80px"
+          height="80px"
+        />
+        <span fxLayout="column" fxFlex="70">
+          <div>
+            {{ item.product.name }}
+          </div>
+          <div class="sub-info">Code: {{ item.product.productCode }}</div>
+          <div class="sub-info">Cung cap boi ViTech</div>
+        </span>
+        <span fxLayout="column" fxFlex="20">
+          <div class="price">{{ item.product.actualPrice }}đ</div>
+          <div></div>
+          <div font-size="12" class="quantity">X{{ item.quantity }}</div>
+        </span>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlex="25" class="side" fxLayoutAlign="center center">
+      <div class="w-100" fxLayout="column" fxLayoutAlign="center end">
+        <div fxLayout="column" class="price-calculator">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div style="color: #848788" fxLayout="row">Tổng tạm tính</div>
+            <div>
+              <span>{{ orderData?.total }} <span>đ</span></span>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div style="color: #848788" fxLayout="row">Phí vận chuyển</div>
+            <div>
+              <span>{{ orderData?.shippingMethod.price }} <span>đ</span></span>
+            </div>
+          </div>
 
-    <div></div>
-    <div></div>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div style="color: #848788" fxLayout="row">Thành tiền</div>
+            <div>
+              <span class="total-price"
+                >{{
+                  orderData?.shippingMethod.price + orderData?.total
+                }}
+                đ</span
+              >
+            </div>
+          </div>
+          <!-- <div>(Đã bao gồm VAT)</div> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div fxFlex="10" class="side"></div> -->
   </div>
 </div>

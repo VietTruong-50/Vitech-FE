@@ -1,5 +1,58 @@
 .side {
-  background-color: bisque;
-  padding: 30px;
+  background-color: #fff;
+  padding: 20px;
+  overflow: auto;
   border-radius: 8px;
+}
+
+h5 {
+  color: #fff;
+  margin: 0;
+}
+
+strong {
+  color: rgb(51, 51, 51);
+}
+
+span {
+  color: rgb(51, 51, 51);
+}
+
+.title {
+  padding-right: 16px;
+  color: rgb(51, 51, 51);
+  font-weight: 500;
+  font-size: 16px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.quantity {
+  color: rgb(132, 135, 136);
+  font-weight: 400;
+  font-size: 12px;
+  text-align: right;
+  overflow: hidden;
+}
+
+.price {
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(67, 70, 87);
+}
+
+.price-calculator{
+  width: 30%;
+}
+
+.total-price{
+  color: rgb(235, 33, 1);
+}
+
+.sub-info{
+  color: rgb(130, 134, 158);
+  font-weight: 400;
+  font-size: 12px;
+  text-align: left;
 }

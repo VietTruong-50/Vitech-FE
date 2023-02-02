@@ -23,7 +23,13 @@
   width: 85%;
 }
 
-.blue{
+.blue {
   background-color: rgb(15, 75, 139);
   color: aliceblue;
+}
+
+.active {
+  opacity: 0.9;
+  background-color: #595656;
+  color: antiquewhite;
 }

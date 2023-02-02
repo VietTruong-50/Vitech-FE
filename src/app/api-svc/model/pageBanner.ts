@@ -15,8 +15,8 @@ import { Sort } from './sort';
 
 
 export interface PageBanner { 
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     size?: number;
     content?: Array<Banner>;
     number?: number;

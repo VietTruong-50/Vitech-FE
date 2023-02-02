@@ -14,3 +14,8 @@
   display: flex;
   margin-top: 20px;
 }
+
+.product-links li:hover{
+  color: rgb(52, 134, 206);
+  cursor: pointer;
+}

@@ -26,4 +26,10 @@ export class AccountPageComponent implements OnInit {
       this.userData = rs.result;
     });
   }
+
+  selectedIndex: number = 0;
+
+  setIndex(index: number) {
+    this.selectedIndex = index;
+  }
 }

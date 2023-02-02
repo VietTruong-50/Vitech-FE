@@ -29,6 +29,8 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 import { UserProfileComponent } from './pages/account-page/user-profile/user-profile.component';
 import { UserOrderComponent } from './pages/account-page/user-order/user-order.component';
 import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
+import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
+import { NotificationPageComponent } from './pages/account-page/notification-page/notification-page.component';
 
 const routes: Routes = [
   {
@@ -130,6 +132,10 @@ const routes: Routes = [
         component: SignInComponent,
       },
       {
+        path: 'signup',
+        component: SignUpComponent,
+      },
+      {
         path: 'store',
         component: StoreUserComponent,
       },
@@ -169,6 +175,10 @@ const routes: Routes = [
             path: 'order/:code',
             component: UserOrderDetailComponent,
           },
+          {
+            path: 'notification',
+            component: NotificationPageComponent
+          }
         ],
       },
       // ,

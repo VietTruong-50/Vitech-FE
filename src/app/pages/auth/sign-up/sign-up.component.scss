@@ -1,0 +1,43 @@
+button {
+  padding: 4px 0 !important;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #2bd691;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+}
+
+.sign-in-form {
+  width: 450px;
+  background-color: #6c6c6c8f;
+  width: 465px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.form-section {
+  padding: 50px 0;
+}
+
+.singup-link {
+  color: blue;
+}
+
+.singup-link:hover {
+  color: #d10024;
+  text-decoration: none;
+  outline: none;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    border-color: #fff;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-inner-circle{
+    background-color: #000;
+}

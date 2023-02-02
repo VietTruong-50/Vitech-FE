@@ -599,6 +599,7 @@ textarea.input {
 
 .cart-dropdown .cart-btns>a:hover {
   opacity: 0.9;
+  color: #fff;
 }
 
 .cart-dropdown .cart-summary {

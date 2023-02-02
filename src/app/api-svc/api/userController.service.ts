@@ -149,7 +149,7 @@ export class UserControllerService {
             }
         }
 
-        return this.httpClient.post<ApiResponseOrder>(`${this.configuration.basePath}/api/order/${encodeURIComponent(String(orderId))}`,
+        return this.httpClient.put<ApiResponseOrder>(`${this.configuration.basePath}/api/order/${encodeURIComponent(String(orderId))}`,
             null,
             {
                 context: localVarHttpContext,

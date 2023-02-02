@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { CartItem } from 'src/app/api-svc';
+import { CookieService } from 'ngx-cookie-service';
+import { CartItem, CustomerControllerService } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
 
 @Component({
@@ -9,16 +10,20 @@ import { CartService } from 'src/app/service/cart.service';
   styleUrls: ['./view-cart.component.scss'],
 })
 export class ViewCartComponent implements OnInit {
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private cookieService: CookieService,
+    private customerController: CustomerControllerService
+  ) {}
 
   ngOnInit(): void {
-    this.getCartData();
+    this.getCustomerCart()
   }
 
   cartData: CartItem[] = [];
   total: number = 0;
 
-  getCartData() {
+  getCartData(cartItems?: any) {
     this.cartData = this.cartService.getCartData();
   }
 
@@ -28,12 +33,10 @@ export class ViewCartComponent implements OnInit {
   }
 
   get getTotalValues() {
-    // this.getCartData()
     return this.cartService.getTotalValues();
   }
 
   get cartLength() {
-    // this.getCartData()
     return this.cartData.length;
   }
 
@@ -41,5 +44,13 @@ export class ViewCartComponent implements OnInit {
 
   updateItemQuantity(item: CartItem, quantity?: number) {
     this.cartService.addOrUpdateCartItem(item.product!, quantity);
+  }
+
+  getCustomerCart() {
+    if (this.cookieService.check('authToken')) {
+      this.customerController.getShoppingCart().subscribe((rs) => {
+        this.getCartData();
+      });
+    }
   }
 }

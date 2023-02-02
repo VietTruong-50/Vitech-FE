@@ -20,7 +20,6 @@ export interface UserRequest {
     address?: string;
     phone?: string;
     dateOfBirth?: string;
-    salary?: number;
     roles?: Array<string>;
     customer?: boolean;
 }

@@ -50,7 +50,8 @@ export class ProductDetailUserComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private customerController: CustomerControllerService,
     private cartService: CartService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) {
     if (this.route.snapshot.paramMap.get('id') != null) {
       this.id = this.route.snapshot.paramMap.get('id')!;
@@ -133,4 +134,14 @@ export class ProductDetailUserComponent implements OnInit {
   addItemToCart(product: Product) {
     this.cartService.addOrUpdateCartItem(product);
   }
+
+  searchText: string = '';
+
+  search(categorySearch: string) {
+    this.router.navigate([
+      '/store',
+      { categorySearch: categorySearch, searchText: this.searchText },
+    ]);
+  }
+
 }

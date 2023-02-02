@@ -69,7 +69,8 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
-
+import {MatRadioModule} from '@angular/material/radio';
+import { NotificationPageComponent } from './pages/account-page/notification-page/notification-page.component'
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { UserOrderDetailComponent } from './pages/account-page/user-order/user-o
     WishlistUserComponent,
     AccountPageComponent,
     UserOrderDetailComponent,
+    NotificationPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,7 +143,8 @@ import { UserOrderDetailComponent } from './pages/account-page/user-order/user-o
     MatExpansionModule,
     MatListModule,
     MatSidenavModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatRadioModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

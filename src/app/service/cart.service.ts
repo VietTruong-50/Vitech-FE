@@ -17,21 +17,23 @@ export class CartService {
     return this._cartItems;
   }
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private customerController: CustomerControllerService,
+    private cookieService: CookieService
+  ) {}
 
   addOrUpdateCartItem(product: Product, quantity?: number) {
     if (localStorage.getItem('cart_items')) {
       console.log(this._cartItems);
 
       let index = this._cartItems.findIndex(
-        (item) => item.product?.actualPrice === product.actualPrice
+        (item) => item.product?.id === product.id
       );
 
       let valueExist = this._cartItems.find(
-        (item) => item.product?.actualPrice === product.actualPrice
+        (item) => item.product?.id === product.id
       );
-
-      console.log(valueExist);
 
       if (index > -1) {
         console.log('Product exist');
@@ -54,6 +56,15 @@ export class CartService {
       }
     }
 
+    if (this.cookieService.check('authToken')) {
+      this.customerController
+        .addItemToCart({
+          productId: product.id,
+          quantity: quantity ? quantity : 1,
+        })
+        .subscribe((rs) => {});
+    }
+
     this.saveCart();
   }
 
@@ -67,16 +78,21 @@ export class CartService {
 
   removeItemFromCart(itemId?: number) {
     let index = this._cartItems.findIndex((item) => item.id === itemId);
+    let item = this._cartItems.find((item) => item.id === itemId)
 
     this._cartItems.splice(index, 1);
+
+    if (this.cookieService.check('authToken')) {
+      this.customerController.removeItemFromCart(item?.product?.id!).subscribe((rs) => {});
+    }
 
     this.saveCart();
   }
 
-  getCartData(cartItem?: any) {
-
-    if(cartItem != null){
-      this._cartItems = cartItem
+  getCartData(cartItems?: any) {
+    if (cartItems != null) {
+      this._cartItems = cartItems;
+      this.saveCart();
     }
 
     this._cartItems?.forEach((item) => {
@@ -97,5 +113,10 @@ export class CartService {
       totalValues += item.itemPrice! * item.quantity!;
     });
     return totalValues;
+  }
+
+  resetCart(){
+    // this._cartItems = []
+    // this.saveCart()
   }
 }

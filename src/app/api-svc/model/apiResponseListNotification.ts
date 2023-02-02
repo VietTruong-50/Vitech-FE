@@ -9,15 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
+import { Notification } from './notification';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageNumber?: number;
-    pageSize?: number;
-    paged?: boolean;
-    unpaged?: boolean;
+export interface ApiResponseListNotification { 
+    result?: Array<Notification>;
+    errorCode?: string;
+    message?: object;
+    responseCode?: number;
 }
 

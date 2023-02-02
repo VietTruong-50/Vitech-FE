@@ -236,6 +236,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseObject'
+  /api/order/{orderId}:
+    put:
+      tags:
+      - user-controller
+      operationId: changeOrderStatus
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: status
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - WAITING_PROCESS
+          - WAITING_DELIVERY
+          - SUCCESS
+          - CANCEL
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiResponseOrder'
   /api/customer/wishlist/{id}:
     put:
       tags:
@@ -603,35 +632,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseProduct'
-  /api/order/{orderId}:
-    post:
-      tags:
-      - user-controller
-      operationId: changeOrderStatus
-      parameters:
-      - name: orderId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: status
-        in: query
-        required: true
-        schema:
-          type: string
-          enum:
-          - WAITING_PROCESS
-          - WAITING_DELIVERY
-          - SUCCESS
-          - CANCEL
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ApiResponseOrder'
   /api/customer/comment:
     post:
       tags:
@@ -1194,6 +1194,17 @@ paths:
       tags:
       - customer-controller
       operationId: getCurrentOrders
+      parameters:
+      - name: status
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - WAITING_PROCESS
+          - WAITING_DELIVERY
+          - SUCCESS
+          - CANCEL
       responses:
         "200":
           description: OK
@@ -1219,6 +1230,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseOrder'
+  /api/customer/notifications:
+    get:
+      tags:
+      - customer-controller
+      operationId: getAllNotifications
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListNotification'
   /api/customer/cart/{id}/total:
     get:
       tags:
@@ -1322,9 +1345,6 @@ components:
         dateOfBirth:
           type: string
           format: date
-        salary:
-          type: number
-          format: double
         roles:
           type: array
           items:
@@ -1560,6 +1580,117 @@ components:
             $ref: '#/components/schemas/ImageModel'
         subCategory:
           $ref: '#/components/schemas/SubCategory'
+    ApiResponseOrder:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Order'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    CardPayment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        cardNumber:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userName:
+          type: string
+        fullName:
+          type: string
+        email:
+          type: string
+        genderEnum:
+          type: string
+          enum:
+          - MALE
+          - FEMALE
+          - OTHER
+        address:
+          type: string
+        phone:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        role:
+          type: string
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        orderCode:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        total:
+          type: number
+          format: double
+        status:
+          type: string
+          enum:
+          - WAITING_PROCESS
+          - WAITING_DELIVERY
+          - SUCCESS
+          - CANCEL
+        deliveryDate:
+          type: string
+          format: date
+        orderDate:
+          type: string
+          format: date
+        shippingMethod:
+          $ref: '#/components/schemas/ShippingMethod'
+        cardPayment:
+          $ref: '#/components/schemas/CardPayment'
+        paymentMethodEnum:
+          type: string
+          enum:
+          - ONLINE_PAYING
+          - DELIVERY_PAYING
+        orderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetail'
+    OrderDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        product:
+          $ref: '#/components/schemas/Product'
+        quantity:
+          type: integer
+          format: int32
+        orderItemPrice:
+          type: number
+          format: double
+    ShippingMethod:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        shippingMethod:
+          type: string
+        price:
+          type: number
+          format: double
     ApiResponseObject:
       type: object
       properties:
@@ -1629,102 +1760,6 @@ components:
           type: string
         imageName:
           type: string
-    ApiResponseOrder:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Order'
-        errorCode:
-          type: string
-        message:
-          type: object
-        responseCode:
-          type: integer
-          format: int32
-    Customer:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        userName:
-          type: string
-        fullName:
-          type: string
-        email:
-          type: string
-        genderEnum:
-          type: string
-          enum:
-          - MALE
-          - FEMALE
-          - OTHER
-        address:
-          type: string
-        phone:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        role:
-          type: string
-    Order:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        orderCode:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        total:
-          type: number
-          format: double
-        status:
-          type: string
-          enum:
-          - WAITING_PROCESS
-          - WAITING_DELIVERY
-          - SUCCESS
-          - CANCEL
-        deliverDate:
-          type: string
-          format: date
-        orderDate:
-          type: string
-          format: date
-        shippingMethod:
-          $ref: '#/components/schemas/ShippingMethod'
-        orderDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDetail'
-    OrderDetail:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        product:
-          $ref: '#/components/schemas/Product'
-        quantity:
-          type: integer
-          format: int32
-        orderItemPrice:
-          type: number
-          format: double
-    ShippingMethod:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        shippingMethod:
-          type: string
-        price:
-          type: number
-          format: double
     CommentRequest:
       type: object
       properties:
@@ -1764,13 +1799,13 @@ components:
         shippingMethodId:
           type: integer
           format: int64
-        orderStatusEnum:
+        paymentMethodEnum:
           type: string
           enum:
-          - WAITING_PROCESS
-          - WAITING_DELIVERY
-          - SUCCESS
-          - CANCEL
+          - ONLINE_PAYING
+          - DELIVERY_PAYING
+        cardNumber:
+          type: string
     CartItemRequest:
       type: object
       properties:
@@ -1867,12 +1902,12 @@ components:
     PageUser:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -1904,15 +1939,15 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
-        pageSize:
-          type: integer
-          format: int32
         pageNumber:
           type: integer
           format: int32
-        unpaged:
-          type: boolean
+        pageSize:
+          type: integer
+          format: int32
         paged:
+          type: boolean
+        unpaged:
           type: boolean
     Sort:
       type: object
@@ -1938,12 +1973,12 @@ components:
     PageSubCategory:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -1982,12 +2017,12 @@ components:
     PageSlider:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2026,12 +2061,12 @@ components:
     PageRole:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2070,12 +2105,12 @@ components:
     PageProduct:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2128,12 +2163,12 @@ components:
     PageComment:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2171,6 +2206,30 @@ components:
         responseCode:
           type: integer
           format: int32
+    ApiResponseListNotification:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+        order:
+          $ref: '#/components/schemas/Order'
     ApiResponseDouble:
       type: object
       properties:
@@ -2199,12 +2258,12 @@ components:
     PageCategory:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2257,12 +2316,12 @@ components:
     PageBanner:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32

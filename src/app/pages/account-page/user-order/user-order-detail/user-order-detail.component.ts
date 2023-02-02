@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerControllerService } from 'src/app/api-svc';
 
 @Component({
@@ -9,22 +9,32 @@ import { CustomerControllerService } from 'src/app/api-svc';
 })
 export class UserOrderDetailComponent implements OnInit {
   orderData: any;
-
+  orderCode: string = '';
+  orderStatus: any[] = [
+    { value: 'WAITING_PROCESS', viewValue: 'Chờ xử lý' },
+    { value: 'WAITING_DELIVERY', viewValue: 'Chờ giao hàng' },
+    { value: 'SUCCESS', viewValue: 'Đã hoàn thành' },
+    { value: 'CANCEL', viewValue: 'Đã huỷ' },
+  ];
+  
   constructor(
     private customerController: CustomerControllerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get('code') != null) {
-      let code = this.route.snapshot.paramMap.get('code');
-      this.getOrderDetail(code!);
+      this.orderCode = this.route.snapshot.paramMap.get('code')!;
+      this.getOrderDetail(this.orderCode!);
     }
   }
 
   getOrderDetail(code: string) {
     this.customerController.getOrderByCode(code).subscribe((rs) => {
       this.orderData = rs.result;
+
+      console.log(this.orderData)
     });
   }
 }

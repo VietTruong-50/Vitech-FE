@@ -33,17 +33,28 @@ export class HomepageHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getCartData();
     this.getCategoriesData();
-    this.getCustomerCart();
+    this.getAllNotificationsData()
+
+    if (this.cookieService.check('authToken')) {
+      this.getCustomerCart();
+    } else {
+      this.getCartData();
+    }
   }
 
   showCart() {
     this.isShowCart = !this.isShowCart;
   }
 
+  isShowNotification: boolean = false; 
+
+  showNotification() {
+    this.isShowNotification = !this.isShowNotification;
+  }
+
   renderTo(url: string) {
-    if (url == 'account/wishlist' && !this.isLogin()) {
+    if (url != 'signin' && url != 'store' && !this.isLogin()) {
       this.router.navigate(['signin']);
     } else {
       this.router.navigate([url]);
@@ -53,7 +64,7 @@ export class HomepageHeaderComponent implements OnInit {
   cartData: any;
 
   getCartData(cartItems?: any) {
-    this.cartData = this.cartService.getCartData(cartItems);
+    return this.cartService.getCartData(cartItems);
   }
 
   totalValues: number = 0;
@@ -63,16 +74,23 @@ export class HomepageHeaderComponent implements OnInit {
   }
 
   get cartLength() {
-    this.getCartData();
-    return this.cartData ? this.cartData.length : 0;
+    return this.getCartData() ? this.getCartData().length : 0;
   }
 
   getCustomerCart() {
-    if (this.cookieService.check('authToken')) {
-      this.customerController.getShoppingCart().subscribe((rs) => {
-        this.getCartData(rs.result?.cartItems);
+    this.customerController.getShoppingCart().subscribe((rs) => {
+      this.getCartData(rs.result?.cartItems);
+
+      rs.result?.cartItems!.forEach((item) => {
+        if (item.product?.featureImageByte) {
+          let objectURL =
+            'data:image/jpeg;base64,' + item.product.featureImageByte;
+
+          item.product.imgUrl =
+            this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }
       });
-    }
+    });
   }
 
   categoryData: any;
@@ -110,8 +128,21 @@ export class HomepageHeaderComponent implements OnInit {
     ]);
   }
 
+  notificationsData: any
+
+  getAllNotificationsData(){
+    this.customerController.getAllNotifications().subscribe(rs => {
+      this.notificationsData = rs.result
+    })
+  }
+
   signout() {
     this.cookieService.delete('authToken');
+    this.cartService.resetCart()
     this.router.navigate(['homepage']);
+  }
+
+  checkOrderStatus(){
+
   }
 }

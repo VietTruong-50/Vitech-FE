@@ -28,7 +28,7 @@ export class StoreUserComponent implements OnInit {
     ceil: 100000000,
     step: 1000000,
     translate: (value: number, label: LabelType): string => {
-      return value.toLocaleString('en') + ' VND';
+      return value.toLocaleString('en') + 'đ';
     },
   };
 
@@ -91,8 +91,8 @@ export class StoreUserComponent implements OnInit {
   itemsPerPage: number = 20;
   totalElements: number = 100;
 
-  addItemToCart(product: Product) {
-    this.cartService.addOrUpdateCartItem(product);
+  addItemToCart(product: Product, quantity: number) {
+    this.cartService.addOrUpdateCartItem(product, quantity);
   }
 
   filterProduct(event?: any) {
@@ -149,4 +149,25 @@ export class StoreUserComponent implements OnInit {
       );
     }
   }
+
+  getCustomerCart() {
+    this.customerController.getShoppingCart().subscribe((rs) => {
+      this.cartService.getCartData(rs.result?.cartItems);
+      // this.cartData = rs.result?.cartItems;
+      // this.totalValues = rs.result?.total!
+
+      rs.result?.cartItems!.forEach((item) => {
+        if (item.product?.featureImageByte) {
+          let objectURL =
+            'data:image/jpeg;base64,' + item.product.featureImageByte;
+
+          item.product.imgUrl =
+            this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }
+      });
+    });
+  }
+
+
+
 }

@@ -13,7 +13,7 @@ export class UserOrderComponent implements OnInit {
     { value: 'WAITING_PROCESS', viewValue: 'Chờ xử lý' },
     { value: 'WAITING_DELIVERY', viewValue: 'Chờ giao hàng' },
     { value: 'SUCCESS', viewValue: 'Đã hoàn thành' },
-    { value: 'CANCLE', viewValue: 'Đã huỷ' },
+    { value: 'CANCEL', viewValue: 'Đã huỷ' },
   ];
 
   displayedColumns: string[] = [
@@ -33,9 +33,10 @@ export class UserOrderComponent implements OnInit {
   ngOnInit(): void {
     this.getOrdersData();
   }
-
-  getOrdersData() {
-    this.customerController.getCurrentOrders().subscribe((rs) => {
+  selectedIndex: number = 0;
+  getOrdersData(status?: any, index?: number) {
+    this.selectedIndex = index!;
+    this.customerController.getCurrentOrders(status ? status : "WAITING_PROCESS").subscribe((rs) => {
       this.dataSource = new MatTableDataSource<Order>(rs.result);
     });
   }
