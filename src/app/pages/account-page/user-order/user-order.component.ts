@@ -33,13 +33,14 @@ export class UserOrderComponent implements OnInit {
   ngOnInit(): void {
     this.getOrdersData();
   }
-  selectedIndex: number = 0;
+  selectedIndex: number = 1;
+
   getOrdersData(status?: any, index?: number) {
     this.selectedIndex = index!;
-    this.customerController.getCurrentOrders(status ? status : "WAITING_PROCESS").subscribe((rs) => {
-      this.dataSource = new MatTableDataSource<Order>(rs.result);
-    });
+    this.customerController
+      .getCurrentOrders(status ? status : 'WAITING_PROCESS')
+      .subscribe((rs) => {
+        this.dataSource = new MatTableDataSource<Order>(rs.result);
+      });
   }
-
-
 }

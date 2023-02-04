@@ -13,6 +13,7 @@ import { Product } from './product';
 
 
 export interface CartItem { 
+    createdAt?: string;
     id?: number;
     product?: Product;
     quantity?: number;

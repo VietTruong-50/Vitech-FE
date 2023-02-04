@@ -12,12 +12,12 @@
 
 
 export interface Customer { 
+    createdAt?: string;
     id?: number;
     userName?: string;
     fullName?: string;
     email?: string;
     genderEnum?: Customer.GenderEnumEnum;
-    address?: string;
     phone?: string;
     dateOfBirth?: string;
     role?: string;

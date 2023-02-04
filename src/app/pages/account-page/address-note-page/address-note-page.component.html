@@ -1,0 +1,100 @@
+<div fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between"
+    style="margin: 40px 15px 30px 15px"
+  >
+    <p>Sổ địa chỉ</p>
+  </div>
+  <div class="css-hveu7a">
+    <button class="css-vj7q1h" (click)="openDialog('Add')">
+      <span size="26" class="css-1fmhjdx"></span>
+      <div class="spacer css-1x3u27e"></div>
+      Thêm địa chỉ mới
+    </button>
+    <div class="teko-card css-i1mt8k">
+      <div class="teko-card-body css-0">
+        <div
+          class="teko-row teko-row-space-between teko-row-middle css-1o3gs9x"
+        >
+          <div class="teko-col css-gr7r8o" style="flex: 0 0 65%">
+            <div class="teko-row teko-row-start teko-row-middle css-1o3gs9x">
+              <div type="subtitle" class="css-j9vzco">
+                {{ userData?.fullName }}
+              </div>
+              <span class="css-dbb5jc"
+                ><div type="caption" color="primary600" class="css-81oh4u">
+                  MẶC ĐỊNH
+                </div></span
+              >
+            </div>
+            <div type="body" color="textSecondary" class="css-t00t6x">
+              Địa chỉ: {{ defaultAddress?.specificAddress }}, Phường/huyện
+              {{ defaultAddress?.subDistrict }}, Quận
+              {{ defaultAddress?.district }}, Thành phố
+              {{ defaultAddress?.city }}
+            </div>
+            <div type="body" color="textSecondary" class="css-atk01l">
+              Điện thoại: {{ userData?.phone }}
+            </div>
+          </div>
+          <div class="teko-col css-gr7r8o" style="flex: 0 0 35%">
+            <div class="teko-row teko-row-end css-1o3gs9x">
+              <button height="2rem" class="css-1yfi9u1" type="button" (click)="openDialog('Edit', defaultAddress?.id)">
+                <div type="body" color="error500" class="css-nrari1">
+                  Chỉnh sửa
+                </div>
+                <span style="margin-left: 0px"
+                  ><div class="css-157jl91"></div
+                ></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="teko-card css-i1mt8k" *ngFor="let address of addressData">
+      <div class="teko-card-body css-0">
+        <div
+          class="teko-row teko-row-space-between teko-row-middle css-1o3gs9x"
+        >
+          <div class="teko-col css-gr7r8o" style="flex: 0 0 65%">
+            <div class="teko-row teko-row-start teko-row-middle css-1o3gs9x">
+              <div type="subtitle" class="css-j9vzco">
+                {{ userData?.fullName }}
+              </div>
+            </div>
+            <div type="body" color="textSecondary" class="css-t00t6x">
+              Địa chỉ: {{ address?.specificAddress }}, Phường/huyện
+              {{ address?.subDistrict }}, Quận {{ address?.district }}, Thành
+              phố
+              {{ address?.city }}
+            </div>
+            <div type="body" color="textSecondary" class="css-atk01l">
+              Điện thoại: {{ userData?.phone }}
+            </div>
+          </div>
+          <div class="teko-col css-gr7r8o" style="flex: 0 0 35%">
+            <div class="teko-row teko-row-end css-1o3gs9x">
+              <button height="2rem" class="css-1yfi9u1" type="button" (click)="openDialog('Edit', address?.id)">
+                <div type="body" color="error500" class="css-nrari1">
+                  Chỉnh sửa
+                </div>
+                <span style="margin-left: 0px"
+                  ><div class="css-157jl91"></div
+                ></span></button
+              ><button height="2rem" class="css-z5x8v6" type="button" (click)="deleteAddress(address?.id)">
+                <div type="body" color="textPrimary" class="css-1ukdmug">
+                  Xóa
+                </div>
+                <span style="margin-left: 0px"
+                  ><div class="css-157jl91"></div
+                ></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

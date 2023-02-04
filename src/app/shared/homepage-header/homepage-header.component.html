@@ -24,18 +24,16 @@
         </li> -->
         <li *ngIf="isLogin()">
           <a (click)="renderToAccount()" class="text-white"
-            ><i class="fa fa-user"></i> My Account</a
+            ><i class="fa fa-user"></i> Tài khoản của tôi</a
           >
         </li>
         <li *ngIf="!isLogin()">
           <a (click)="renderTo('signin')" class="text-white"
-            ><i class="fa fa-sign-in"></i> Sign in</a
+            ><i class="fa fa-sign-in"></i> Đăng nhập </a
           >
         </li>
-        <li *ngIf="isLogin()">
-          <a (click)="signout()" class="text-white"
-            ><i class="fa fa-sign-out"></i> Sign out</a
-          >
+        <li *ngIf="isLogin()" (click)="signout()">
+          <a class="text-white"><i class="fa fa-sign-out"></i> Đăng ký</a>
         </li>
       </ul>
     </div>
@@ -61,7 +59,7 @@
                 [ngModelOptions]="{ standalone: true }"
                 ngDefaultControl
               >
-                <option value="All" selected>All Categories</option>
+                <option value="All" selected>Tất cả</option>
                 <option
                   value="{{ cate.name }}"
                   *ngFor="let cate of categoryData"
@@ -75,7 +73,13 @@
                 [(ngModel)]="searchText"
                 [ngModelOptions]="{ standalone: true }"
               />
-              <button class="search-btn" (click)="search()" (keyup.enter)="search()">Search</button>
+              <button
+                class="search-btn"
+                (click)="search()"
+                (keyup.enter)="search()"
+              >
+                Search
+              </button>
             </form>
           </div>
         </div>
@@ -95,7 +99,9 @@
               >
                 <i class="fa fa-bell"></i>
                 <span>Thông báo</span>
-                <div class="qty">{{ notificationsData?.length }}</div>
+                <div class="qty" *ngIf="notificationsData?.length > 0">
+                  {{ notificationsData?.length }}
+                </div>
               </a>
               <!-- <div [hidden]="!isShowNotification" class="cart-dropdown"></div> -->
             </div>
@@ -127,7 +133,7 @@
                       </h3>
                       <h4 class="product-price">
                         <span class="qty">{{ item.quantity }}x</span
-                        >{{ item.product?.actualPrice }}
+                        >{{ item.product?.actualPrice }} đ
                       </h4>
                     </div>
                     <button class="delete" (click)="removeItem(item.id!)">
@@ -136,13 +142,13 @@
                   </div>
                 </div>
                 <div class="cart-summary">
-                  <small>{{ cartLength }} Item(s) selected</small>
-                  <h5>SUBTOTAL: ${{ getTotalValues }}</h5>
+                  <small>{{ cartLength }} sản phẩm đã chọn</small>
+                  <h5>Tạm tính: {{ getTotalValues }} đ</h5>
                 </div>
                 <div class="cart-btns">
-                  <a (click)="renderTo('cart')">View Cart</a>
+                  <a (click)="renderTo('cart')">Xem giỏ hàng</a>
                   <a (click)="renderTo('checkout')"
-                    >Checkout <i class="fa fa-arrow-circle-right"></i
+                    >Đặt hàng <i class="fa fa-arrow-circle-right"></i
                   ></a>
                 </div>
               </div>

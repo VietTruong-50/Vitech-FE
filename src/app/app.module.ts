@@ -70,7 +70,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
 import {MatRadioModule} from '@angular/material/radio';
-import { NotificationPageComponent } from './pages/account-page/notification-page/notification-page.component'
+import { NotificationPageComponent } from './pages/account-page/notification-page/notification-page.component';
+import { PoliciesPageComponent } from './pages/policies-page/policies-page.component';
+import { SafeHTMLPipe } from './pipes/safe-html.pipe';
+import { OrderManagementComponent } from './pages/order-management/order-management.component';
+import { CruOrderComponent } from './pages/order-management/cru-order/cru-order.component';
+import { AddressNotePageComponent } from './pages/account-page/address-note-page/address-note-page.component';
+import { CreateAAddressDialogComponent } from './pages/account-page/address-note-page/create-a-address-dialog/create-a-address-dialog.component';
+import { OrderDetailsDialogComponent } from './pages/order-management/cru-order/order-details-dialog/order-details-dialog.component';
+import { CustomerDetailsDialogComponent } from './pages/order-management/cru-order/customer-details-dialog/customer-details-dialog.component'
 
 @NgModule({
   declarations: [
@@ -115,6 +123,14 @@ import { NotificationPageComponent } from './pages/account-page/notification-pag
     AccountPageComponent,
     UserOrderDetailComponent,
     NotificationPageComponent,
+    PoliciesPageComponent,
+    SafeHTMLPipe,
+    OrderManagementComponent,
+    CruOrderComponent,
+    AddressNotePageComponent,
+    CreateAAddressDialogComponent,
+    OrderDetailsDialogComponent,
+    CustomerDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,

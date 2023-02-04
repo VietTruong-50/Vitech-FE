@@ -124,7 +124,7 @@
               mat-raised-button
               style="width: 90%"
             >
-              Filter
+              Lọc
             </button>
           </div>
         </div>
@@ -136,15 +136,15 @@
         <div class="store-filter clearfix">
           <div class="store-sort">
             <label>
-              Sort By:
+              Sắp xếp theo:
               <select class="input-select" (change)="filterProduct($event)">
-                <option value="actualPrice">Price</option>
-                <option value="name">Name</option>
+                <option value="actualPrice">Giá tiền</option>
+                <option value="name">Tên</option>
               </select>
             </label>
 
             <label>
-              Show:
+              Số lượng:
               <select class="input-select" (change)="setitemsPerPage($event)">
                 <option value="20">20</option>
                 <option value="50">50</option>
@@ -185,7 +185,7 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">Category</p>
+                  <p class="product-category">Phân loại</p>
                   <h3 class="product-name">
                     <a href="#" tabindex="-1">{{
                       product.name | truncateText : 40
@@ -232,7 +232,7 @@
 
         <div class="store-filter clearfix">
           <span class="store-qty"
-            >Showing {{ itemsPerPage }}-{{ totalElements }} products</span
+            >Hiển thị {{ itemsPerPage }}-{{ totalElements }} sản phẩm</span
           >
           <pagination-controls
             fxLayout="row"

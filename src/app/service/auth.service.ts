@@ -47,8 +47,9 @@ export class AuthService {
             this.router.navigate(['admin']);
             location.href = '/admin';
           } else {
-            this.router.navigate(['homepage']);
-            // location.href = "/homepage"
+            this.router.navigate(['homepage']).then(() => {
+              window.location.reload();
+            });
           }
         }
       });
@@ -61,7 +62,6 @@ export class AuthService {
       .register({
         userName: userRequest.username,
         password: userRequest.password,
-        address: userRequest.address,
         customer: true,
         email: userRequest.email,
         dateOfBirth: moment(userRequest.dateOfBirth).toISOString(),

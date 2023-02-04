@@ -24,6 +24,8 @@ export class CartService {
   ) {}
 
   addOrUpdateCartItem(product: Product, quantity?: number) {
+
+    let qty = 0;
     if (localStorage.getItem('cart_items')) {
       console.log(this._cartItems);
 
@@ -36,12 +38,12 @@ export class CartService {
       );
 
       if (index > -1) {
-        console.log('Product exist');
         this._cartItems.splice(index, 1);
+        qty = quantity! > 1 ? valueExist?.quantity! + quantity! : valueExist?.quantity! + 1
 
         valueExist = {
           id: valueExist?.id,
-          quantity: quantity ? quantity : valueExist?.quantity! + 1,
+          quantity: qty,
           product: valueExist?.product,
           itemPrice: valueExist?.itemPrice,
         };
@@ -49,7 +51,7 @@ export class CartService {
         this._cartItems.push(valueExist);
       } else {
         this._cartItems.push({
-          quantity: quantity ? quantity : 1,
+          quantity: quantity! > 1 ? quantity : 1,
           product: product,
           itemPrice: product.actualPrice,
         });
@@ -60,7 +62,7 @@ export class CartService {
       this.customerController
         .addItemToCart({
           productId: product.id,
-          quantity: quantity ? quantity : 1,
+          quantity: quantity! > 1 ? quantity : 1,
         })
         .subscribe((rs) => {});
     }

@@ -114,7 +114,8 @@
             <h3 class="product-price">
               {{ productData?.actualPrice }}
             </h3>
-            <span class="product-available">Còn hàng</span>
+            <span class="product-available" *ngIf="productData?.quantity > 0">Còn hàng</span>
+            <span class="product-available" *ngIf="productData?.quantity == 0">Hết hàng</span>
           </div>
           <p>
             {{ productData?.parameters }}
@@ -127,16 +128,16 @@
                 <option value="0">X</option>
               </select>
             </label> -->
-            <label>
+            <!-- <label>
               Color
               <select class="input-select">
                 <option value="0">Red</option>
               </select>
-            </label>
+            </label> -->
             <label fxLayout="row" fxLayoutAlign="none center">
               Qty
               <div class="input-number" style="margin-left: 10px">
-                <input type="number" />
+                <input type="number" [(ngModel)]="qty"/>
                 <!-- <span class="qty-up">+</span>
                 <span class="qty-down">-</span> -->
               </div>
@@ -144,7 +145,7 @@
           </div>
 
           <div class="add-to-cart">
-            <button class="add-to-cart-btn">
+            <button class="add-to-cart-btn" (click)="addItemToCart(productData)">
               <i class="fa fa-shopping-cart"></i> add to cart
             </button>
           </div>
@@ -294,7 +295,7 @@
                     </ul>
 
                     <pagination-controls
-                      *ngIf="commentsData.length > 0"
+                      *ngIf="commentsData?.length > 0"
                       fxLayout="row"
                       fxLayoutAlign="center center"
                       (pageChange)="currentPage = $event"

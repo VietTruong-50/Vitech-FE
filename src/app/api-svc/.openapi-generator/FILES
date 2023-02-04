@@ -16,11 +16,15 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/address.ts
+model/addressRequest.ts
+model/apiResponseAddress.ts
 model/apiResponseBanner.ts
 model/apiResponseCategory.ts
 model/apiResponseComment.ts
 model/apiResponseDouble.ts
 model/apiResponseJwtResponse.ts
+model/apiResponseListAddress.ts
 model/apiResponseListNotification.ts
 model/apiResponseListOrder.ts
 model/apiResponseListProduct.ts
@@ -30,6 +34,7 @@ model/apiResponseOrder.ts
 model/apiResponsePageBanner.ts
 model/apiResponsePageCategory.ts
 model/apiResponsePageComment.ts
+model/apiResponsePageOrder.ts
 model/apiResponsePageProduct.ts
 model/apiResponsePageRole.ts
 model/apiResponsePageSlider.ts
@@ -59,6 +64,7 @@ model/orderRequest.ts
 model/pageBanner.ts
 model/pageCategory.ts
 model/pageComment.ts
+model/pageOrder.ts
 model/pageProduct.ts
 model/pageRole.ts
 model/pageSlider.ts

@@ -81,6 +81,15 @@
             <span class="full-width">Thông báo</span>
             <mat-icon mat-list-icon>notifications</mat-icon>
           </mat-list-item>
+          <mat-list-item
+          class="parent"
+          [class.active]="selectedIndex === 4"
+          (click)="setIndex(4)"
+          [routerLink]="['/account/address']"
+        >
+          <span class="full-width">Sổ địa chỉ</span>
+          <mat-icon mat-list-icon>note</mat-icon>
+        </mat-list-item>
         </mat-nav-list>
         <mat-nav-list></mat-nav-list>
       </mat-sidenav>

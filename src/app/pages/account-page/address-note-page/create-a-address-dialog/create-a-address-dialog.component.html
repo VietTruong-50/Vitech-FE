@@ -1,0 +1,65 @@
+<div fxLayout="column" fxLayoutGap="30px">
+  <div><strong style="font-size: 1.5rem;">Thêm địa chỉ</strong></div>
+  <form [formGroup]="formGroup" fxLayout="column">
+    <div fxLayout="row" fxLayoutGap="20px">
+      <div fxLayout="column" fxFlex="50">
+        <div class="form-group">
+          <label for="address">Tỉnh/Thành phố</label>
+          <input
+            formControlName="city"
+            type="text"
+            class="form-control"
+            placeholder="Tỉnh/Thành phố"
+          />
+        </div>
+        <div class="form-group">
+          <label for="address">Phường/Xã</label>
+          <input
+            formControlName="subDistrict"
+            type="text"
+            class="form-control"
+            placeholder="Phường/Xã"
+          />
+        </div>
+      </div>
+      <div fxLayout="column" fxFlex="50">
+        <div class="form-group">
+          <label for="address">Quận/Huyện</label>
+          <input
+            formControlName="district"
+            type="text"
+            class="form-control"
+            placeholder="Quận/Huyện"
+          />
+        </div>
+        <div class="form-group">
+          <label for="address">Địa chỉ cụ thể</label>
+          <input
+            formControlName="specificAddress"
+            type="text"
+            class="form-control"
+            placeholder="Địa chỉ cụ thể"
+          />
+        </div>
+
+        <div
+          class="form-group"
+          fxLayout="row"
+          fxLayoutAlign="none center"
+          fxLayoutgap="10px"
+        >
+          <input type="checkbox" formControlName="isDefault" /><label
+            style="margin-bottom: 0px"
+            >Đặt làm mặc định</label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="data.type == 'Add'">
+      <button class="primary-btn order-submit float-right" (click)="createNewAddress()">Thêm mới</button>
+    </div>
+    <div class="form-group" *ngIf="data.type == 'Edit'">
+        <button class="primary-btn order-submit float-right" (click)="editAddress()">Cập nhật</button>
+      </div>
+  </form>
+</div>

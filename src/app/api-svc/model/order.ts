@@ -11,6 +11,7 @@
  */
 import { OrderDetail } from './orderDetail';
 import { ShippingMethod } from './shippingMethod';
+import { Address } from './address';
 import { CardPayment } from './cardPayment';
 import { Customer } from './customer';
 
@@ -26,6 +27,7 @@ export interface Order {
     shippingMethod?: ShippingMethod;
     cardPayment?: CardPayment;
     paymentMethodEnum?: Order.PaymentMethodEnumEnum;
+    address?: Address;
     orderDetails?: Array<OrderDetail>;
 }
 export namespace Order {

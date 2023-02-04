@@ -1,12 +1,13 @@
 <div fxLayout="column" fxLayoutAlign="start none">
-  <div fxLayout="row" fxLayoutAlign="space-between" style="margin: 15px">
+  <div fxLayout="row" fxLayoutAlign="space-between" style="margin: 40px 15px 30px 15px">
     <p>Quản lý đơn hàng</p>
     <div fxLayout="row">
       <ul fxLayout="row">
         <li
-          *ngFor="let status of orderStatus; let i = index"
+          *ngFor="let status of orderStatus; let i = index; let isFirst = first"
           [class.active]="selectedIndex === i"
           (click)="getOrdersData(status.value, i)"
+          [ngClass]="{'active': isFirst}"
         >
           {{ status.viewValue }}
         </li>

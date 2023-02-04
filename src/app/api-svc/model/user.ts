@@ -13,12 +13,12 @@ import { Role } from './role';
 
 
 export interface User { 
+    createdAt?: string;
     id?: number;
     userName?: string;
     fullName?: string;
     email?: string;
     genderEnum?: User.GenderEnumEnum;
-    address?: string;
     phone?: string;
     dateOfBirth?: string;
     roles?: Set<Role>;

@@ -12,6 +12,7 @@
 
 
 export interface ImageModel { 
+    createdAt?: string;
     id?: number;
     imageName?: string;
     imageByte?: Array<string>;

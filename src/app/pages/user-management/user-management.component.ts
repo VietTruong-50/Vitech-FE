@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UserControllerService } from 'src/app/api-svc';
+import { User, UserControllerService } from 'src/app/api-svc';
 
 @Component({
   selector: 'app-user-management',
@@ -39,8 +39,13 @@ export class UserManagementComponent implements OnInit {
   getData() {
     this.userController.getAllUsers(5, 0, 'createdAt').subscribe((response) => {
       this.userData = response.result?.content;
+
+      this.dataSource = new MatTableDataSource<User>(
+        response.result?.content
+      );
     });
   }
+
   renderTo(type: string, id?: number) {
     if (type == 'Add') {
       this.router.navigate(['/admin/products', 'add-product'], {

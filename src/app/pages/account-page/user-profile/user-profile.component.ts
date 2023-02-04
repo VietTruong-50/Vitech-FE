@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import { AuthControllerService } from 'src/app/api-svc';
+import {
+  AuthControllerService,
+  CustomerControllerService,
+} from 'src/app/api-svc';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,6 +14,7 @@ import { AuthControllerService } from 'src/app/api-svc';
 export class UserProfileComponent implements OnInit {
   userData: any;
   formGroup: FormGroup;
+  addressFormGroup: FormGroup;
 
   gender: any[] = [
     { value: 'MALE', viewValue: 'Nam' },
@@ -20,7 +24,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private authController: AuthControllerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private customerController: CustomerControllerService
   ) {
     this.formGroup = this.formBuilder.group({
       fullName: [],
@@ -28,12 +33,20 @@ export class UserProfileComponent implements OnInit {
       phone: [],
       dateOfBirth: [],
       gender: [],
-      address: [],
+    });
+
+    this.addressFormGroup = this.formBuilder.group({
+      id: [],
+      city: [],
+      district: [],
+      subDistrict: [],
+      specificAddress: [],
     });
   }
 
   ngOnInit(): void {
     this.getCurrentUser();
+    this.getDefaultAddress();
   }
 
   getCurrentUser() {
@@ -48,7 +61,17 @@ export class UserProfileComponent implements OnInit {
           'yyyy-MM-DD'
         ),
         gender: this.userData.result.genderEnum,
-        address: this.userData.result.address,
+      });
+    });
+  }
+
+  getDefaultAddress() {
+    this.customerController.getDefaultAddress().subscribe((rs) => {
+      this.addressFormGroup.patchValue({
+        city: rs.result?.city,
+        district: rs.result?.district,
+        subDistrict: rs.result?.subDistrict,
+        specificAddress: rs.result?.specificAddress,
       });
     });
   }
@@ -61,7 +84,6 @@ export class UserProfileComponent implements OnInit {
         email: this.formGroup.controls['email'].value,
         phone: this.formGroup.controls['phone'].value,
         genderEnum: this.formGroup.controls['gender'].value,
-        address: this.formGroup.controls['address'].value,
         dateOfBirth: moment(
           this.formGroup.controls['dateOfBirth'].value
         ).toISOString(),
@@ -69,5 +91,18 @@ export class UserProfileComponent implements OnInit {
       .subscribe((rs) => {
         console.log(rs);
       });
+  }
+
+  updateAddress() {
+    let formValue = this.formGroup.getRawValue();
+    this.customerController
+      .editAddress(formValue.id, {
+        city: formValue.city,
+        district: formValue.district,
+        subDistrict: formValue.subDistrict,
+        levant: true,
+        specificAddress: formValue.specificAddress,
+      })
+      .subscribe((rs) => {});
   }
 }

@@ -12,6 +12,7 @@
 
 
 export interface Banner { 
+    createdAt?: string;
     id?: number;
     name?: string;
     content?: string;

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { CartItem, CustomerControllerService } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
@@ -42,8 +41,8 @@ export class ViewCartComponent implements OnInit {
 
   quantity: number = 1;
 
-  updateItemQuantity(item: CartItem, quantity?: number) {
-    this.cartService.addOrUpdateCartItem(item.product!, quantity);
+  updateItemQuantity(item: CartItem) {
+    this.cartService.addOrUpdateCartItem(item.product!);
   }
 
   getCustomerCart() {

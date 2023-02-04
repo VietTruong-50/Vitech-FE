@@ -22,13 +22,7 @@ export class ProductDetailUserComponent implements OnInit {
   id!: string;
   mainImgSrc!: SafeUrl | string;
 
-  // slides = [
-  //   { '../../../assets/image/product01.png' },
-  //   { '../../../assets/image/product02.png' },
-  //   { '../../../assets/image/product03.png' },
-  //   { '../../../assets/image/product01.png' },
-  //   { '../../../assets/image/product02.png' },
-  // ];
+  qty: number = 1;
 
   currentPage: number = 1;
 
@@ -132,7 +126,7 @@ export class ProductDetailUserComponent implements OnInit {
   }
 
   addItemToCart(product: Product) {
-    this.cartService.addOrUpdateCartItem(product);
+    this.cartService.addOrUpdateCartItem(product, this.qty);
   }
 
   searchText: string = '';

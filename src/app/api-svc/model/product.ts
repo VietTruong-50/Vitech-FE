@@ -15,6 +15,7 @@ import { SafeUrl } from '@angular/platform-browser';
 
 
 export interface Product { 
+    createdAt?: string;
     id?: number;
     name?: string;
     productCode?: string;

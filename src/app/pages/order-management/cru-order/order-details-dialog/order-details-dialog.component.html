@@ -1,0 +1,28 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <p class="title">Danh sách sản phẩm</p>
+  <div class="cart-list">
+    <div class="product-widget" *ngFor="let item of data.orderDetails">
+      <div class="product-img">
+        <img [src]="item.product?.imgUrl" class="w-100" alt="" />
+      </div>
+      <div class="product-body">
+        <h3 class="product-name">
+          <p>{{ item.product?.name! }}</p>
+        </h3>
+        <h4 class="product-price float-right" id="prd-price">
+          <span class="qty">{{ item.quantity }}x</span
+          >{{ item.product?.actualPrice }} đ
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div><strong>Phí vận chuyển</strong></div>
+    <span class="shipping-price float-right" id="prd-price"
+      >{{ data.shippingPrice }} đ</span
+    >
+  </div>
+  <div class="cart-summary">
+    <h5 class="float-right text-white">Tổng: {{ data.total }} đ</h5>
+  </div>
+</div>

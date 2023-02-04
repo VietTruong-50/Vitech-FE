@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {
   CategoryControllerService,
   CustomerControllerService,
-  UserControllerService,
 } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
 
@@ -34,10 +33,10 @@ export class HomepageHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategoriesData();
-    this.getAllNotificationsData()
 
     if (this.cookieService.check('authToken')) {
       this.getCustomerCart();
+      this.getAllNotificationsData();
     } else {
       this.getCartData();
     }
@@ -47,14 +46,14 @@ export class HomepageHeaderComponent implements OnInit {
     this.isShowCart = !this.isShowCart;
   }
 
-  isShowNotification: boolean = false; 
+  isShowNotification: boolean = false;
 
   showNotification() {
     this.isShowNotification = !this.isShowNotification;
   }
 
   renderTo(url: string) {
-    if (url != 'signin' && url != 'store' && !this.isLogin()) {
+    if (url != 'signin' && url != 'store' && url != 'homepage' && !this.isLogin()) {
       this.router.navigate(['signin']);
     } else {
       this.router.navigate([url]);
@@ -128,21 +127,21 @@ export class HomepageHeaderComponent implements OnInit {
     ]);
   }
 
-  notificationsData: any
+  notificationsData: any;
 
-  getAllNotificationsData(){
-    this.customerController.getAllNotifications().subscribe(rs => {
-      this.notificationsData = rs.result
-    })
+  getAllNotificationsData() {
+    this.customerController.getAllNotifications().subscribe((rs) => {
+      this.notificationsData = rs.result;
+    });
   }
 
   signout() {
     this.cookieService.delete('authToken');
-    this.cartService.resetCart()
-    this.router.navigate(['homepage']);
+    this.cartService.resetCart();
+    this.router.navigateByUrl('/homepage').then(() => {
+      window.location.reload();
+    });;
   }
 
-  checkOrderStatus(){
-
-  }
+  checkOrderStatus() {}
 }

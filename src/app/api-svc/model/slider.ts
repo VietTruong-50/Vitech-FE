@@ -12,6 +12,7 @@
 
 
 export interface Slider { 
+    createdAt?: string;
     id?: number;
     name?: string;
     description?: string;

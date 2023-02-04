@@ -1,0 +1,77 @@
+<div class="content">
+    <app-content-header [title]="'Quản lý đơn hàng'"></app-content-header>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div class="col-md-12">
+        <div>
+          <a class="btn btn-success float-right m-2" (click)="renderTo('Add')"
+            >Add
+          </a>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                dataSource.filteredData.indexOf(element) +
+                  1 +
+                  pageIndex * pageSize
+              }}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="orderCode">
+            <th mat-header-cell *matHeaderCellDef>Mã đơn</th>
+            <td mat-cell *matCellDef="let element">{{ element.orderCode }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef>Khách hàng</th>
+            <td mat-cell *matCellDef="let element">{{ element.customer.fullName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="orderDate">
+            <th mat-header-cell *matHeaderCellDef>Ngày đặt</th>
+            <td mat-cell *matCellDef="let element">{{ element.orderDate }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Tổng tiền</th>
+            <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                fxLayout="row wrap"
+                fxLayoutAlign="center center"
+                style="gap: 4px"
+              >
+                <a class="btn btn-default" (click)="renderTo('Edit', element.orderCode)"
+                  >Sửa</a
+                >
+                <a class="btn btn-danger action-delete">Xem</a>
+              </span>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator
+          (page)="onPaginate($event)"
+          #paginator
+          [length]="100"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+  

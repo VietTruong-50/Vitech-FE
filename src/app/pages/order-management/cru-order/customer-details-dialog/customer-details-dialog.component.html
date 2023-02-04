@@ -1,0 +1,45 @@
+<p class="title">Thông tin khách hàng</p>
+<div>
+  <form [formGroup]="formGroup">
+    <div></div>
+    <div class="form-group">
+      <label for="fullName">Họ và tên</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Họ và tên"
+        formControlName="fullName"
+        [attr.disabled]="true"
+      />
+    </div>
+    <div class="form-group">
+      <label for="fullName">Số điện thoại</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Số điện thoại"
+        formControlName="phone"
+        [attr.disabled]="true"
+      />
+    </div>
+    <div class="form-group">
+      <label for="fullName">Ngày tháng năm sinh</label>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="dateOfBirth"
+        [attr.disabled]="true"
+      />
+    </div>
+    <div class="form-group">
+      <label for="fullName">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Email"
+        formControlName="email"
+        [attr.disabled]="true"
+      />
+    </div>
+  </form>
+</div>

@@ -61,24 +61,44 @@
             <div class="form-group">
               <input
                 class="input"
-                type="text"
-                name="address"
-                placeholder="Address"
-                formControlName="address"
-              />
-            </div>
-            <!-- <div class="form-group">
-              <input class="input" type="text" name="city" placeholder="City" />
-            </div> -->
-
-            <div class="form-group">
-              <input
-                class="input"
                 type="tel"
                 name="tel"
                 placeholder="Số điện thoại"
                 formControlName="phone"
               />
+            </div>
+
+            <div style="margin-bottom: 20px">
+              <strong>ĐỊA CHỈ NHẬN HÀNG</strong>
+            </div>
+            <div class="form-group" fxLayout="row" fxLayoutAlign="center">
+              <div fxLayout="row wrap" style="width: 95%" fxLayoutGap="50px">
+                <div
+                  class="address"
+                  [class.active]="selectedIndex === defaultAddress?.id"
+                  (click)="setIndex(defaultAddress?.id!)"
+                >
+                  <div type="body" color="textSecondary" class="css-t00t6x">
+                    Địa chỉ: {{ defaultAddress?.specificAddress }}, Phường/huyện
+                    {{ defaultAddress?.subDistrict }}, Quận
+                    {{ defaultAddress?.district }}, Thành phố
+                    {{ defaultAddress?.city }}
+                  </div>
+                </div>
+                <div
+                  *ngFor="let address of addressData"
+                  class="address"
+                  [class.active]="selectedIndex === address.id"
+                  (click)="setIndex(address.id)"
+                >
+                  <div type="body" color="textSecondary" class="css-t00t6x">
+                    Địa chỉ: {{ address?.specificAddress }}, Phường/huyện
+                    {{ address?.subDistrict }}, Quận {{ address?.district }},
+                    Thành phố
+                    {{ address?.city }}
+                  </div>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -93,7 +113,7 @@
                 type="radio"
                 name="delivery"
                 id="delivery-2"
-                (click)="setShippingFee(20000)"
+                (click)="setShippingFee(20000, 2)"
                 checked
               />
               <label for="delivery-2">
@@ -109,7 +129,7 @@
                 type="radio"
                 name="delivery"
                 id="delivery-1"
-                (click)="setShippingFee(50000)"
+                (click)="setShippingFee(50000, 1)"
               />
               <label for="delivery-1">
                 <span></span>
@@ -128,7 +148,13 @@
           </div>
 
           <div class="input-radio">
-            <input type="radio" name="payment" id="payment-1" />
+            <input
+              type="radio"
+              name="payment"
+              id="payment-1"
+              value="ONLINE_PAYING"
+              (change)="setPayingMethod($event)"
+            />
             <label for="payment-1">
               <span></span>
               Trả bằng thẻ ngân hàng
@@ -140,16 +166,27 @@
                   type="text"
                   name="Card number"
                   placeholder="Số thẻ"
+                  [(ngModel)]="cardNumber"
                 />
               </div>
             </div>
           </div>
           <div class="input-radio">
-            <input type="radio" name="payment" id="payment-2" [disabled]="getTotalValues > 1000000"/>
+            <input
+              type="radio"
+              name="payment"
+              id="payment-2"
+              value="DELIVERY_PAYING"
+              [disabled]="getTotalValues > 1000000"
+              (change)="setPayingMethod($event)"
+            />
             <label for="payment-2">
               <span></span>
               Trả tiền khi nhận hàng
             </label>
+            <p *ngIf="getTotalValues > 1000000" style="font-size: smaller">
+              Không hỗ trợ cho đơn hàng lớn hơn 1000000
+            </p>
             <!-- <div class="caption">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
@@ -182,21 +219,21 @@
                 <strong style="color: #d10024">{{ item.quantity }}x</strong>
                 {{ item.product.name }}
               </div>
-              <div>{{ item.product.actualPrice }}</div>
+              <div>{{ item.product.actualPrice }} đ</div>
             </div>
           </div>
           <div class="order-col">
-            <div>Shiping</div>
+            <div>Phí ship</div>
             <div>
-              <strong>{{ shippingFee }}</strong>
+              <strong>{{ shippingFee }} đ</strong>
             </div>
           </div>
           <div class="order-col">
-            <div><strong>TOTAL</strong></div>
+            <div><strong>Tổng tiền</strong></div>
             <div>
               <strong class="order-total">{{
                 getTotalValues + shippingFee
-              }}</strong>
+              }} đ</strong>
             </div>
           </div>
         </div>
@@ -205,10 +242,13 @@
           <input type="checkbox" id="terms" />
           <label for="terms">
             <span></span>
-            I've read and accept the <a href="#">terms &amp; conditions</a>
+            Tôi đã đọc và chấp nhận các
+            <a href="#">điều khoản &amp; điều kiện</a>
           </label>
         </div>
-        <a href="#" class="primary-btn order-submit">Đặt hàng</a>
+        <a class="primary-btn order-submit" (click)="checkout()"
+          >Đặt hàng</a
+        >
       </div>
       <!-- /Order Details -->
     </div>

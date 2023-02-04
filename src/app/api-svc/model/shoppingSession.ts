@@ -13,6 +13,7 @@ import { CartItem } from './cartItem';
 
 
 export interface ShoppingSession { 
+    createdAt?: string;
     id?: number;
     total?: number;
     cartItems?: Array<CartItem>;

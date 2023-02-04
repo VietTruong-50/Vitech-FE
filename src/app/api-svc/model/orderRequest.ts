@@ -15,12 +15,26 @@ export interface OrderRequest {
     shippingMethodId?: number;
     paymentMethodEnum?: OrderRequest.PaymentMethodEnumEnum;
     cardNumber?: string;
+    addressId?: number;
+    orderStatusEnum?: OrderRequest.OrderStatusEnumEnum;
+    deliveryDate?: string;
+    city?: string;
+    district?: string;
+    subDistrict?: string;
+    specificAddress?: string;
 }
 export namespace OrderRequest {
     export type PaymentMethodEnumEnum = 'ONLINE_PAYING' | 'DELIVERY_PAYING';
     export const PaymentMethodEnumEnum = {
         OnlinePaying: 'ONLINE_PAYING' as PaymentMethodEnumEnum,
         DeliveryPaying: 'DELIVERY_PAYING' as PaymentMethodEnumEnum
+    };
+    export type OrderStatusEnumEnum = 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL';
+    export const OrderStatusEnumEnum = {
+        WaitingProcess: 'WAITING_PROCESS' as OrderStatusEnumEnum,
+        WaitingDelivery: 'WAITING_DELIVERY' as OrderStatusEnumEnum,
+        Success: 'SUCCESS' as OrderStatusEnumEnum,
+        Cancel: 'CANCEL' as OrderStatusEnumEnum
     };
 }
 

@@ -17,7 +17,6 @@ export interface UserRequest {
     fullName?: string;
     email?: string;
     genderEnum?: UserRequest.GenderEnumEnum;
-    address?: string;
     phone?: string;
     dateOfBirth?: string;
     roles?: Array<string>;

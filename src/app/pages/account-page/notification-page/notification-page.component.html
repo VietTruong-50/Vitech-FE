@@ -1,10 +1,14 @@
 <div fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="space-between" style="margin: 15px 15px 30px 15px">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between"
+    style="margin: 40px 15px 30px 15px"
+  >
     <p>Thông báo</p>
   </div>
-  <div fxLayout="column" fxLayoutGap="30px">
-    <div class="w-100">
-      <div
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
+    <div style="width: 98%">
+      <!-- <div
         style="width: 90%"
         fxLayout="row"
         fxLayoutGap="10px"
@@ -16,11 +20,54 @@
         </div>
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
           <div fxLayout="column">
-            <p><strong>{{ noti.message }}</strong></p>
-            <p>Mã đơn hàng: {{ noti.order.orderCode }}</p>
+            <p><strong></strong></p>
+            <p>Mã đơn hàng:</p>
             <p>{{ noti.createdAt | date}}</p>
           </div>
           <div>{{ noti.order.status == "WAITING_DELIVERY" ? "Đặt hàng thành công" : "Giao hàng thành công"}}</div>
+        </div>
+      </div> -->
+      <div
+        title="Giao hàng thành công"
+        class="css-1ol5tqj"
+        *ngFor="let noti of notificationsData"
+        (click)="renderTo(noti.order.orderCode)"
+      >
+        <div class="css-12viweu">
+          <div class="css-1cl05fw">
+            <div class="css-8umzqw">
+              <picture>
+                <img
+                  class="lazyload css-jdz5ak"
+                  alt=""
+                  [src]="
+                    this.notificationsData[0].order.orderDetails[0].product
+                      .imgUrl
+                  "
+                  loading="lazy"
+                  decoding="async"
+              /></picture>
+            </div>
+          </div>
+        </div>
+        <div class="css-1puyvhb">
+          <div class="css-1mwn02k">
+            <span class="css-4wgi4e">{{
+              noti.order.status == "WAITING_PROCESS"
+                ? "Đặt hàng thành công"
+                : "Giao hàng thành công"
+            }}</span
+            ><span class="css-ztwde3">{{ noti.createdAt | date }} - 14:59</span>
+          </div>
+          <span class="css-1tuttxx" *ngIf="noti.order.status == 'SUCCESS'"
+            >Gói hàng {{ noti.order.orderCode }} đã được giao tới bạn thành
+            công</span
+          >
+          <span
+            class="css-1tuttxx"
+            *ngIf="noti.order.status == 'WAITING_PROCESS' || noti.order.status == 'WAITING_DELIVERY'"
+            >Đơn hàng {{ noti.order.orderCode }} đã được đặt thành công</span
+          >
         </div>
       </div>
     </div>

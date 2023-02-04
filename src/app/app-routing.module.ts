@@ -31,6 +31,10 @@ import { UserOrderComponent } from './pages/account-page/user-order/user-order.c
 import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
 import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 import { NotificationPageComponent } from './pages/account-page/notification-page/notification-page.component';
+import { PoliciesPageComponent } from './pages/policies-page/policies-page.component';
+import { OrderManagementComponent } from './pages/order-management/order-management.component';
+import { CruOrderComponent } from './pages/order-management/cru-order/cru-order.component';
+import { AddressNotePageComponent } from './pages/account-page/address-note-page/address-note-page.component';
 
 const routes: Routes = [
   {
@@ -113,6 +117,14 @@ const routes: Routes = [
         path: 'brands/edit-brand/:id',
         component: CruBrandComponent,
       },
+      {
+        path: 'orders',
+        component: OrderManagementComponent,
+      },
+      {
+        path: 'orders/edit-orders/:orderCode',
+        component: CruOrderComponent,
+      },
     ],
   },
   {
@@ -157,7 +169,7 @@ const routes: Routes = [
       },
       {
         path: 'product/:id',
-        component: ProductDetailUserComponent
+        component: ProductDetailUserComponent,
       },
       {
         path: 'account',
@@ -177,9 +189,17 @@ const routes: Routes = [
           },
           {
             path: 'notification',
-            component: NotificationPageComponent
+            component: NotificationPageComponent,
+          },
+          {
+            path: 'address',
+            component: AddressNotePageComponent
           }
         ],
+      },
+      {
+        path: 'policies',
+        component: PoliciesPageComponent,
       },
       // ,
       // {

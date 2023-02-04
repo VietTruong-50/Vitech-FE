@@ -13,6 +13,7 @@ import { Order } from './order';
 
 
 export interface Notification { 
+    createdAt?: string;
     id?: number;
     message?: string;
     order?: Order;

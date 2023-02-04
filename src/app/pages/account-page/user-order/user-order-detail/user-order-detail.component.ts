@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerControllerService } from 'src/app/api-svc';
 
@@ -20,7 +21,8 @@ export class UserOrderDetailComponent implements OnInit {
   constructor(
     private customerController: CustomerControllerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,13 @@ export class UserOrderDetailComponent implements OnInit {
     this.customerController.getOrderByCode(code).subscribe((rs) => {
       this.orderData = rs.result;
 
-      console.log(this.orderData)
+      rs.result?.orderDetails?.forEach(item => {
+        if (item.product!.featureImageByte) {
+          let objectURL = 'data:image/jpeg;base64,' + item.product!.featureImageByte;
+
+          item.product!.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }
+      })
     });
   }
 }

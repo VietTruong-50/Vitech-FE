@@ -12,6 +12,7 @@
 
 
 export interface CardPayment { 
+    createdAt?: string;
     id?: number;
     cardNumber?: string;
 }

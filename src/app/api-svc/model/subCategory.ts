@@ -13,6 +13,7 @@ import { Category } from './category';
 
 
 export interface SubCategory { 
+    createdAt?: string;
     id?: number;
     subCateName?: string;
     description?: string;
