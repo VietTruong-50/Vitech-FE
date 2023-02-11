@@ -1,5 +1,5 @@
 <div fxLayout="column">
-  <app-content-header [title]="'Sửa đơn hàng'"></app-content-header>
+  <app-content-header [title]="title"></app-content-header>
   <div fxLayout="column" class="order-form">
     <div style="padding: 20px 3rem">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -7,7 +7,7 @@
         <div
           fxLayout="row"
           [fxLayoutAlign]="
-            this.orderDetail?.status != 'WAITING_DELIVERY'
+            this.orderDetail?.status != 'WAITING_PROCESS'
               ? 'space-evenly center'
               : 'end center'
           "
@@ -16,11 +16,16 @@
           <button
             class="btn btn-success mb-2 float-right"
             (click)="changeOrderStatus()"
-            *ngIf="this.orderDetail?.status != 'WAITING_DELIVERY'"
+            *ngIf="this.orderDetail?.status == 'WAITING_PROCESS'"
           >
             Xác nhận
           </button>
-          <button class="btn btn-primary mb-2 float-right">Cập nhật</button>
+          <button
+            class="btn btn-primary mb-2 float-right"
+            (click)="editOrder()"
+          >
+            Cập nhật
+          </button>
         </div>
       </div>
     </div>
@@ -58,11 +63,16 @@
               type="date"
               class="form-control"
               formControlName="deliveryDate"
+              [attr.disabled]="isDisabled"
             />
           </div>
           <div class="form-group">
             <label for="status">Trạng thái</label>
-            <select class="form-select" (change)="onChangeStatus($event)">
+            <select
+              class="form-select"
+              (change)="onChangeStatus($event)"
+              [attr.disabled]="isDisabled"
+            >
               <option
                 [selected]="st.value == formGroup.controls['status'].value"
                 [value]="st.value"
@@ -133,7 +143,7 @@
             <a
               style="text-decoration: underline !important"
               (click)="openDialog('orderDetails')"
-              >Danh sách sản phẩm</a
+              >Hoá đơn</a
             >
           </div>
         </form>
@@ -148,6 +158,17 @@
               class="form-control"
               placeholder="Họ tên"
               formControlName="fullName"
+              [attr.disabled]="isDisabled"
+            />
+          </div>
+          <div class="form-group">
+            <label for="fullName">Số điện thoại</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Số điện thoại"
+              formControlName="phone"
+              [attr.disabled]="isDisabled"
             />
           </div>
           <div fxLayout="row" fxLayoutGap="10px">
@@ -158,6 +179,7 @@
                 class="form-control"
                 placeholder="Thành phố/Tỉnh"
                 formControlName="city"
+                [attr.disabled]="isDisabled"
               />
             </div>
             <div class="form-group">
@@ -167,6 +189,7 @@
                 class="form-control"
                 placeholder="Quận/Huyện"
                 formControlName="district"
+                [attr.disabled]="isDisabled"
               />
             </div>
           </div>
@@ -178,6 +201,7 @@
                 class="form-control"
                 placeholder="Phường/Xã"
                 formControlName="subDistrict"
+                [attr.disabled]="isDisabled"
               />
             </div>
             <div class="form-group">
@@ -187,6 +211,7 @@
                 class="form-control"
                 placeholder="Name"
                 formControlName="specificAddress"
+                [attr.disabled]="isDisabled"
               />
             </div>
           </div>

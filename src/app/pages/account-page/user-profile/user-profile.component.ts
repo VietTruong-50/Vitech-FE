@@ -68,6 +68,7 @@ export class UserProfileComponent implements OnInit {
   getDefaultAddress() {
     this.customerController.getDefaultAddress().subscribe((rs) => {
       this.addressFormGroup.patchValue({
+        id: rs.result?.id,
         city: rs.result?.city,
         district: rs.result?.district,
         subDistrict: rs.result?.subDistrict,
@@ -94,7 +95,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateAddress() {
-    let formValue = this.formGroup.getRawValue();
+    let formValue = this.addressFormGroup.getRawValue();
+    console.log(formValue);
+    
     this.customerController
       .editAddress(formValue.id, {
         city: formValue.city,
@@ -103,6 +106,8 @@ export class UserProfileComponent implements OnInit {
         levant: true,
         specificAddress: formValue.specificAddress,
       })
-      .subscribe((rs) => {});
+      .subscribe((rs) => {
+        this.getDefaultAddress()
+      });
   }
 }

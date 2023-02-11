@@ -3,46 +3,57 @@
   <div class="form">
     <form [formGroup]="formGroup">
       <div class="form-group">
-        <label for="code">Product code</label>
+        <label for="code">Mã sản phẩm</label>
         <input
           type="text"
           formControlName="code"
           class="form-control"
-          placeholder="Code"
+          placeholder="Mã sản phẩm"
         />
       </div>
       <div class="form-group">
-        <label for="name">Name product</label>
+        <label for="name">Tên sản phẩm</label>
         <input
           type="text"
           formControlName="name"
           class="form-control"
-          placeholder="Name"
+          placeholder="Tên sản phẩm"
         />
       </div>
       <div class="form-group">
-        <label for="parameters">Product parameters</label>
-        <!-- <textarea
+        <label for="name">Mô tả ngắn</label>
+        <input
+          type="text"
+          formControlName="shortDescription"
           class="form-control"
-          rows="3"
-          placeholder="Parameters ..."
-          formControlName="parameters"
-        ></textarea> -->
-        <angular-editor
-          formControlName="parameters"
-          [config]="editorConfig"
-        ></angular-editor>
+          placeholder="Mô tả ngắn"
+        />
       </div>
       <div class="form-group">
-        <!-- [innerHtml]="formGroup.controls['content'].value" -->
-        <label for="content">Content</label>
-        <angular-editor
+        <label for="parameters">Thông số sản phẩm</label>
+
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor2"
+          formControlName="parameters"
+          [placeholder]="'Type here...'"
+        ></ngx-editor>
+      </div>
+      <div class="form-group">
+        <label for="content">Nội dung chi tiết</label>
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar2"> </ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor"
+          formControlName="content"
+          [placeholder]="'Type here...'"
+        ></ngx-editor>
+        <!-- <angular-editor
           formControlName="content"
           [config]="editorConfig"
-        ></angular-editor>
+        ></angular-editor> -->
       </div>
       <div class="form-group">
-        <label for="price">Actual price</label>
+        <label for="price">Giá sản phẩm</label>
         <input
           class="form-control"
           placeholder="Price"
@@ -50,17 +61,8 @@
           [value]="formGroup.controls['price'].value"
         />
       </div>
-      <!-- <div class="form-group">
-        <label for="discountPrice">Discount price</label>
-        <input
-          class="form-control"
-          placeholder="Discount price"
-          formControlName="discountPrice"
-          [value]="formGroup.controls['discountPrice'].value"
-        />
-      </div> -->
       <div class="form-group">
-        <label for="quantity">Quantity</label>
+        <label for="quantity">Số lượng</label>
         <input
           class="form-control"
           type="number"
@@ -69,11 +71,13 @@
         />
       </div>
       <div class="form-group">
-        <label for="category">Category</label>
+        <label for="category">Phân loại</label>
         <select class="form-select" (change)="onChange($event)">
           <option value="0" selected>Choose category</option>
           <option
-            [selected]="category.name == formGroup.controls['categoryName'].value"
+            [selected]="
+              category.name == formGroup.controls['categoryName'].value
+            "
             *ngFor="let category of categoryData"
             [value]="category.name"
           >
@@ -82,8 +86,9 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="brand">Brand</label>
-        <select class="form-select" formControlName="brandId">
+        <label for="brand">Hãng</label>
+        <select class="form-select" (change)="onChangeBrand($event)">
+          <option value="0" selected>Choose brand</option>
           <option
             [selected]="brand.id == formGroup.controls['brandId'].value"
             *ngFor="let brand of brandData"
@@ -95,7 +100,7 @@
       </div>
 
       <div class="form-group" style="width: 50%">
-        <label for="image">Feature image</label>
+        <label for="image">Ảnh chính</label>
         <input
           type="file"
           class="form-control-file"
@@ -107,7 +112,7 @@
       </div>
 
       <div class="form-group" style="width: 50%">
-        <label for="image">Other images</label>
+        <label for="image">Các ảnh khác</label>
         <input
           type="file"
           multiple
@@ -132,23 +137,22 @@
           </mat-grid-list>
         </ng-container>
       </div>
+      <button
+        (click)="addProduct()"
+        *ngIf="!id"
+        mat-raised-button
+        class="btn btn-primary mb-2 float-right"
+      >
+        Add
+      </button>
+      <button
+        (click)="updateProduct()"
+        *ngIf="id"
+        mat-raised-button
+        class="btn btn-primary mb-2 float-right"
+      >
+        Update
+      </button>
     </form>
-
-    <button
-      (click)="addProduct()"
-      *ngIf="!id"
-      mat-raised-button
-      class="btn btn-primary mb-2 float-right"
-    >
-      Add
-    </button>
-    <button
-      (click)="updateProduct()"
-      *ngIf="id"
-      mat-raised-button
-      class="btn btn-primary mb-2 float-right"
-    >
-      Update
-    </button>
   </div>
 </div>

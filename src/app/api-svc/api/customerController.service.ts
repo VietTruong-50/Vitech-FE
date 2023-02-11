@@ -25,13 +25,15 @@ import { ApiResponseAddress } from '../model/apiResponseAddress';
 // @ts-ignore
 import { ApiResponseComment } from '../model/apiResponseComment';
 // @ts-ignore
+import { ApiResponseCustomCustomerResponse } from '../model/apiResponseCustomCustomerResponse';
+// @ts-ignore
+import { ApiResponseCustomer } from '../model/apiResponseCustomer';
+// @ts-ignore
 import { ApiResponseDouble } from '../model/apiResponseDouble';
 // @ts-ignore
 import { ApiResponseListAddress } from '../model/apiResponseListAddress';
 // @ts-ignore
 import { ApiResponseListNotification } from '../model/apiResponseListNotification';
-// @ts-ignore
-import { ApiResponseListOrder } from '../model/apiResponseListOrder';
 // @ts-ignore
 import { ApiResponseListProduct } from '../model/apiResponseListProduct';
 // @ts-ignore
@@ -41,6 +43,8 @@ import { ApiResponseOrder } from '../model/apiResponseOrder';
 // @ts-ignore
 import { ApiResponsePageComment } from '../model/apiResponsePageComment';
 // @ts-ignore
+import { ApiResponsePageOrder } from '../model/apiResponsePageOrder';
+// @ts-ignore
 import { ApiResponsePageProduct } from '../model/apiResponsePageProduct';
 // @ts-ignore
 import { ApiResponseShoppingSession } from '../model/apiResponseShoppingSession';
@@ -48,6 +52,8 @@ import { ApiResponseShoppingSession } from '../model/apiResponseShoppingSession'
 import { CartItemRequest } from '../model/cartItemRequest';
 // @ts-ignore
 import { CommentRequest } from '../model/commentRequest';
+// @ts-ignore
+import { CustomerRequest } from '../model/customerRequest';
 // @ts-ignore
 import { OrderRequest } from '../model/orderRequest';
 
@@ -621,6 +627,76 @@ export class CustomerControllerService {
     }
 
     /**
+     * @param id 
+     * @param customerRequest 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public editCustomer(id: number, customerRequest: CustomerRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseCustomer>;
+    public editCustomer(id: number, customerRequest: CustomerRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseCustomer>>;
+    public editCustomer(id: number, customerRequest: CustomerRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseCustomer>>;
+    public editCustomer(id: number, customerRequest: CustomerRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling editCustomer.');
+        }
+        if (customerRequest === null || customerRequest === undefined) {
+            throw new Error('Required parameter customerRequest was null or undefined when calling editCustomer.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        return this.httpClient.put<ApiResponseCustomer>(`${this.configuration.basePath}/api/customer/detail/${encodeURIComponent(String(id))}`,
+            customerRequest,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * @param page 
      * @param size 
      * @param sortBy 
@@ -981,21 +1057,45 @@ export class CustomerControllerService {
 
     /**
      * @param status 
+     * @param page 
+     * @param size 
+     * @param sortBy 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListOrder>;
-    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListOrder>>;
-    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListOrder>>;
-    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', page: number, size: number, sortBy: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponsePageOrder>;
+    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', page: number, size: number, sortBy: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponsePageOrder>>;
+    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', page: number, size: number, sortBy: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponsePageOrder>>;
+    public getCurrentOrders(status: 'WAITING_PROCESS' | 'WAITING_DELIVERY' | 'SUCCESS' | 'CANCEL', page: number, size: number, sortBy: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (status === null || status === undefined) {
             throw new Error('Required parameter status was null or undefined when calling getCurrentOrders.');
+        }
+        if (page === null || page === undefined) {
+            throw new Error('Required parameter page was null or undefined when calling getCurrentOrders.');
+        }
+        if (size === null || size === undefined) {
+            throw new Error('Required parameter size was null or undefined when calling getCurrentOrders.');
+        }
+        if (sortBy === null || sortBy === undefined) {
+            throw new Error('Required parameter sortBy was null or undefined when calling getCurrentOrders.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (status !== undefined && status !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>status, 'status');
+        }
+        if (page !== undefined && page !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>page, 'page');
+        }
+        if (size !== undefined && size !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>size, 'size');
+        }
+        if (sortBy !== undefined && sortBy !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>sortBy, 'sortBy');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1029,10 +1129,66 @@ export class CustomerControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseListOrder>(`${this.configuration.basePath}/api/customer/orders`,
+        return this.httpClient.get<ApiResponsePageOrder>(`${this.configuration.basePath}/api/customer/orders`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCustomerById(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseCustomCustomerResponse>;
+    public getCustomerById(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseCustomCustomerResponse>>;
+    public getCustomerById(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseCustomCustomerResponse>>;
+    public getCustomerById(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getCustomerById.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        return this.httpClient.get<ApiResponseCustomCustomerResponse>(`${this.configuration.basePath}/api/customer/detail/${encodeURIComponent(String(id))}`,
+            {
+                context: localVarHttpContext,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

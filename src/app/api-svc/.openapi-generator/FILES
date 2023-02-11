@@ -22,11 +22,12 @@ model/apiResponseAddress.ts
 model/apiResponseBanner.ts
 model/apiResponseCategory.ts
 model/apiResponseComment.ts
+model/apiResponseCustomCustomerResponse.ts
+model/apiResponseCustomer.ts
 model/apiResponseDouble.ts
 model/apiResponseJwtResponse.ts
 model/apiResponseListAddress.ts
 model/apiResponseListNotification.ts
-model/apiResponseListOrder.ts
 model/apiResponseListProduct.ts
 model/apiResponseListSubCategory.ts
 model/apiResponseObject.ts
@@ -34,6 +35,7 @@ model/apiResponseOrder.ts
 model/apiResponsePageBanner.ts
 model/apiResponsePageCategory.ts
 model/apiResponsePageComment.ts
+model/apiResponsePageCustomer.ts
 model/apiResponsePageOrder.ts
 model/apiResponsePageProduct.ts
 model/apiResponsePageRole.ts
@@ -43,6 +45,8 @@ model/apiResponsePageUser.ts
 model/apiResponseProduct.ts
 model/apiResponseShoppingSession.ts
 model/apiResponseSlider.ts
+model/apiResponseStatisticQuantityResponse.ts
+model/apiResponseStatisticValueResponse.ts
 model/apiResponseSubCategory.ts
 model/apiResponseUser.ts
 model/banner.ts
@@ -52,7 +56,9 @@ model/cartItemRequest.ts
 model/category.ts
 model/comment.ts
 model/commentRequest.ts
+model/customCustomerResponse.ts
 model/customer.ts
+model/customerRequest.ts
 model/imageModel.ts
 model/jwtResponse.ts
 model/loginRequest.ts
@@ -64,6 +70,7 @@ model/orderRequest.ts
 model/pageBanner.ts
 model/pageCategory.ts
 model/pageComment.ts
+model/pageCustomer.ts
 model/pageOrder.ts
 model/pageProduct.ts
 model/pageRole.ts
@@ -77,6 +84,8 @@ model/shippingMethod.ts
 model/shoppingSession.ts
 model/slider.ts
 model/sort.ts
+model/statisticQuantityResponse.ts
+model/statisticValueResponse.ts
 model/subCategory.ts
 model/subCategoryRequest.ts
 model/user.ts

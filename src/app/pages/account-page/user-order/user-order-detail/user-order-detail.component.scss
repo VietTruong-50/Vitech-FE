@@ -44,17 +44,33 @@ span {
   color: rgb(67, 70, 87);
 }
 
-.price-calculator{
+.price-calculator {
   width: 30%;
 }
 
-.total-price{
+.total-price {
   color: rgb(235, 33, 1);
 }
 
-.sub-info{
+.sub-info {
   color: rgb(130, 134, 158);
   font-weight: 400;
   font-size: 12px;
   text-align: left;
+}
+
+#scr::-webkit-scrollbar {
+  background: #f1f1f1 !important;
+}
+
+#scr::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+}
+
+#scr::-webkit-scrollbar-thumb {
+  background: #888 !important;
+}
+
+#scr::-webkit-scrollbar-thumb:hover {
+  background: #0f0f0f !important;
 }

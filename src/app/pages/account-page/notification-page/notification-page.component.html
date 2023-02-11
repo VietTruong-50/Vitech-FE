@@ -28,7 +28,11 @@
         </div>
       </div> -->
       <div
-        title="Giao hàng thành công"
+        [title]="
+          noti.order.status == 'WAITING_PROCESS'
+            ? 'Đặt hàng thành công'
+            : 'Giao hàng thành công'
+        "
         class="css-1ol5tqj"
         *ngFor="let noti of notificationsData"
         (click)="renderTo(noti.order.orderCode)"
@@ -53,7 +57,8 @@
         <div class="css-1puyvhb">
           <div class="css-1mwn02k">
             <span class="css-4wgi4e">{{
-              noti.order.status == "WAITING_PROCESS"
+              noti.order.status == "WAITING_PROCESS" ||
+              noti.order.status == "WAITING_DELIVERY"
                 ? "Đặt hàng thành công"
                 : "Giao hàng thành công"
             }}</span
@@ -65,7 +70,10 @@
           >
           <span
             class="css-1tuttxx"
-            *ngIf="noti.order.status == 'WAITING_PROCESS' || noti.order.status == 'WAITING_DELIVERY'"
+            *ngIf="
+              noti.order.status == 'WAITING_PROCESS' ||
+              noti.order.status == 'WAITING_DELIVERY'
+            "
             >Đơn hàng {{ noti.order.orderCode }} đã được đặt thành công</span
           >
         </div>

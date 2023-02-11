@@ -73,10 +73,18 @@
             </div>
             <div class="form-group" fxLayout="row" fxLayoutAlign="center">
               <div fxLayout="row wrap" style="width: 95%" fxLayoutGap="50px">
+                <div class="address add-new-address" fxLayout="row" fxLayoutAlign="center center" (click)="openDialog()">
+                  <div type="body" color="textSecondary" class="css-t00t6x" fxLayout="column" fxLayoutAlign="center center">
+                    <span size="26" class="css-1fmhjdx"></span>
+                    <div class="spacer css-1x3u27e"></div>
+                    Thêm địa chỉ mới
+                  </div>
+                </div>
                 <div
                   class="address"
                   [class.active]="selectedIndex === defaultAddress?.id"
                   (click)="setIndex(defaultAddress?.id!)"
+                  *ngIf="defaultAddress != null"
                 >
                   <div type="body" color="textSecondary" class="css-t00t6x">
                     Địa chỉ: {{ defaultAddress?.specificAddress }}, Phường/huyện
@@ -118,7 +126,7 @@
               />
               <label for="delivery-2">
                 <span></span>
-                Thường (20k)
+                Thường (20,000đ)
               </label>
               <div class="caption">
                 <p>Giao hàng trong vòng 3 đến 4 ngày kể từ ngày xác nhận</p>
@@ -133,7 +141,7 @@
               />
               <label for="delivery-1">
                 <span></span>
-                Hoả tốc (50k)
+                Hoả tốc (50,000đ)
               </label>
               <div class="caption">
                 <p>Giao hàng trong vòng 1 đến 2 ngày kể từ ngày xác nhận</p>
@@ -185,7 +193,7 @@
               Trả tiền khi nhận hàng
             </label>
             <p *ngIf="getTotalValues > 1000000" style="font-size: smaller">
-              Không hỗ trợ cho đơn hàng lớn hơn 1000000
+              Không hỗ trợ cho đơn hàng lớn hơn {{ 1000000 | number }} đ
             </p>
             <!-- <div class="caption">
               <p>
@@ -219,21 +227,21 @@
                 <strong style="color: #d10024">{{ item.quantity }}x</strong>
                 {{ item.product.name }}
               </div>
-              <div>{{ item.product.actualPrice }} đ</div>
+              <div>{{ item.product.actualPrice | number }} đ</div>
             </div>
           </div>
           <div class="order-col">
             <div>Phí ship</div>
             <div>
-              <strong>{{ shippingFee }} đ</strong>
+              <strong>{{ shippingFee | number }} đ</strong>
             </div>
           </div>
           <div class="order-col">
             <div><strong>Tổng tiền</strong></div>
             <div>
-              <strong class="order-total">{{
-                getTotalValues + shippingFee
-              }} đ</strong>
+              <strong class="order-total"
+                >{{ getTotalValues + shippingFee | number }} đ</strong
+              >
             </div>
           </div>
         </div>
@@ -246,9 +254,7 @@
             <a href="#">điều khoản &amp; điều kiện</a>
           </label>
         </div>
-        <a class="primary-btn order-submit" (click)="checkout()"
-          >Đặt hàng</a
-        >
+        <a class="primary-btn order-submit" (click)="checkout()">Đặt hàng</a>
       </div>
       <!-- /Order Details -->
     </div>

@@ -1,0 +1,146 @@
+<div fxLayout="column">
+  <app-content-header [title]="title"></app-content-header>
+  <div class="customer-form">
+    <p class="title">Thông tin khách hàng</p>
+
+    <div class="form" fxLayout="column" fxLayoutAlign="center center">
+      <div
+        fxLayout="row"
+        fxLayoutGap="50px"
+        fxLayoutAlign="space-around"
+        style="width: 90%"
+      >
+        <div fxFlex="50">
+          <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="30px">
+            <div class="form-group">
+              <label for="nameSlider">Họ và tên</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Họ và tên"
+                formControlName="fullName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="nameSlider">Số điện thoại</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Số điện thoại"
+                formControlName="phone"
+              />
+            </div>
+            <div class="form-group">
+              <label for="nameSlider">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Email"
+                formControlName="email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="nameSlider">Ngày tháng năm sinh</label>
+
+              <input
+                formControlName="dateOfBirth"
+                type="date"
+                class="form-control datepicker"
+              />
+            </div>
+            <div class="form-group" fxLayout="row" fxLayoutGap="20px">
+              <label for="sex">Giới tính</label>
+
+              <mat-radio-group
+                formControlName="genderEnum"
+                fxFlex="70"
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between"
+                aria-label="Select an option"
+              >
+                <mat-radio-button value="MALE">Nam</mat-radio-button>
+                <mat-radio-button value="FEMALE">Nữ</mat-radio-button>
+                <mat-radio-button value="OTHER">Khác</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </form>
+        </div>
+        <div fxFlex="50">
+          <form [formGroup]="formGroup2" fxLayout="column" fxLayoutGap="30px">
+            <div class="form-group">
+              <label for="city">Thành phố/Tỉnh</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Thành phố/Tỉnh"
+                formControlName="city"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Quận/Huyện</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Quận/Huyện"
+                formControlName="district"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="name">Phường/Xã</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phường/Xã"
+                formControlName="subDistrict"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Địa chỉ cụ thể</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                formControlName="specificAddress"
+              />
+            </div>
+            <div class="form-group">
+              <label for="" fxLayout="row"
+                >Mặc định
+                <input
+                  type="checkbox"
+                  style="margin-left: 20px"
+                  formControlName="default"
+                />
+              </label>
+              <div class="form-group" style="margin-top: 10px">
+                <a
+                  class="float-right"
+                  style="text-decoration: underline !important"
+                  >Danh sách địa chỉ khác</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div style="width: 90%">
+        <button
+          mat-raised-button
+          class="btn btn-primary mb-2 float-right"
+          *ngIf="!id"
+        >
+          Add
+        </button>
+        <button
+          mat-raised-button
+          class="btn btn-primary mb-2 float-right"
+          *ngIf="id"
+          (click)="updateCustomer()"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

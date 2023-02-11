@@ -13,14 +13,14 @@
         <h5>ĐƠN HÀNG: {{ orderCode }}</h5>
       </div>
     </div>
-    <div class="w-100" fxLayout="row" fxLayoutGap="20px" fxFlex="25">
-      <div fxLayout="column" fxFlex="50" class="side">
+    <div class="w-100" fxLayout="row" fxLayoutGap="20px" fxFlex="28">
+      <div fxLayout="column" fxFlex="50" class="side" id="scr">
         <div>
           <div class="title">Thông tin người nhận</div>
           <div>
             <div>
               <strong>Người nhận: </strong
-              ><span>{{ orderData?.customer.fullName }}</span>
+              ><span>{{ orderData?.address.receiverName }}</span>
             </div>
             <div>
               <strong>Hình thức nhận hàng: </strong
@@ -37,7 +37,7 @@
             </div>
             <div>
               <strong>Điện thoại: </strong
-              ><span>{{ orderData?.customer.phone }}</span>
+              ><span>{{ orderData?.address.phone }}</span>
             </div>
           </div>
         </div>

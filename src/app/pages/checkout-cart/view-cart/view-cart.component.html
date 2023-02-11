@@ -68,7 +68,7 @@
               />
             </div>
             <div class="col">
-              {{ item.product?.actualPrice }} <span>đ</span>
+              {{ item.product?.actualPrice | number}} <span>đ</span>
               <button (click)="removeItem(item.id)" class="close">
                 &#10005;
               </button>
@@ -93,7 +93,7 @@
             {{ item.product?.name }}
           </div>
           <div class="col text-right">
-            {{ item.product?.actualPrice! * item?.quantity! }} <span>đ</span>
+            {{ item.product?.actualPrice! * item?.quantity! | number}} <span>đ</span>
           </div>
         </div>
         <!-- <form>
@@ -109,7 +109,7 @@
           style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0"
         >
           <div class="col">TỔNG TIỀN</div>
-          <div class="col text-right">{{ getTotalValues }} <span>đ</span></div>
+          <div class="col text-right">{{ getTotalValues | number}} <span>đ</span></div>
         </div>
         <a href="/checkout" class="primary-btn order-submit">Đặt hàng</a>
       </div>

@@ -48,13 +48,12 @@ export class AddressNotePageComponent implements OnInit {
     });
   }
 
-  openDialog(type: string, id?: number) {
+  openDialog(id?: number) {
     this.dialog
       .open(CreateAAddressDialogComponent, {
         width: '35vw',
         data: {
-          id: id,
-          type: type,
+          id: id
         },
       })
       .afterClosed()

@@ -15,8 +15,8 @@ import { Sort } from './sort';
 
 
 export interface PageUser { 
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     size?: number;
     content?: Array<User>;
     number?: number;

@@ -71,6 +71,7 @@ export class AuthService {
       })
       .subscribe((rs) => {
         console.log(rs);
+        this.router.navigate(['signin'])
         if (String(rs.message) == 'Error: Email is already taken!') {
         } else if (String(rs.message) == 'Error: Username is already taken!') {
         }

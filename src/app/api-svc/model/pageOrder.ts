@@ -15,8 +15,8 @@ import { Sort } from './sort';
 
 
 export interface PageOrder { 
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     size?: number;
     content?: Array<Order>;
     number?: number;

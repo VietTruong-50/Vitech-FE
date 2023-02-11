@@ -64,7 +64,7 @@
                   <del class="product-old-price"></del>
                   <h4 class="product-price">
                     <!-- {{product.discountPrice}} <span>đ</span> -->
-                    {{ product.actualPrice }} <span>đ</span>
+                    {{ product.actualPrice | number}} <span>đ</span>
                   </h4>
                   <!-- <div class="product-rating">
                   </div> -->
@@ -167,12 +167,12 @@
                     {{ product.subCategory.subCateName }}
                   </p>
                   <h3 class="product-name">
-                    <a (click)="renderTo('product/detail', product.id)">{{
+                    <a (click)="renderTo('product', product.id)">{{
                       product.name | truncateText : 40
                     }}</a>
                   </h3>
                   <h4 class="product-price">
-                    {{ product.actualPrice }}<span>đ</span>
+                    {{ product.actualPrice | number}}<span>đ</span>
                     <!-- <del class="product-old-price">{{
                       product.actualPrice
                     }}<span>đ</span></del> -->

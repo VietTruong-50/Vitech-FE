@@ -22,7 +22,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseUser'
     put:
@@ -46,7 +46,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseUser'
     delete:
@@ -64,7 +64,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseObject'
   /api/subCategories/{id}:
@@ -240,7 +240,7 @@ paths:
     put:
       tags:
       - user-controller
-      operationId: updateOrderStatus
+      operationId: updateOrder
       parameters:
       - name: orderId
         in: path
@@ -258,7 +258,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseOrder'
   /api/order/{orderId}:
@@ -287,7 +287,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseOrder'
   /api/customer/wishlist/{id}:
@@ -327,6 +327,49 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ApiResponseObject'
+  /api/customer/detail/{id}:
+    get:
+      tags:
+      - customer-controller
+      operationId: getCustomerById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCustomCustomerResponse'
+    put:
+      tags:
+      - customer-controller
+      operationId: editCustomer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCustomer'
   /api/customer/address/{addressId}:
     get:
       tags:
@@ -1020,7 +1063,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponsePageUser'
   /api/test/user:
@@ -1071,6 +1114,18 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/statistic/month:
+    get:
+      tags:
+      - user-controller
+      operationId: getValuesByMonth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseStatisticValueResponse'
   /api/slider/{id}:
     get:
       tags:
@@ -1120,6 +1175,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponsePageRole'
+  /api/quantity:
+    get:
+      tags:
+      - user-controller
+      operationId: getStatistic
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseStatisticQuantityResponse'
   /api/products/subCategory/{subCate}:
     get:
       tags:
@@ -1190,6 +1257,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponsePageProduct'
+  /api/products/10/subCategory/{subCate}:
+    get:
+      tags:
+      - product-controller
+      operationId: findTop8BySubCategoryName
+      parameters:
+      - name: subCate
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListProduct'
+  /api/customers:
+    get:
+      tags:
+      - user-controller
+      operationId: findAllCustomers
+      parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageCustomer'
   /api/customer/wishlist:
     get:
       tags:
@@ -1320,13 +1435,30 @@ paths:
           - WAITING_DELIVERY
           - SUCCESS
           - CANCEL
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseListOrder'
+                $ref: '#/components/schemas/ApiResponsePageOrder'
   /api/customer/orders/{orderCode}:
     get:
       tags:
@@ -1677,6 +1809,8 @@ components:
           type: string
         parameters:
           type: string
+        shortDescription:
+          type: string
         content:
           type: string
         actualPrice:
@@ -1777,6 +1911,12 @@ components:
         deliveryDate:
           type: string
           format: date
+        receiverName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
         city:
           type: string
         district:
@@ -1791,6 +1931,12 @@ components:
         id:
           type: integer
           format: int64
+        receiverName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
         city:
           type: string
         district:
@@ -1933,6 +2079,12 @@ components:
     AddressRequest:
       type: object
       properties:
+        receiverName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
         city:
           type: string
         district:
@@ -1943,6 +2095,41 @@ components:
           type: string
         levant:
           type: boolean
+    CustomerRequest:
+      type: object
+      properties:
+        fullName:
+          type: string
+        email:
+          type: string
+        genderEnum:
+          type: string
+          enum:
+          - MALE
+          - FEMALE
+          - OTHER
+        phone:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        addressId:
+          type: integer
+          format: int64
+        addressRequest:
+          $ref: '#/components/schemas/AddressRequest'
+    ApiResponseCustomer:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Customer'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
     ApiResponseAddress:
       type: object
       properties:
@@ -2150,12 +2337,12 @@ components:
     PageUser:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2193,9 +2380,9 @@ components:
         pageSize:
           type: integer
           format: int32
-        unpaged:
-          type: boolean
         paged:
+          type: boolean
+        unpaged:
           type: boolean
     Sort:
       type: object
@@ -2221,12 +2408,12 @@ components:
     PageSubCategory:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2250,6 +2437,31 @@ components:
           $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
+    ApiResponseStatisticValueResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/StatisticValueResponse'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    StatisticValueResponse:
+      type: object
+      properties:
+        saleStatistic:
+          type: array
+          items:
+            type: number
+            format: double
+        orderStatistic:
+          type: array
+          items:
+            type: integer
+            format: int32
     ApiResponsePageSlider:
       type: object
       properties:
@@ -2265,12 +2477,12 @@ components:
     PageSlider:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2309,12 +2521,12 @@ components:
     PageRole:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2338,6 +2550,30 @@ components:
           $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
+    ApiResponseStatisticQuantityResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/StatisticQuantityResponse'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    StatisticQuantityResponse:
+      type: object
+      properties:
+        productQuantity:
+          type: integer
+          format: int32
+        customerQuantity:
+          type: integer
+          format: int32
+        orderQuantity:
+          type: integer
+          format: int32
     ApiResponsePageProduct:
       type: object
       properties:
@@ -2353,12 +2589,12 @@ components:
     PageProduct:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2396,6 +2632,50 @@ components:
         responseCode:
           type: integer
           format: int32
+    ApiResponsePageCustomer:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageCustomer'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageCustomer:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
     ApiResponsePageComment:
       type: object
       properties:
@@ -2411,12 +2691,12 @@ components:
     PageComment:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2440,13 +2720,11 @@ components:
           $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
-    ApiResponseListOrder:
+    ApiResponsePageOrder:
       type: object
       properties:
         result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
+          $ref: '#/components/schemas/PageOrder'
         errorCode:
           type: string
         message:
@@ -2454,6 +2732,38 @@ components:
         responseCode:
           type: integer
           format: int32
+    PageOrder:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
     ApiResponseListNotification:
       type: object
       properties:
@@ -2481,6 +2791,27 @@ components:
           type: string
         order:
           $ref: '#/components/schemas/Order'
+    ApiResponseCustomCustomerResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/CustomCustomerResponse'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    CustomCustomerResponse:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
     ApiResponseDouble:
       type: object
       properties:
@@ -2523,12 +2854,12 @@ components:
     PageCategory:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2581,12 +2912,12 @@ components:
     PageBanner:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -2594,50 +2925,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Banner'
-        number:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        first:
-          type: boolean
-        last:
-          type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
-        empty:
-          type: boolean
-    ApiResponsePageOrder:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PageOrder'
-        errorCode:
-          type: string
-        message:
-          type: object
-        responseCode:
-          type: integer
-          format: int32
-    PageOrder:
-      type: object
-      properties:
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int32
-        size:
-          type: integer
-          format: int32
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
         number:
           type: integer
           format: int32

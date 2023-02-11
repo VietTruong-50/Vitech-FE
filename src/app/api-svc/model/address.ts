@@ -13,6 +13,9 @@
 
 export interface Address { 
     id?: number;
+    receiverName?: string;
+    phone?: string;
+    email?: string;
     city?: string;
     district?: string;
     subDistrict?: string;

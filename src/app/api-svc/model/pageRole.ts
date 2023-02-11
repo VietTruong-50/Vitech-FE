@@ -15,8 +15,8 @@ import { Sort } from './sort';
 
 
 export interface PageRole { 
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     size?: number;
     content?: Array<Role>;
     number?: number;

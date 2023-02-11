@@ -112,14 +112,16 @@
           </div>
           <div>
             <h3 class="product-price">
-              {{ productData?.actualPrice }}
+              {{ productData?.actualPrice | number }}
             </h3>
-            <span class="product-available" *ngIf="productData?.quantity > 0">Còn hàng</span>
-            <span class="product-available" *ngIf="productData?.quantity == 0">Hết hàng</span>
+            <span class="product-available" *ngIf="productData?.quantity > 0"
+              >Còn hàng</span
+            >
+            <span class="product-available" *ngIf="productData?.quantity == 0"
+              >Hết hàng</span
+            >
           </div>
-          <p>
-            {{ productData?.parameters }}
-          </p>
+          <p [innerHTML]="productData?.parameters"></p>
 
           <div class="product-options" fxLayout="row">
             <!-- <label>
@@ -137,7 +139,7 @@
             <label fxLayout="row" fxLayoutAlign="none center">
               Qty
               <div class="input-number" style="margin-left: 10px">
-                <input type="number" [(ngModel)]="qty"/>
+                <input type="number" [(ngModel)]="qty" />
                 <!-- <span class="qty-up">+</span>
                 <span class="qty-down">-</span> -->
               </div>
@@ -145,7 +147,10 @@
           </div>
 
           <div class="add-to-cart">
-            <button class="add-to-cart-btn" (click)="addItemToCart(productData)">
+            <button
+              class="add-to-cart-btn"
+              (click)="addItemToCart(productData)"
+            >
               <i class="fa fa-shopping-cart"></i> add to cart
             </button>
           </div>
@@ -176,7 +181,7 @@
           <!-- product tab nav -->
           <mat-tab-group mat-align-tabs="start">
             <mat-tab label="Mô tả">
-              <p [innerHTML]="productData?.content"></p>
+              <p [innerHTML]="contentToHtml"></p>
             </mat-tab>
             <mat-tab label="Thông số"
               ><p [innerHTML]="productData?.parameters"></p
@@ -628,62 +633,73 @@
         </div>
       </div>
 
-      <div class="col-md-3 col-xs-6">
-        <ng-container>
-          <span
-            class="product product-card"
-            fxLayout="column"
-            style="height: 470px"
+      <div class="col-md-12">
+        <div class="row">
+          <ngx-slick-carousel
+            class="carousel"
+            #slickModal="slick-carousel"
+            [config]="slideConfig2"
           >
-            <div class="product-img">
-              <img
-                src="../../../assets/image/product02.png"
-                alt=""
-                width="100%"
-              />
-              <div class="product-label">
-                <span class="sale">-30%</span>
-                <span class="new">NEW</span>
+            <div
+              ngxSlickItem
+              *ngFor="let product of top8Product"
+              fxLayout="column"
+              fxLayoutAlign="none center"
+              class="slide"
+            >
+              <div class="product slick-slide" style="width: 255px">
+                <div class="product-img">
+                  <img [src]="product.imgUrl" alt="" width="100%" />
+                  <div class="product-label">
+                    <span class="sale">-30%</span>
+                    <span class="new">NEW</span>
+                  </div>
+                </div>
+                <div class="product-body">
+                  <p class="product-category">
+                    {{ product?.subCategory.subCateName }}
+                  </p>
+                  <h3
+                    class="product-name"
+                    (click)="renderTo('product', product.id)"
+                  >
+                    <a>{{ product?.name | truncateText : 40 }}</a>
+                  </h3>
+                  <del class="product-old-price"></del>
+                  <h4 class="product-price">
+                    <!-- {{product.discountPrice}} <span>đ</span> -->
+                    {{ product?.actualPrice | number }} <span>đ</span>
+                  </h4>
+                  <!-- <div class="product-rating">
+                  </div> -->
+                  <div class="product-btns">
+                    <button class="add-to-wishlist">
+                      <i class="fa fa-heart"></i
+                      ><span class="tooltipp">add to wishlist</span>
+                    </button>
+                    <button class="add-to-compare">
+                      <i class="fa fa-exchange"></i
+                      ><span class="tooltipp">add to compare</span>
+                    </button>
+                    <button class="quick-view">
+                      <i class="fa fa-eye"></i
+                      ><span class="tooltipp">quick view</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="add-to-cart">
+                  <button
+                    class="add-to-cart-btn"
+                    (click)="addItemToCart(product)"
+                  >
+                    <i class="fa fa-shopping-cart"></i> add to cart
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name">
-                <a href="#">{{ productData?.name | truncateText : 40 }}</a>
-              </h3>
-              <h4 class="product-price">
-                $980.00
-                <del class="product-old-price">
-                  {{ productData?.actualPrice }}</del
-                >
-              </h4>
-              <!-- <div class="product-rating">
-          </div> -->
-              <div class="product-btns">
-                <button class="add-to-wishlist">
-                  <i class="fa fa-heart"></i
-                  ><span class="tooltipp">add to wishlist</span>
-                </button>
-                <button class="add-to-compare">
-                  <i class="fa fa-exchange"></i
-                  ><span class="tooltipp">add to compare</span>
-                </button>
-                <button class="quick-view">
-                  <i class="fa fa-eye"></i
-                  ><span class="tooltipp">quick view</span>
-                </button>
-              </div>
-            </div>
-            <div class="add-to-cart">
-              <button class="add-to-cart-btn">
-                <i class="fa fa-shopping-cart"></i> add to cart
-              </button>
-            </div>
-          </span>
-        </ng-container>
+          </ngx-slick-carousel>
+        </div>
       </div>
     </div>
-    <!-- /row -->
   </div>
-  <!-- /container -->
 </div>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { User, UserControllerService } from 'src/app/api-svc';
 
 @Component({
@@ -21,6 +22,8 @@ export class UserManagementComponent implements OnInit {
     'position',
     'userName',
     'email',
+    'phone',
+    'dateOfBirth',
     'role',
     'action',
   ];
@@ -40,9 +43,13 @@ export class UserManagementComponent implements OnInit {
     this.userController.getAllUsers(5, 0, 'createdAt').subscribe((response) => {
       this.userData = response.result?.content;
 
-      this.dataSource = new MatTableDataSource<User>(
-        response.result?.content
-      );
+      this.userData.forEach((item: any) => {
+        item.dateOfBirth = moment(new Date(item.dateOfBirth)).format(
+          'DD/MM/YYYY'
+        );
+      });
+
+      this.dataSource = new MatTableDataSource<User>(response.result?.content);
     });
   }
 

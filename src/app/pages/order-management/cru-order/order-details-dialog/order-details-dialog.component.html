@@ -11,7 +11,7 @@
         </h3>
         <h4 class="product-price float-right" id="prd-price">
           <span class="qty">{{ item.quantity }}x</span
-          >{{ item.product?.actualPrice }} đ
+          >{{ item.product?.actualPrice | number }} đ
         </h4>
       </div>
     </div>
@@ -19,10 +19,10 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <div><strong>Phí vận chuyển</strong></div>
     <span class="shipping-price float-right" id="prd-price"
-      >{{ data.shippingPrice }} đ</span
+      >{{ data.shippingPrice | number }} đ</span
     >
   </div>
   <div class="cart-summary">
-    <h5 class="float-right text-white">Tổng: {{ data.total }} đ</h5>
+    <h5 class="float-right text-white">Tổng: {{ data.total | number }} đ</h5>
   </div>
 </div>

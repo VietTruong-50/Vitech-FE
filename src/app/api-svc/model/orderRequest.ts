@@ -18,6 +18,9 @@ export interface OrderRequest {
     addressId?: number;
     orderStatusEnum?: OrderRequest.OrderStatusEnumEnum;
     deliveryDate?: string;
+    receiverName?: string;
+    phone?: string;
+    email?: string;
     city?: string;
     district?: string;
     subDistrict?: string;

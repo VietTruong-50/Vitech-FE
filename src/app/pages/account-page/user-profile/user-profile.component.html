@@ -1,12 +1,12 @@
 <div fxLayout="column" fxLayoutAlign="start none">
   <div fxLayout="row">
     <div fxFlex="50">
-      <div fxLayout="row" style="margin: 40px 15px 30px 15px">
+      <div fxLayout="row" style="margin: 40px 15px 40px 15px">
         <p>Thông tin tài khoản</p>
       </div>
 
       <div class="form">
-        <form [formGroup]="formGroup">
+        <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="25px">
           <!-- <div class="form-group">
               <img width="100px" height="100px" src="" alt="">
           </div> -->
@@ -45,33 +45,48 @@
               class="form-control datepicker"
             />
           </div>
-          <div class="form-group">
+          <div class="form-group" fxLayout="row" fxLayoutGap="20px">
             <label for="sex">Giới tính</label>
 
-            <select formControlName="gender">
+            <!-- <select formControlName="gender" class="form-select">
               <option *ngFor="let g of gender" [value]="g.value">
                 {{ g.viewValue }}
               </option>
-            </select>
-          </div>
-          <div class="form-group float-right">
-            <button class="primary-btn order-submit" (click)="updateProfile()">
-              Cập nhật
-            </button>
+            </select> -->
+            <mat-radio-group
+              formControlName="gender"
+              fxFlex="70"
+              fxLayout="row wrap"
+              fxLayoutAlign="space-between"
+              aria-label="Select an option"
+            >
+              <mat-radio-button value="MALE">Nam</mat-radio-button>
+              <mat-radio-button value="FEMALE">Nữ</mat-radio-button>
+              <mat-radio-button value="OTHER">Khác</mat-radio-button>
+            </mat-radio-group>
           </div>
         </form>
+        <div class="form-group float-right">
+          <button class="primary-btn order-submit" (click)="updateProfile()">
+            Cập nhật
+          </button>
+        </div>
       </div>
     </div>
     <div fxFlex="50">
       <div
         fxLayout="row"
         fxLayoutAlign="space-between"
-        style="margin: 40px 15px 30px 15px"
+        style="margin: 40px 15px 40px 15px"
       >
         <p>Địa chỉ mặc định</p>
       </div>
       <div class="form">
-        <form [formGroup]="addressFormGroup">
+        <form
+          [formGroup]="addressFormGroup"
+          fxLayout="column"
+          fxLayoutGap="25px"
+        >
           <div class="form-group">
             <label for="address">Tỉnh/Thành phố</label>
             <input
@@ -110,12 +125,12 @@
               placeholder="Địa chỉ cụ thể"
             />
           </div>
-          <div class="form-group float-right">
-            <button class="primary-btn order-submit" (click)="updateAddress()">
-              Cập nhật
-            </button>
-          </div>
         </form>
+        <div class="form-group float-right">
+          <button class="primary-btn order-submit" (click)="updateAddress()">
+            Cập nhật
+          </button>
+        </div>
       </div>
     </div>
   </div>

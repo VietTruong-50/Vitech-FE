@@ -17,7 +17,7 @@ export class UserOrderDetailComponent implements OnInit {
     { value: 'SUCCESS', viewValue: 'Đã hoàn thành' },
     { value: 'CANCEL', viewValue: 'Đã huỷ' },
   ];
-  
+
   constructor(
     private customerController: CustomerControllerService,
     private route: ActivatedRoute,
@@ -36,13 +36,16 @@ export class UserOrderDetailComponent implements OnInit {
     this.customerController.getOrderByCode(code).subscribe((rs) => {
       this.orderData = rs.result;
 
-      rs.result?.orderDetails?.forEach(item => {
+      rs.result?.orderDetails?.forEach((item) => {
         if (item.product!.featureImageByte) {
-          let objectURL = 'data:image/jpeg;base64,' + item.product!.featureImageByte;
+          let objectURL =
+            'data:image/jpeg;base64,' + item.product!.featureImageByte;
 
-          item.product!.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          item.product!.imgUrl =
+            this.sanitizer.bypassSecurityTrustUrl(objectURL);
         }
-      })
+      });
+      console.log(this.orderData);
     });
   }
 }

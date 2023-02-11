@@ -1,4 +1,11 @@
 .user-panel img {
-    height: auto;
-    width: 3rem !important;
+  height: auto;
+  width: 3rem !important;
+}
+
+.nav-active {
+  background-color: rgba(255, 255, 255, 0.9);
+  a {
+    color: #343a40 !important;
+  }
 }

@@ -12,6 +12,9 @@
 
 
 export interface AddressRequest { 
+    receiverName?: string;
+    phone?: string;
+    email?: string;
     city?: string;
     district?: string;
     subDistrict?: string;

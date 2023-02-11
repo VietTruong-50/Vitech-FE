@@ -55,10 +55,10 @@
         </div>
       </div>
     </div>
-    <div class="form-group" *ngIf="data.type == 'Add'">
+    <div class="form-group" *ngIf="data?.id == null">
       <button class="primary-btn order-submit float-right" (click)="createNewAddress()">Thêm mới</button>
     </div>
-    <div class="form-group" *ngIf="data.type == 'Edit'">
+    <div class="form-group" *ngIf="data?.id != null">
         <button class="primary-btn order-submit float-right" (click)="editAddress()">Cập nhật</button>
       </div>
   </form>

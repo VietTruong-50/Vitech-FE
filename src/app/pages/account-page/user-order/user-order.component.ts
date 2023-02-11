@@ -38,9 +38,9 @@ export class UserOrderComponent implements OnInit {
   getOrdersData(status?: any, index?: number) {
     this.selectedIndex = index!;
     this.customerController
-      .getCurrentOrders(status ? status : 'WAITING_PROCESS')
+      .getCurrentOrders(status ? status : 'WAITING_PROCESS', 0, 20, "orderDate")
       .subscribe((rs) => {
-        this.dataSource = new MatTableDataSource<Order>(rs.result);
+        this.dataSource = new MatTableDataSource<Order>(rs.result?.content);
       });
   }
 }

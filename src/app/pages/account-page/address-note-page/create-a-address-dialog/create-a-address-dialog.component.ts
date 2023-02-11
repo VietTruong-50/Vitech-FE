@@ -25,7 +25,7 @@ export class CreateAAddressDialogComponent implements OnInit {
       isDefault: false,
     });
 
-    if (data.id != null) {
+    if (data?.id != null) {
       this.customerController.getAddressById(data.id).subscribe((rs) => {
         console.log(rs.result?.default);
         

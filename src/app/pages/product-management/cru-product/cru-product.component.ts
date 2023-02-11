@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { Editor, toHTML, Toolbar } from 'ngx-editor';
 import {
   CategoryControllerService,
   ProductControllerService,
@@ -21,34 +22,61 @@ export class CruProductComponent implements OnInit {
   id: string | null = '';
   brandData: any;
   categoryData: any;
-  // imageDomain = '../../../assets/image/products/';
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '25rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [['bold']],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText',
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-  };
+  editor: Editor;
+  editor2: Editor;
+
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+
+  toolbar2: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+
+
+  html: string = '';
+
+  // editorConfig: AngularEditorConfig = {
+  //   editable: true,
+  //   spellcheck: true,
+  //   height: '18rem',
+  //   minHeight: '5rem',
+  //   placeholder: 'Enter text here...',
+  //   translate: 'no',
+  //   defaultParagraphSeparator: 'p',
+  //   defaultFontName: 'Arial',
+  //   toolbarHiddenButtons: [['bold']],
+  //   customClasses: [
+  //     {
+  //       name: 'quote',
+  //       class: 'quote',
+  //     },
+  //     {
+  //       name: 'redText',
+  //       class: 'redText',
+  //     },
+  //     {
+  //       name: 'titleText',
+  //       class: 'titleText',
+  //       tag: 'h1',
+  //     },
+  //   ],
+  // };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,13 +93,17 @@ export class CruProductComponent implements OnInit {
       parameters: [],
       content: [],
       price: [],
-      // discountPrice: [],
+      shortDescription: [],
       feature_img: [],
       images: [],
       quantity: [],
       categoryName: [],
       brandId: [],
     });
+
+    this.title = this.route.snapshot.queryParamMap.get('type')! + ' product';
+    this.editor = new Editor();
+    this.editor2 = new Editor();
   }
 
   ngOnInit(): void {
@@ -81,6 +113,11 @@ export class CruProductComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get('id');
       this.getProductById();
     }
+  }
+
+  // make sure to destory the editor
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   getProductById() {
@@ -122,11 +159,13 @@ export class CruProductComponent implements OnInit {
   }
 
   getBrandData(name: string) {
-    this.subCategoryController.getSubCategoryDataByCategory([name]).subscribe((response) => {
-      if (response.errorCode == null) {
-        this.brandData = response.result;
-      }
-    });
+    this.subCategoryController
+      .getSubCategoryDataByCategory([name])
+      .subscribe((response) => {
+        if (response.errorCode == null) {
+          this.brandData = response.result;
+        }
+      });
   }
 
   getCategoryData() {
@@ -143,6 +182,10 @@ export class CruProductComponent implements OnInit {
     let id = deviceValue.target.value;
     console.log(id);
     this.getBrandData(id);
+  }
+
+  onChangeBrand(event: any){
+    this.formGroup.controls['brandId'].setValue(event.target.value)
   }
 
   readURL(event: any): void {
@@ -190,13 +233,12 @@ export class CruProductComponent implements OnInit {
       .createNewProduct(
         {
           name: data.name ? data.name : 'null',
-          content: data.content ? data.content : 'null',
+          content: data.content ? toHTML(data.content) : 'null',
           actualPrice: data.price ? data.price : 0,
           quantity: data.quantity ? data.quantity : 0,
           productCode: data.code ? data.code : '',
-          parameters: data.parameters ? data.parameters : '',
-          discountPrice: data.discountPrice ? data.discountPrice: 0,
-          // category_id: data.categoryName ? data.categoryName : 0,
+          parameters: data.parameters ? toHTML(data.parameters) : '',
+          shortDescription: data.shortDescription ? data.shortDescription : '',
           brand_id: data.brandId ? data.brandId : null,
         },
         data.feature_img,
@@ -224,8 +266,7 @@ export class CruProductComponent implements OnInit {
           quantity: data.quantity ? data.quantity : 0,
           productCode: data.code ? data.code : '',
           parameters: data.parameters ? data.parameters : '',
-          discountPrice: data.discountPrice ? data.discountPrice: 0,
-          // category_id: data.categoryName ? data.categoryName : 0,
+          shortDescription: data.shortDescription ? data.shortDescription : '',
           brand_id: data.brandId ? data.brandId : null,
         },
         data.feature_img,
@@ -238,5 +279,4 @@ export class CruProductComponent implements OnInit {
         }
       });
   }
-  
 }

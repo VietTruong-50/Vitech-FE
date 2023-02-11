@@ -29,11 +29,11 @@
         </li>
         <li *ngIf="!isLogin()">
           <a (click)="renderTo('signin')" class="text-white"
-            ><i class="fa fa-sign-in"></i> Đăng nhập </a
-          >
+            ><i class="fa fa-sign-in"></i> Đăng nhập
+          </a>
         </li>
-        <li *ngIf="isLogin()" (click)="signout()">
-          <a class="text-white"><i class="fa fa-sign-out"></i> Đăng ký</a>
+        <li *ngIf="isLogin()" (click)="logOut()">
+          <a class="text-white"><i class="fa fa-sign-out"></i> Đăng xuất</a>
         </li>
       </ul>
     </div>
@@ -133,7 +133,7 @@
                       </h3>
                       <h4 class="product-price">
                         <span class="qty">{{ item.quantity }}x</span
-                        >{{ item.product?.actualPrice }} đ
+                        >{{ item.product?.actualPrice | number }} đ
                       </h4>
                     </div>
                     <button class="delete" (click)="removeItem(item.id!)">
@@ -143,11 +143,14 @@
                 </div>
                 <div class="cart-summary">
                   <small>{{ cartLength }} sản phẩm đã chọn</small>
-                  <h5>Tạm tính: {{ getTotalValues }} đ</h5>
+                  <h5>Tạm tính: {{ getTotalValues | number }} đ</h5>
                 </div>
                 <div class="cart-btns">
                   <a (click)="renderTo('cart')">Xem giỏ hàng</a>
-                  <a (click)="renderTo('checkout')"
+                  <a *ngIf="cartLength > 0" (click)="renderTo('checkout')"
+                    >Đặt hàng <i class="fa fa-arrow-circle-right"></i
+                  ></a>
+                  <a *ngIf="cartLength <= 0" class="disabled"
                     >Đặt hàng <i class="fa fa-arrow-circle-right"></i
                   ></a>
                 </div>
@@ -180,7 +183,9 @@
         <li [ngClass]="currentRoute == '/store' ? 'active' : ' '">
           <a (click)="renderTo('store')">Store</a>
         </li>
-        <li><a>Policies</a></li>
+        <li [ngClass]="currentRoute == '/policies' ? 'active' : ' '">
+          <a (click)="renderTo('policies')">Policies</a>
+        </li>
       </ul>
     </div>
   </div>

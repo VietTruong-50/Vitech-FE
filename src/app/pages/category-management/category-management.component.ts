@@ -20,7 +20,7 @@ export class CategoryManagementComponent implements OnInit {
 
   displayedColumns: string[] = [
     'position',
-    'image',
+    // 'image',
     'name',
     // 'parent_id',
     'action',

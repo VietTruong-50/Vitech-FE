@@ -135,7 +135,7 @@ export class HomepageHeaderComponent implements OnInit {
     });
   }
 
-  signout() {
+  logOut() {
     this.cookieService.delete('authToken');
     this.cartService.resetCart();
     this.router.navigateByUrl('/homepage').then(() => {

@@ -18,6 +18,25 @@ export class OrderManagementComponent implements OnInit {
   pageIndex: number = 0;
   pageSize: number = 5;
 
+  status = [
+    {
+      value: 'WAITING_PROCESS',
+      viewValue: 'Chờ xử lý',
+    },
+    {
+      value: 'WAITING_DELIVERY',
+      viewValue: 'Chờ giao hàng',
+    },
+    {
+      value: 'SUCCESS',
+      viewValue: 'Đã hoàn thành',
+    },
+    {
+      value: 'CANCEL',
+      viewValue: 'Đã huỷ',
+    },
+  ];
+
   displayedColumns: string[] = [
     'position',
     'orderCode',
@@ -25,14 +44,15 @@ export class OrderManagementComponent implements OnInit {
     'orderDate',
     'status',
     'total',
-    'action'
+    'action',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   constructor(
     private router: Router,
     private location: Location,
-    private userController: UserControllerService
+    private userController: UserControllerService,
+    private customerController: CustomerControllerService
   ) {}
 
   ngOnInit(): void {
@@ -45,23 +65,36 @@ export class OrderManagementComponent implements OnInit {
 
   ordersData: any;
 
-  getAllOrdersData() {
-    this.userController.getAllOrders(0, 5, 'orderDate').subscribe((rs) => {
-      this.ordersData = rs.result?.content;
+  getAllOrdersData(pageIndex ?: number) {
+    this.userController
+      .getAllOrders(pageIndex ? pageIndex : this.pageIndex, 5, 'orderDate')
+      .subscribe((rs) => {
+        this.ordersData = rs.result?.content;
 
-      this.dataSource = new MatTableDataSource<Order>(
-        rs.result?.content
-      );
-    });
+        this.dataSource = new MatTableDataSource<Order>(rs.result?.content);
+      });
+  }
+
+  getOrderByStatus() {
+    // this.customerController
+    //   .getCurrentOrders('WAITING_DELIVERY')
+    //   .subscribe((rs) => {
+    //     this.ordersData = rs.result;
+    //     this.dataSource = new MatTableDataSource<Order>(rs.result);
+    //   });
   }
 
   renderTo(type: string, id?: number) {
-    if (type == 'Add') {
-      this.router.navigate(['/admin/orders', 'add-orders'], {
+    if (type == 'Info') {
+      this.router.navigate(['/admin/orders', id], {
         queryParams: { type: type },
       });
-    } else if ((type = 'Edit')) {
+    } else if (type == 'Edit') {
       this.router.navigate(['/admin/orders', 'edit-orders', id], {
+        queryParams: { type: type },
+      });
+    } else if (type == 'Add') {
+      this.router.navigate(['/admin/orders', 'add-orders'], {
         queryParams: { type: type },
       });
     }
@@ -72,5 +105,7 @@ export class OrderManagementComponent implements OnInit {
     this.pageSize = pageSize;
     const pureUrl = this.router.url.split('?').shift();
     this.location.go(`${pureUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+
+    this.getAllOrdersData(pageIndex);
   }
 }

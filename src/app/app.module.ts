@@ -78,7 +78,13 @@ import { CruOrderComponent } from './pages/order-management/cru-order/cru-order.
 import { AddressNotePageComponent } from './pages/account-page/address-note-page/address-note-page.component';
 import { CreateAAddressDialogComponent } from './pages/account-page/address-note-page/create-a-address-dialog/create-a-address-dialog.component';
 import { OrderDetailsDialogComponent } from './pages/order-management/cru-order/order-details-dialog/order-details-dialog.component';
-import { CustomerDetailsDialogComponent } from './pages/order-management/cru-order/customer-details-dialog/customer-details-dialog.component'
+import { CustomerDetailsDialogComponent } from './pages/order-management/cru-order/customer-details-dialog/customer-details-dialog.component';
+import { StatisticsAdminPageComponent } from './pages/statistics-admin-page/statistics-admin-page.component';
+import { CustomerAccountManagementComponent } from './pages/customer-account-management/customer-account-management.component'
+import { NgxEditorModule } from 'ngx-editor';
+import { NumberCommaDirective } from './shared/number-comma.directive';
+import { CruCustomerComponent } from './pages/customer-account-management/cru-customer/cru-customer.component';
+import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +137,11 @@ import { CustomerDetailsDialogComponent } from './pages/order-management/cru-ord
     CreateAAddressDialogComponent,
     OrderDetailsDialogComponent,
     CustomerDetailsDialogComponent,
+    StatisticsAdminPageComponent,
+    CustomerAccountManagementComponent,
+    NumberCommaDirective,
+    CruCustomerComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +171,8 @@ import { CustomerDetailsDialogComponent } from './pages/order-management/cru-ord
     MatListModule,
     MatSidenavModule,
     NgxPaginationModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxEditorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

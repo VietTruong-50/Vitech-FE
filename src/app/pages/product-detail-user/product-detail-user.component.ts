@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -38,6 +38,18 @@ export class ProductDetailUserComponent implements OnInit {
     adaptiveHeight: true,
   };
 
+  slideConfig2 = {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 1500,
+    touchMove: false,
+  };
+
+  contentToHtml: any;
+
   constructor(
     private route: ActivatedRoute,
     private productController: ProductControllerService,
@@ -47,11 +59,13 @@ export class ProductDetailUserComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router
   ) {
-    if (this.route.snapshot.paramMap.get('id') != null) {
-      this.id = this.route.snapshot.paramMap.get('id')!;
-      this.getProductById();
-      this.getComments();
-    }
+    this.route.paramMap.subscribe((res) => {
+      if (res.get('id') != null) {
+        this.id = res.get('id')!;
+        this.getProductById();
+        this.getComments();
+      }
+    });
   }
 
   ngOnInit(): void {}
@@ -83,6 +97,11 @@ export class ProductDetailUserComponent implements OnInit {
           });
 
           this.productData = response.result;
+          this.contentToHtml = this.sanitizer.bypassSecurityTrustHtml(
+            response.result?.content!
+          );
+
+          this.getTop8ProductData(response.result?.subCategory?.subCateName!);
         }
       });
   }
@@ -118,8 +137,8 @@ export class ProductDetailUserComponent implements OnInit {
     elem.scrollIntoView({ behavior: 'smooth' });
   }
 
-  isLogin(){
-    if(this.cookieService.check('authToken') != null){
+  isLogin() {
+    if (this.cookieService.check('authToken') != null) {
       return true;
     }
     return false;
@@ -138,4 +157,24 @@ export class ProductDetailUserComponent implements OnInit {
     ]);
   }
 
+  top8Product: any;
+  getTop8ProductData(subCatename: string) {
+    this.productController
+      .findTop8BySubCategoryName(subCatename)
+      .subscribe((rs) => {
+        rs.result?.forEach((item) => {
+          if (item.featureImageByte) {
+            let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
+
+            item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        });
+
+        this.top8Product = rs.result;
+      });
+  }
+
+  renderTo(url: string, id?: number) {
+    this.router.navigate([url, id]);
+  }
 }

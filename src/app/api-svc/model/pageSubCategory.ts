@@ -15,8 +15,8 @@ import { Sort } from './sort';
 
 
 export interface PageSubCategory { 
-    totalElements?: number;
     totalPages?: number;
+    totalElements?: number;
     size?: number;
     content?: Array<SubCategory>;
     number?: number;

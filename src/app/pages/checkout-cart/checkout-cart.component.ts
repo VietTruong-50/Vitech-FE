@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import {
   AuthControllerService,
@@ -7,6 +8,7 @@ import {
   CustomerControllerService,
 } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
+import { CreateAAddressDialogComponent } from '../account-page/address-note-page/create-a-address-dialog/create-a-address-dialog.component';
 
 @Component({
   selector: 'app-checkout-cart',
@@ -24,7 +26,8 @@ export class CheckoutCartComponent implements OnInit {
     private cookieService: CookieService,
     private cartService: CartService,
     private authController: AuthControllerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.formGroup = this.formBuilder.group({
       fullName: [],
@@ -74,6 +77,9 @@ export class CheckoutCartComponent implements OnInit {
             ? 'ONLINE_PAYING'
             : 'DELIVERY_PAYING',
         shippingMethodId: this.shippingId,
+        receiverName: this.formGroup.controls['fullName'].value,
+        phone: this.formGroup.controls['phone'].value,
+        email: this.formGroup.controls['email'].value,
       })
       .subscribe((rs) => {
         console.log(rs);
@@ -116,5 +122,17 @@ export class CheckoutCartComponent implements OnInit {
 
   setPayingMethod(event: any) {
     this.payingMethod = event.target.value;
+  }
+
+  openDialog() {
+    this.dialog
+      .open(CreateAAddressDialogComponent, {
+        width: '35vw',
+      })
+      .afterClosed()
+      .subscribe((rs) => {
+        this.getAddressData();
+        this.getDefaultAddress();
+      });
   }
 }

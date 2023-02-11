@@ -28,3 +28,22 @@
 .active {
   border: 2px solid rgb(27, 82, 249);
 }
+
+.css-1fmhjdx {
+  -webkit-mask: url(https://shopfront-cdn.tekoapis.com/static/949377dd1535d300.svg)
+    center center / contain no-repeat;
+  mask: url(https://shopfront-cdn.tekoapis.com/static/949377dd1535d300.svg);
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-color: var(--button-icon-color, #757575);
+}
+
+.css-1x3u27e {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.add-new-address {
+  border: 1px dashed rgb(181, 179, 179);
+}

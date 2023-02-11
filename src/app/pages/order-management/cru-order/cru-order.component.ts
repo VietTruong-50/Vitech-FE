@@ -17,6 +17,8 @@ import { OrderDetailsDialogComponent } from './order-details-dialog/order-detail
 })
 export class CruOrderComponent implements OnInit {
   orderDetail: any;
+  title: string = '';
+  isDisabled: any;
 
   formGroup: FormGroup;
   formGroup2: FormGroup;
@@ -83,16 +85,27 @@ export class CruOrderComponent implements OnInit {
     });
     this.formGroup3 = this.formBuilder.group({
       fullName: [],
+      phone: [],
       city: [],
       district: [],
       subDistrict: [],
       specificAddress: [],
       shippingMethod: [],
     });
+
+    if (this.route.snapshot.queryParamMap.get('type')! == 'Info') {
+      this.title = 'Thông tin đơn hàng';
+      this.isDisabled = true;
+    } else if (this.route.snapshot.queryParamMap.get('type')! == 'Edit') {
+      this.title = 'Sửa đơn hàng';
+      this.isDisabled = null;
+    }
   }
 
   ngOnInit(): void {
-    this.getOrderDetail();
+    if (this.route.snapshot.paramMap.get('orderCode')) {
+      this.getOrderDetail();
+    }
   }
   orderCode: string = '';
 
@@ -119,7 +132,8 @@ export class CruOrderComponent implements OnInit {
       });
 
       this.formGroup3.patchValue({
-        fullName: this.orderDetail.customer.fullName,
+        fullName: this.orderDetail.address.receiverName,
+        phone: this.orderDetail.address.phone,
         city: this.orderDetail.address.city,
         district: this.orderDetail.address.district,
         subDistrict: this.orderDetail.address.subDistrict,
@@ -166,5 +180,25 @@ export class CruOrderComponent implements OnInit {
 
   onChangeStatus(event: any) {
     this.formGroup.controls['status'].setValue(event.target.value);
+  }
+
+  editOrder() {
+    this.userController
+      .updateOrder(this.orderDetail.id, {
+        orderStatusEnum: this.formGroup.controls['status'].value,
+        addressId: this.orderDetail.address.id,
+        city: this.formGroup3.controls['city'].value,
+        district: this.formGroup3.controls['district'].value,
+        subDistrict: this.formGroup3.controls['subDistrict'].value,
+        specificAddress: this.formGroup3.controls['specificAddress'].value,
+        deliveryDate: moment(
+          this.formGroup.controls['deliveryDate'].value
+        ).toISOString(),
+        receiverName: this.formGroup3.controls['receiverName'].value,
+        phone: this.formGroup3.controls['phone'].value,
+      })
+      .subscribe((rs) => {
+        this.getOrderDetail();
+      });
   }
 }

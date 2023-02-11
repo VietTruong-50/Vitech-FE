@@ -35,8 +35,16 @@ import { PoliciesPageComponent } from './pages/policies-page/policies-page.compo
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
 import { CruOrderComponent } from './pages/order-management/cru-order/cru-order.component';
 import { AddressNotePageComponent } from './pages/account-page/address-note-page/address-note-page.component';
+import { StatisticsAdminPageComponent } from './pages/statistics-admin-page/statistics-admin-page.component';
+import { CustomerAccountManagementComponent } from './pages/customer-account-management/customer-account-management.component';
+import { CruCustomerComponent } from './pages/customer-account-management/cru-customer/cru-customer.component';
+import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-login.component';
 
 const routes: Routes = [
+  {
+    path: 'admin/login',
+    component: AdminLoginComponent,
+  },
   {
     path: 'admin',
     component: MasterComponentComponent,
@@ -45,6 +53,10 @@ const routes: Routes = [
     //   role: 'ROLE_ADMIN',
     // },
     children: [
+      {
+        path: '',
+        component: StatisticsAdminPageComponent,
+      },
       {
         path: 'sliders',
         component: SliderManagementComponent,
@@ -98,6 +110,18 @@ const routes: Routes = [
         component: UserManagementComponent,
       },
       {
+        path: 'customers',
+        component: CustomerAccountManagementComponent,
+      },
+      {
+        path: 'customers/add-customer',
+        component: CruCustomerComponent,
+      },
+      {
+        path: 'customers/edit-customer/:id',
+        component: CruCustomerComponent,
+      },
+      {
         path: 'roles',
         // canActivate: [HasRoleGuard],
         // data: {
@@ -122,7 +146,15 @@ const routes: Routes = [
         component: OrderManagementComponent,
       },
       {
+        path: 'orders/add-orders',
+        component: CruOrderComponent,
+      },
+      {
         path: 'orders/edit-orders/:orderCode',
+        component: CruOrderComponent,
+      },
+      {
+        path: 'orders/:orderCode',
         component: CruOrderComponent,
       },
     ],
@@ -193,8 +225,8 @@ const routes: Routes = [
           },
           {
             path: 'address',
-            component: AddressNotePageComponent
-          }
+            component: AddressNotePageComponent,
+          },
         ],
       },
       {

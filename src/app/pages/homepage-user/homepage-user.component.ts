@@ -49,7 +49,7 @@ export class HomepageUserComponent implements OnInit {
 
   getData() {
     this.productController
-      .getAllProduct(5, 0, 'createdAt')
+      .getAllProduct(30, 0, 'createdAt')
       .subscribe((response) => {
         response.result?.content?.forEach((item) => {
           if (item.featureImageByte) {

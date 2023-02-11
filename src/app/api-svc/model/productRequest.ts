@@ -17,9 +17,8 @@
     parameters: string;
     content: string;
     actualPrice: number;
-    discountPrice: number;
+    shortDescription: string;
     quantity: number;
-    category_id?: number;
     brand_id?: number;
 }
 
