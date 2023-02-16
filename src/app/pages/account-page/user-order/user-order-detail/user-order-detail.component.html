@@ -77,7 +77,6 @@
           [src]="item.product.imgUrl"
           loading="lazy"
           decoding="async"
-          fxFlex="10"
           width="80px"
           height="80px"
         />
@@ -89,7 +88,7 @@
           <div class="sub-info">Cung cap boi ViTech</div>
         </span>
         <span fxLayout="column" fxFlex="20">
-          <div class="price">{{ item.product.actualPrice }}đ</div>
+          <div class="price">{{ item.product.actualPrice | number }}đ</div>
           <div></div>
           <div font-size="12" class="quantity">X{{ item.quantity }}</div>
         </span>
@@ -101,13 +100,16 @@
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div style="color: #848788" fxLayout="row">Tổng tạm tính</div>
             <div>
-              <span>{{ orderData?.total }} <span>đ</span></span>
+              <span>{{ orderData?.total | number }} <span>đ</span></span>
             </div>
           </div>
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div style="color: #848788" fxLayout="row">Phí vận chuyển</div>
             <div>
-              <span>{{ orderData?.shippingMethod.price }} <span>đ</span></span>
+              <span
+                >{{ orderData?.shippingMethod.price | number }}
+                <span>đ</span></span
+              >
             </div>
           </div>
 
@@ -116,7 +118,7 @@
             <div>
               <span class="total-price"
                 >{{
-                  orderData?.shippingMethod.price + orderData?.total
+                  orderData?.shippingMethod.price + orderData?.total | number
                 }}
                 đ</span
               >

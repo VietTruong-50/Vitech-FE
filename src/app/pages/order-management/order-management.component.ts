@@ -20,6 +20,10 @@ export class OrderManagementComponent implements OnInit {
 
   status = [
     {
+      value: 'ALL',
+      viewValue: 'Tất cả',
+    },
+    {
       value: 'WAITING_PROCESS',
       viewValue: 'Chờ xử lý',
     },
@@ -64,8 +68,13 @@ export class OrderManagementComponent implements OnInit {
   }
 
   ordersData: any;
+  statusValue: any;
 
-  getAllOrdersData(pageIndex ?: number) {
+  setStatus(event: any) {
+    this.statusValue = event.target.value;
+  }
+
+  getAllOrdersData(pageIndex?: number) {
     this.userController
       .getAllOrders(pageIndex ? pageIndex : this.pageIndex, 5, 'orderDate')
       .subscribe((rs) => {
@@ -76,12 +85,25 @@ export class OrderManagementComponent implements OnInit {
   }
 
   getOrderByStatus() {
-    // this.customerController
-    //   .getCurrentOrders('WAITING_DELIVERY')
-    //   .subscribe((rs) => {
-    //     this.ordersData = rs.result;
-    //     this.dataSource = new MatTableDataSource<Order>(rs.result);
-    //   });
+    if (this.statusValue == 'ALL') {
+      this.getAllOrdersData();
+    } else {
+      this.customerController
+        .getCurrentOrders(this.statusValue, 0, 20, 'orderDate')
+        .subscribe((rs) => {
+          this.dataSource = new MatTableDataSource<Order>(rs.result?.content);
+        });
+    }
+  }
+
+  orderCode: string = '';
+
+  search() {
+    this.userController
+      .getAllOrdersByCode(this.orderCode ? this.orderCode : '', 0, 5, 'orderDate')
+      .subscribe((rs) => {
+        this.dataSource = new MatTableDataSource<Order>(rs.result?.content);
+      });
   }
 
   renderTo(type: string, id?: number) {

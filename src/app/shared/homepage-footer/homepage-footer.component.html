@@ -31,11 +31,10 @@
           <div class="footer">
             <h3 class="footer-title">Categories</h3>
             <ul class="footer-links" fxLayout="column" fxLayoutGap="10px">
-              <li><a href="#">Hot deals</a></li>
-              <li><a href="#">Laptops</a></li>
-              <li><a href="#">Smartphones</a></li>
-              <li><a href="#">Cameras</a></li>
-              <li><a href="#">Accessories</a></li>
+              <!-- <li><a href="#">Hot deals</a></li> -->
+              <li *ngFor="let cate of categoriesData">
+                <a (click)="search(cate.name)">{{ cate.name }}</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -46,8 +45,8 @@
             <ul class="footer-links" fxLayout="column" fxLayoutGap="10px">
               <li><a href="#">About Us</a></li>
               <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Orders and Returns</a></li>
+              <li><a [routerLink]="['policies']">Privacy Policy</a></li>
+              <!-- <li><a href="#">Orders and Returns</a></li> -->
               <li><a href="#">Terms & Conditions</a></li>
             </ul>
           </div>
@@ -59,7 +58,7 @@
             <ul class="footer-links" fxLayout="column" fxLayoutGap="10px">
               <li><a [routerLink]="['account']">My Account</a></li>
               <li><a [routerLink]="['cart']">View Cart</a></li>
-              <li><a href="#">Wishlist</a></li>
+              <!-- <li><a href="#">Wishlist</a></li> -->
               <li><a href="#">Track My Order</a></li>
               <li><a href="#">Help</a></li>
             </ul>

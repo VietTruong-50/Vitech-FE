@@ -1222,6 +1222,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponsePageProduct'
+  /api/products/productCode/{productCode}:
+    get:
+      tags:
+      - product-controller
+      operationId: getAllProductsByCode
+      parameters:
+      - name: productCode
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageProduct'
   /api/products/categories/{categoryName}:
     get:
       tags:
@@ -1281,6 +1316,41 @@ paths:
       - user-controller
       operationId: findAllCustomers
       parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageCustomer'
+  /api/customers/{searchText}:
+    get:
+      tags:
+      - user-controller
+      operationId: findAllCustomers_1
+      parameters:
+      - name: searchText
+        in: path
+        required: true
+        schema:
+          type: string
       - name: page
         in: query
         required: true
@@ -1546,6 +1616,41 @@ paths:
       - user-controller
       operationId: getAllOrders
       parameters:
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageOrder'
+  /api/admin/orders/{orderCode}:
+    get:
+      tags:
+      - user-controller
+      operationId: getAllOrdersByCode
+      parameters:
+      - name: orderCode
+        in: path
+        required: true
+        schema:
+          type: string
       - name: page
         in: query
         required: true
@@ -1898,6 +2003,12 @@ components:
           - DELIVERY_PAYING
         cardNumber:
           type: string
+        cardOwner:
+          type: string
+        month:
+          type: string
+        year:
+          type: string
         addressId:
           type: integer
           format: int64
@@ -1969,6 +2080,12 @@ components:
           type: integer
           format: int64
         cardNumber:
+          type: string
+        cardOwner:
+          type: string
+        month:
+          type: string
+        year:
           type: string
     Customer:
       type: object

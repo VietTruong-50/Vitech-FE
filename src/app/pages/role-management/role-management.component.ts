@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleControllerService } from 'src/app/api-svc';
+import { MatTableDataSource } from '@angular/material/table';
+import { Role, RoleControllerService } from 'src/app/api-svc';
 
 @Component({
   selector: 'app-role-management',
@@ -8,6 +9,13 @@ import { RoleControllerService } from 'src/app/api-svc';
 })
 export class RoleManagementComponent implements OnInit {
   title: string = 'List roles';
+
+  pageIndex: number = 0;
+  pageSize: number = 5;
+
+  displayedColumns: string[] = ['position', 'name', 'description', 'action'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+
   constructor(private roleController: RoleControllerService) {}
 
   ngOnInit(): void {
@@ -18,7 +26,7 @@ export class RoleManagementComponent implements OnInit {
 
   getData() {
     this.roleController.getAllRoles(5, 0, 'id').subscribe((response) => {
-      this.roleData = response.result?.content;
+      this.dataSource = new MatTableDataSource<Role>(response.result?.content);
     });
   }
 }

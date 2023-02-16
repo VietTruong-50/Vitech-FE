@@ -92,12 +92,13 @@ export class UserProfileComponent implements OnInit {
       .subscribe((rs) => {
         console.log(rs);
       });
+    this.updateAddress();
   }
 
   updateAddress() {
     let formValue = this.addressFormGroup.getRawValue();
     console.log(formValue);
-    
+
     this.customerController
       .editAddress(formValue.id, {
         city: formValue.city,
@@ -107,7 +108,7 @@ export class UserProfileComponent implements OnInit {
         specificAddress: formValue.specificAddress,
       })
       .subscribe((rs) => {
-        this.getDefaultAddress()
+        this.getDefaultAddress();
       });
   }
 }

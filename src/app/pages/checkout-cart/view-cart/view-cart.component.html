@@ -111,7 +111,7 @@
           <div class="col">TỔNG TIỀN</div>
           <div class="col text-right">{{ getTotalValues | number}} <span>đ</span></div>
         </div>
-        <a href="/checkout" class="primary-btn order-submit">Đặt hàng</a>
+        <a href="{{checkLogin() ?'/checkout' : '/signin'}}" class="primary-btn order-submit">Đặt hàng</a>
       </div>
     </div>
   </div>

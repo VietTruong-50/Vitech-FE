@@ -1,5 +1,9 @@
 <div fxLayout="column" fxLayoutAlign="start none">
-  <div fxLayout="row" fxLayoutAlign="space-between" style="margin: 40px 15px 30px 15px">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between"
+    style="margin: 40px 15px 30px 15px"
+  >
     <p>Quản lý đơn hàng</p>
     <div fxLayout="row">
       <ul fxLayout="row">
@@ -7,7 +11,7 @@
           *ngFor="let status of orderStatus; let i = index; let isFirst = first"
           [class.active]="selectedIndex === i"
           (click)="getOrdersData(status.value, i)"
-          [ngClass]="{'active': isFirst}"
+          [ngClass]="{ active: isFirst }"
         >
           {{ status.viewValue }}
         </li>
@@ -15,7 +19,7 @@
     </div>
   </div>
   <div>
-    <div style="margin: 10px">
+    <div style="margin: 10px" fxLayout="column" fxLayoutGap="20px">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="code">
           <th mat-header-cell *matHeaderCellDef>Mã đơn hàng</th>
@@ -57,6 +61,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div *ngIf="this.dataSource.data.length == 0">Không có đơn hàng nào</div>
+      </div>
     </div>
   </div>
 </div>

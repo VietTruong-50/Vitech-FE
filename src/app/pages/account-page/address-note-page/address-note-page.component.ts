@@ -51,7 +51,7 @@ export class AddressNotePageComponent implements OnInit {
   openDialog(id?: number) {
     this.dialog
       .open(CreateAAddressDialogComponent, {
-        width: '35vw',
+        width: '40vw',
         data: {
           id: id
         },

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import {
   CategoryControllerService,
   CustomerControllerService,
@@ -16,7 +17,6 @@ import { CartService } from 'src/app/service/cart.service';
   styleUrls: ['./homepage-user.component.scss'],
 })
 export class HomepageUserComponent implements OnInit {
-
   slideConfig = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -33,10 +33,9 @@ export class HomepageUserComponent implements OnInit {
     private categoryController: CategoryControllerService,
     private customerController: CustomerControllerService,
     private cartService: CartService,
-    private router: Router
-  ) {
-
-  }
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getData();
@@ -96,8 +95,8 @@ export class HomepageUserComponent implements OnInit {
     this.cartService.addOrUpdateCartItem(product);
   }
 
-  renderTo(url: string, id?: number){
-    this.router.navigate([url, id])
+  renderTo(url: string, id?: number) {
+    this.router.navigate([url, id]);
   }
 
   viewAll(categorySearch: string) {

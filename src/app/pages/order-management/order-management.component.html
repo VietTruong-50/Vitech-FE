@@ -2,10 +2,46 @@
   <app-content-header [title]="'Quản lý đơn hàng'"></app-content-header>
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="col-md-12">
-      <div>
-        <!-- <a class="btn btn-success float-right m-2" (click)="renderTo('Add')"
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div
+          class="float-left"
+          fxLayout="row"
+          fxLayoutGap="20px"
+          fxLayoutAlign="center center"
+        >
+          <h4>Trạng thái:</h4>
+          <div>
+            <select class="form-select" (change)="setStatus($event)">
+              <option [value]="st.value" *ngFor="let st of status">
+                {{ st.viewValue }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <button
+              class="btn btn-success float-right m-2"
+              (click)="getOrderByStatus()"
+            >
+              Filter
+            </button>
+          </div>
+        </div>
+        <div class="float-right">
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="#Mã đơn"
+              [(ngModel)]="orderCode"
+            />
+            <button class="btn btn-success" (click)="search()">Search</button>
+          </div>
+
+          <!-- <a class="btn btn-success float-right m-2" (click)="renderTo('Add')"
           >Add
         </a> -->
+        </div>
       </div>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="position">
@@ -49,7 +85,9 @@
 
         <ng-container matColumnDef="total">
           <th mat-header-cell *matHeaderCellDef>Tổng tiền</th>
-          <td mat-cell *matCellDef="let element">{{ element.total |number }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.total | number }}đ
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="action">

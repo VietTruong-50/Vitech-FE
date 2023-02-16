@@ -52,8 +52,12 @@ export class HomepageHeaderComponent implements OnInit {
     this.isShowNotification = !this.isShowNotification;
   }
 
+  urlList = ['signin', 'store', 'homepage', 'policies', 'cart'];
+
   renderTo(url: string) {
-    if (url != 'signin' && url != 'store' && url != 'homepage' && !this.isLogin()) {
+    console.log(!this.urlList.includes(url));
+    
+    if (!this.urlList.includes(url) && !this.isLogin()) {
       this.router.navigate(['signin']);
     } else {
       this.router.navigate([url]);
@@ -140,7 +144,7 @@ export class HomepageHeaderComponent implements OnInit {
     this.cartService.resetCart();
     this.router.navigateByUrl('/homepage').then(() => {
       window.location.reload();
-    });;
+    });
   }
 
   checkOrderStatus() {}

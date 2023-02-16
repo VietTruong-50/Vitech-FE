@@ -13,8 +13,7 @@ button:hover {
 }
 
 .sign-in-form {
-  width: 450px;
-  background-color: #6c6c6c8f;
+  background-color: #d6d6d6;
   width: 465px;
   padding: 30px;
   border-radius: 5px;
@@ -32,4 +31,8 @@ button:hover {
   color: #D10024; 
   text-decoration: none;
   outline: none;
+}
+
+::ng-deep .mat-raised-button{
+  background-color: #04aa6d;
 }

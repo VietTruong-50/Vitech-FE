@@ -41,6 +41,7 @@ export class UserOrderComponent implements OnInit {
       .getCurrentOrders(status ? status : 'WAITING_PROCESS', 0, 20, "orderDate")
       .subscribe((rs) => {
         this.dataSource = new MatTableDataSource<Order>(rs.result?.content);
+       
       });
   }
 }

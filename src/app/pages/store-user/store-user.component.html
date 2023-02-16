@@ -187,7 +187,7 @@
                 <div class="product-body">
                   <p class="product-category">Phân loại</p>
                   <h3 class="product-name">
-                    <a href="#" tabindex="-1">{{
+                    <a (click)="renderTo('product', product.id)" tabindex="-1">{{
                       product.name | truncateText : 40
                     }}</a>
                   </h3>

@@ -70,13 +70,13 @@ export class ProductManagementComponent implements OnInit {
       });
   }
 
-  categorySearch: string = 'Category';
+  categorySearch: string = 'Phân loại';
 
   onChange(deviceValue: any) {
     let id = deviceValue.target.value;
     this.categorySearch = id;
     console.log(this.categorySearch);
-    
+
     this.getBrandData(id);
   }
 
@@ -108,7 +108,7 @@ export class ProductManagementComponent implements OnInit {
   }
 
   findAllByCategory(pageIndex?: number) {
-    if (this.categorySearch != 'Category') {
+    if (this.categorySearch != 'Phân loại') {
       this.productController
         .findProductsByCategoryName(
           this.categorySearch,
@@ -129,9 +129,9 @@ export class ProductManagementComponent implements OnInit {
             response.result?.content
           );
         });
-    }else{
-      this.getData(pageIndex ? pageIndex : 0);
+      return;
     }
+    this.getData(pageIndex ? pageIndex : 0);
   }
 
   renderTo(type: string, id?: number) {
@@ -156,10 +156,37 @@ export class ProductManagementComponent implements OnInit {
     const pureUrl = this.router.url.split('?').shift();
     this.location.go(`${pureUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
 
-    if (this.categorySearch != 'Category') {
+    if (this.categorySearch != 'Phân loại') {
       this.findAllByCategory(pageIndex);
     } else {
-      this.getData(this.pageIndex);
+      this.search(this.pageIndex);
+    }
+  }
+
+  productCode: string = '';
+
+  search(pageIndex?: number) {
+    if (this.productCode != '') {
+      this.productController
+        .getAllProductsByCode(
+          this.productCode,
+          pageIndex ? pageIndex : 0,
+          this.pageSize,
+          'name'
+        )
+        .subscribe((rs) => {
+          rs.result?.content?.forEach((item) => {
+            if (item.featureImageByte) {
+              let objectURL = 'data:image/jpeg;base64,' + item.featureImageByte;
+
+              item.imgUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+            }
+          });
+
+          this.dataSource = new MatTableDataSource<Product>(rs.result?.content);
+        });
+    } else {
+      this.getData(pageIndex);
     }
   }
 }

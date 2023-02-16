@@ -16,7 +16,7 @@ export class ViewCartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomerCart()
+    this.getCustomerCart();
   }
 
   cartData: CartItem[] = [];
@@ -46,10 +46,17 @@ export class ViewCartComponent implements OnInit {
   }
 
   getCustomerCart() {
-    if (this.cookieService.check('authToken')) {
+    if (this.checkLogin()) {
       this.customerController.getShoppingCart().subscribe((rs) => {
         this.getCartData();
       });
     }
+  }
+
+  checkLogin() {
+    if (this.cookieService.check('authToken')) {
+      return true;
+    }
+    return false;
   }
 }

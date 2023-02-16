@@ -72,38 +72,58 @@
               <strong>ĐỊA CHỈ NHẬN HÀNG</strong>
             </div>
             <div class="form-group" fxLayout="row" fxLayoutAlign="center">
-              <div fxLayout="row wrap" style="width: 95%" fxLayoutGap="50px">
-                <div class="address add-new-address" fxLayout="row" fxLayoutAlign="center center" (click)="openDialog()">
-                  <div type="body" color="textSecondary" class="css-t00t6x" fxLayout="column" fxLayoutAlign="center center">
-                    <span size="26" class="css-1fmhjdx"></span>
-                    <div class="spacer css-1x3u27e"></div>
-                    Thêm địa chỉ mới
+              <div
+                fxLayout="row wrap"
+                style="width: 95%"
+                fxLayoutGap="30px grid"
+              >
+                <div>
+                  <div
+                    class="address add-new-address"
+                    fxLayout="row"
+                    fxLayoutAlign="center center"
+                    (click)="openDialog()"
+                  >
+                    <div
+                      type="body"
+                      color="textSecondary"
+                      class="css-t00t6x"
+                      fxLayout="column"
+                      fxLayoutAlign="center center"
+                    >
+                      <span size="26" class="css-1fmhjdx"></span>
+                      <div class="spacer css-1x3u27e"></div>
+                      Thêm địa chỉ mới
+                    </div>
                   </div>
                 </div>
-                <div
-                  class="address"
-                  [class.active]="selectedIndex === defaultAddress?.id"
-                  (click)="setIndex(defaultAddress?.id!)"
-                  *ngIf="defaultAddress != null"
-                >
-                  <div type="body" color="textSecondary" class="css-t00t6x">
-                    Địa chỉ: {{ defaultAddress?.specificAddress }}, Phường/huyện
-                    {{ defaultAddress?.subDistrict }}, Quận
-                    {{ defaultAddress?.district }}, Thành phố
-                    {{ defaultAddress?.city }}
+                <div>
+                  <div
+                    class="address"
+                    [class.active]="selectedIndex === defaultAddress?.id"
+                    (click)="setIndex(defaultAddress?.id!, defaultAddress)"
+                    *ngIf="defaultAddress != null"
+                  >
+                    <div type="body" color="textSecondary" class="css-t00t6x">
+                      Địa chỉ: {{ defaultAddress?.specificAddress }},
+                      Phường/huyện {{ defaultAddress?.subDistrict }}, Quận
+                      {{ defaultAddress?.district }}, Thành phố
+                      {{ defaultAddress?.city }}
+                    </div>
                   </div>
                 </div>
-                <div
-                  *ngFor="let address of addressData"
-                  class="address"
-                  [class.active]="selectedIndex === address.id"
-                  (click)="setIndex(address.id)"
-                >
-                  <div type="body" color="textSecondary" class="css-t00t6x">
-                    Địa chỉ: {{ address?.specificAddress }}, Phường/huyện
-                    {{ address?.subDistrict }}, Quận {{ address?.district }},
-                    Thành phố
-                    {{ address?.city }}
+                <div *ngFor="let address of addressData">
+                  <div
+                    class="address"
+                    [class.active]="selectedIndex === address.id"
+                    (click)="setIndex(address.id, address)"
+                  >
+                    <div type="body" color="textSecondary" class="css-t00t6x">
+                      Địa chỉ: {{ address?.specificAddress }}, Phường/huyện
+                      {{ address?.subDistrict }}, Quận {{ address?.district }},
+                      Thành phố
+                      {{ address?.city }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -168,15 +188,48 @@
               Trả bằng thẻ ngân hàng
             </label>
             <div class="caption">
-              <div class="form-group">
-                <input
-                  class="input"
-                  type="text"
-                  name="Card number"
-                  placeholder="Số thẻ"
-                  [(ngModel)]="cardNumber"
-                />
-              </div>
+              <form [formGroup]="formGroup">
+                <div class="form-group">
+                  <input
+                    class="input"
+                    type="text"
+                    name="Card number"
+                    placeholder="Số thẻ"
+                    formControlName="cardNumber"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    class="input"
+                    type="text"
+                    name="Card owner"
+                    placeholder="Tên chủ thẻ"
+                    formControlName="cardOwner"
+                  />
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px">
+                  <div class="form-group" fxFlex="50">
+                    <input
+                      class="input"
+                      type="text"
+                      name="Month"
+                      placeholder="Tháng"
+                      formControlName="month"
+                      (keypress)="numericOnly($event)"
+                    />
+                  </div>
+                  <div class="form-group" fxFlex="50">
+                    <input
+                      class="input"
+                      type="text"
+                      name="Year"
+                      placeholder="Năm"
+                      formControlName="year"
+                      (keypress)="numericOnly($event)"
+                    />
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
           <div class="input-radio">

@@ -18,6 +18,9 @@ export class CreateAAddressDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.formGroup = this.formBuilder.group({
+      receiverName: [],
+      phone: [],
+      email: [],
       city: [],
       district: [],
       subDistrict: [],
@@ -28,8 +31,11 @@ export class CreateAAddressDialogComponent implements OnInit {
     if (data?.id != null) {
       this.customerController.getAddressById(data.id).subscribe((rs) => {
         console.log(rs.result?.default);
-        
+
         this.formGroup.patchValue({
+          receiverName: rs.result?.receiverName,
+          phone: rs.result?.phone,
+          email: rs.result?.email,
           city: rs.result?.city,
           district: rs.result?.district,
           subDistrict: rs.result?.subDistrict,
@@ -48,6 +54,9 @@ export class CreateAAddressDialogComponent implements OnInit {
 
     this.customerController
       .createNewAddress({
+        receiverName: formValue.receiverName,
+        phone: formValue.phone,
+        email: formValue.email,
         city: formValue.city,
         levant: formValue.isDefault,
         specificAddress: formValue.specificAddress,
@@ -62,9 +71,13 @@ export class CreateAAddressDialogComponent implements OnInit {
 
   editAddress() {
     let formValue = this.formGroup.getRawValue();
-
+    console.log(formValue);
+    
     this.customerController
       .editAddress(this.data.id, {
+        receiverName: formValue.receiverName,
+        phone: formValue.phone,
+        email: formValue.email,
         city: formValue.city,
         levant: formValue.isDefault,
         specificAddress: formValue.specificAddress,

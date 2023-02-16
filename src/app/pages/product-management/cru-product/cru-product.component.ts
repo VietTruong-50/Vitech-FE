@@ -4,6 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Editor, toHTML, Toolbar } from 'ngx-editor';
+import { ToastrService } from 'ngx-toastr';
 import {
   CategoryControllerService,
   ProductControllerService,
@@ -85,7 +86,8 @@ export class CruProductComponent implements OnInit {
     private router: Router,
     private subCategoryController: SubCategoryControllerService,
     private sanitizer: DomSanitizer,
-    private categoryController: CategoryControllerService
+    private categoryController: CategoryControllerService,
+    private toastrService: ToastrService
   ) {
     this.formGroup = this.formBuilder.group({
       name: [],
@@ -246,6 +248,7 @@ export class CruProductComponent implements OnInit {
       )
       .subscribe((response) => {
         if (response.errorCode == null) {
+          this.toastrService.success("Thêm thành công!")
           this.router.navigate(['/admin/products']);
           console.log(response.result);
         }

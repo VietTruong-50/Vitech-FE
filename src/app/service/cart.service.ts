@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { CartItem, CustomerControllerService, Product } from '../api-svc';
 
 @Injectable({
@@ -20,11 +21,11 @@ export class CartService {
   constructor(
     private sanitizer: DomSanitizer,
     private customerController: CustomerControllerService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private toastrService: ToastrService
   ) {}
 
   addOrUpdateCartItem(product: Product, quantity?: number) {
-
     let qty = 0;
     if (localStorage.getItem('cart_items')) {
       console.log(this._cartItems);
@@ -39,7 +40,10 @@ export class CartService {
 
       if (index > -1) {
         this._cartItems.splice(index, 1);
-        qty = quantity! > 1 ? valueExist?.quantity! + quantity! : valueExist?.quantity! + 1
+        qty =
+          quantity! > 1
+            ? valueExist?.quantity! + quantity!
+            : valueExist?.quantity! + 1;
 
         valueExist = {
           id: valueExist?.id,
@@ -64,10 +68,15 @@ export class CartService {
           productId: product.id,
           quantity: quantity! > 1 ? quantity : 1,
         })
-        .subscribe((rs) => {});
+        .subscribe((rs) => {
+          if (rs.errorCode != null) {
+            this.toastrService.error('Thêm không thành công!');
+          }
+        });
     }
 
     this.saveCart();
+    this.toastrService.success('Thêm thành công!', 'Đã thêm 1 sản phẩm');
   }
 
   saveCart(): void {
@@ -80,12 +89,14 @@ export class CartService {
 
   removeItemFromCart(itemId?: number) {
     let index = this._cartItems.findIndex((item) => item.id === itemId);
-    let item = this._cartItems.find((item) => item.id === itemId)
+    let item = this._cartItems.find((item) => item.id === itemId);
 
     this._cartItems.splice(index, 1);
 
     if (this.cookieService.check('authToken')) {
-      this.customerController.removeItemFromCart(item?.product?.id!).subscribe((rs) => {});
+      this.customerController
+        .removeItemFromCart(item?.product?.id!)
+        .subscribe((rs) => {});
     }
 
     this.saveCart();
@@ -117,7 +128,7 @@ export class CartService {
     return totalValues;
   }
 
-  resetCart(){
+  resetCart() {
     // this._cartItems = []
     // this.saveCart()
   }

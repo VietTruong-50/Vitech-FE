@@ -15,5 +15,8 @@ export interface CardPayment {
     createdAt?: string;
     id?: number;
     cardNumber?: string;
+    cardOwner?: string;
+    month?: string;
+    year?: string;
 }
 

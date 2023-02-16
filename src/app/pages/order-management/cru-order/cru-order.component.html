@@ -131,13 +131,52 @@
             "
           >
             <label for="code">Số thẻ</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Code"
-              formControlName="cardNumber"
-              [attr.disabled]="true"
-            />
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="text"
+                name="Card number"
+                placeholder="Số thẻ"
+                formControlName="cardNumber"
+                [attr.disabled]="true"
+              />
+            </div>
+            <label for="code">Tên chủ thẻ</label>
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="text"
+                name="Card owner"
+                placeholder="Tên chủ thẻ"
+                formControlName="cardOwner"
+                [attr.disabled]="true"
+              />
+            </div>
+
+            <label for="code">Ngày phát hành</label>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div class="form-group" fxFlex="50">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="Month"
+                  placeholder="Tháng"
+                  formControlName="month"
+                  [attr.disabled]="true"
+                />
+              </div>
+
+              <div class="form-group" fxFlex="50">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="Year"
+                  placeholder="Năm"
+                  formControlName="year"
+                  [attr.disabled]="true"
+                />
+              </div>
+            </div>
           </div>
           <div class="form-group float-right" style="margin-top: 10px">
             <a
@@ -168,6 +207,16 @@
               class="form-control"
               placeholder="Số điện thoại"
               formControlName="phone"
+              [attr.disabled]="isDisabled"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email"
               [attr.disabled]="isDisabled"
             />
           </div>

@@ -15,6 +15,9 @@ export interface OrderRequest {
     shippingMethodId?: number;
     paymentMethodEnum?: OrderRequest.PaymentMethodEnumEnum;
     cardNumber?: string;
+    cardOwner?: string;
+    month?: string;
+    year?: string;
     addressId?: number;
     orderStatusEnum?: OrderRequest.OrderStatusEnumEnum;
     deliveryDate?: string;

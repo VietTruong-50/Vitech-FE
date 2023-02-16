@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import {
   AuthControllerService,
   CartItem,
@@ -27,18 +28,22 @@ export class CheckoutCartComponent implements OnInit {
     private cartService: CartService,
     private authController: AuthControllerService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastrService: ToastrService
   ) {
     this.formGroup = this.formBuilder.group({
       fullName: [],
       email: [],
       phone: [],
+      cardNumber: [],
+      cardOwner: [],
+      month: [],
+      year: [],
     });
   }
 
   ngOnInit(): void {
     this.getCustomerCart();
-    this.getCustomerData();
     this.getAddressData();
     this.getDefaultAddress();
   }
@@ -52,7 +57,6 @@ export class CheckoutCartComponent implements OnInit {
   }
 
   cartData: any;
-  customerData: any;
 
   getCustomerCart() {
     if (this.cookieService.check('authToken')) {
@@ -68,34 +72,29 @@ export class CheckoutCartComponent implements OnInit {
   }
 
   checkout() {
-    this.customerController
-      .checkout({
-        addressId: this.selectedIndex,
-        cardNumber: this.cardNumber,
-        paymentMethodEnum:
-          this.payingMethod == 'ONLINE_PAYING'
-            ? 'ONLINE_PAYING'
-            : 'DELIVERY_PAYING',
-        shippingMethodId: this.shippingId,
-        receiverName: this.formGroup.controls['fullName'].value,
-        phone: this.formGroup.controls['phone'].value,
-        email: this.formGroup.controls['email'].value,
-      })
-      .subscribe((rs) => {
-        console.log(rs);
-      });
-  }
+    console.log(this.formGroup.getRawValue());
 
-  getCustomerData() {
-    this.authController.getCurrentUser().subscribe((rs) => {
-      this.customerData = rs.result;
-      this.formGroup.patchValue({
-        fullName: this.customerData.result.fullName,
-        address: this.customerData.result.address,
-        email: this.customerData.result.email,
-        phone: this.customerData.result.phone,
-      });
-    });
+    // this.customerController
+    //   .checkout({
+    //     addressId: this.selectedIndex,
+    //     cardNumber: this.formGroup.controls['cardNumber'].value,
+    //     cardOwner: this.formGroup.controls['cardOwner'].value,
+    //     month: this.formGroup.controls['month'].value,
+    //     year: this.formGroup.controls['year'].value,
+    //     paymentMethodEnum:
+    //       this.payingMethod == 'ONLINE_PAYING'
+    //         ? 'ONLINE_PAYING'
+    //         : 'DELIVERY_PAYING',
+    //     shippingMethodId: this.shippingId,
+    //     receiverName: this.formGroup.controls['fullName'].value,
+    //     phone: this.formGroup.controls['phone'].value,
+    //     email: this.formGroup.controls['email'].value,
+    //   })
+    //   .subscribe((rs) => {
+    //     if (rs.errorCode != null) {
+    //       this.toastrService.success('Đặt hàng thành công!');
+    //     }
+    //   });
   }
 
   addressData: any;
@@ -108,7 +107,12 @@ export class CheckoutCartComponent implements OnInit {
 
   selectedIndex: number = 0;
 
-  setIndex(index: number) {
+  setIndex(index: number, address: any) {
+    this.formGroup.patchValue({
+      fullName: address.receiverName,
+      email: address.email,
+      phone: address.phone,
+    });
     this.selectedIndex = index;
   }
 
@@ -135,4 +139,10 @@ export class CheckoutCartComponent implements OnInit {
         this.getDefaultAddress();
       });
   }
+
+  numericOnly(event: any): boolean {    
+    let patt = /^([0-9])$/;
+    let result = patt.test(event.key);
+    return result;
+}
 }

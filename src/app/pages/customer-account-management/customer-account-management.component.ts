@@ -49,7 +49,7 @@ export class CustomerAccountManagementComponent implements OnInit {
             'DD/MM/YYYY'
           );
         });
-  
+
         this.dataSource = new MatTableDataSource<Customer>(rs.result?.content);
       });
   }
@@ -75,6 +75,23 @@ export class CustomerAccountManagementComponent implements OnInit {
     this.pageSize = pageSize;
     const pureUrl = this.router.url.split('?').shift();
     this.location.go(`${pureUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
-    this.getCustomerData(this.pageIndex)
+    this.search(pageIndex);
+  }
+
+  searchText: string = '';
+
+  search(pageIndex?: number) {
+    if (this.searchText != '') {
+      this.userController
+        .findAllCustomers1(
+          this.searchText,
+          pageIndex ? pageIndex : 0,
+          this.pageSize,
+          'createdAt'
+        )
+        .subscribe((rs) => {});
+      return;
+    }
+    this.getCustomerData(pageIndex);
   }
 }

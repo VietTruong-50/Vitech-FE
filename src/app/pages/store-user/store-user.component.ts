@@ -87,6 +87,10 @@ export class StoreUserComponent implements OnInit {
       });
   }
 
+  renderTo(url: string, id?: number) {
+    this.router.navigate([url, id]);
+  }
+
   currentPage: number = 1;
   itemsPerPage: number = 20;
   totalElements: number = 100;

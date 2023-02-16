@@ -54,7 +54,7 @@ export class StatisticsAdminPageComponent implements OnInit {
           ],
           datasets: [
             {
-              label: 'Doanh thu trong tháng',
+              label: 'Doanh thu tháng',
               data: this.saleSatistic,
               fill: false,
               borderColor: 'red',

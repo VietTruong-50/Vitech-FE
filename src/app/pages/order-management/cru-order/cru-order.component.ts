@@ -81,11 +81,15 @@ export class CruOrderComponent implements OnInit {
     });
     this.formGroup2 = this.formBuilder.group({
       cardNumber: [],
+      cardOwner: [],
+      month: [],
+      year: [],
       paymentMethod: [],
     });
     this.formGroup3 = this.formBuilder.group({
       fullName: [],
       phone: [],
+      email: [],
       city: [],
       district: [],
       subDistrict: [],
@@ -128,12 +132,16 @@ export class CruOrderComponent implements OnInit {
 
       this.formGroup2.patchValue({
         cardNumber: this.orderDetail.cardPayment.cardNumber,
+        cardOwner: this.orderDetail.cardPayment.cardOwner,
+        month: this.orderDetail.cardPayment.month,
+        year: this.orderDetail.cardPayment.year,
         paymentMethod: this.orderDetail.paymentMethodEnum,
       });
 
       this.formGroup3.patchValue({
         fullName: this.orderDetail.address.receiverName,
         phone: this.orderDetail.address.phone,
+        email: this.orderDetail.address.email,
         city: this.orderDetail.address.city,
         district: this.orderDetail.address.district,
         subDistrict: this.orderDetail.address.subDistrict,
@@ -196,6 +204,7 @@ export class CruOrderComponent implements OnInit {
         ).toISOString(),
         receiverName: this.formGroup3.controls['receiverName'].value,
         phone: this.formGroup3.controls['phone'].value,
+        email: this.formGroup3.controls['email'].value,
       })
       .subscribe((rs) => {
         this.getOrderDetail();

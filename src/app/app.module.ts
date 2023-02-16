@@ -69,7 +69,7 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserOrderDetailComponent } from './pages/account-page/user-order/user-order-detail/user-order-detail.component';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { NotificationPageComponent } from './pages/account-page/notification-page/notification-page.component';
 import { PoliciesPageComponent } from './pages/policies-page/policies-page.component';
 import { SafeHTMLPipe } from './pipes/safe-html.pipe';
@@ -80,11 +80,12 @@ import { CreateAAddressDialogComponent } from './pages/account-page/address-note
 import { OrderDetailsDialogComponent } from './pages/order-management/cru-order/order-details-dialog/order-details-dialog.component';
 import { CustomerDetailsDialogComponent } from './pages/order-management/cru-order/customer-details-dialog/customer-details-dialog.component';
 import { StatisticsAdminPageComponent } from './pages/statistics-admin-page/statistics-admin-page.component';
-import { CustomerAccountManagementComponent } from './pages/customer-account-management/customer-account-management.component'
+import { CustomerAccountManagementComponent } from './pages/customer-account-management/customer-account-management.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { NumberCommaDirective } from './shared/number-comma.directive';
 import { CruCustomerComponent } from './pages/customer-account-management/cru-customer/cru-customer.component';
 import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-login.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -141,7 +142,7 @@ import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-logi
     CustomerAccountManagementComponent,
     NumberCommaDirective,
     CruCustomerComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -172,7 +173,12 @@ import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-logi
     MatSidenavModule,
     NgxPaginationModule,
     MatRadioModule,
-    NgxEditorModule
+    NgxEditorModule,
+    ToastrModule.forRoot({
+      timeOut: 3500,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },
