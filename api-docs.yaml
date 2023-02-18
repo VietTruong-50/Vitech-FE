@@ -1114,6 +1114,43 @@ paths:
             '*/*':
               schema:
                 type: string
+  /api/statistic/success/order:
+    get:
+      tags:
+      - user-controller
+      operationId: statisticSuccessOrderAndOrderDateBetween
+      parameters:
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: page
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: size
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageOrder'
   /api/statistic/month:
     get:
       tags:
@@ -1126,6 +1163,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseStatisticValueResponse'
+  /api/statistic/countOrder:
+    get:
+      tags:
+      - user-controller
+      operationId: statisticCountOrder
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListCountOrderResponse'
   /api/slider/{id}:
     get:
       tags:
@@ -1344,7 +1393,7 @@ paths:
     get:
       tags:
       - user-controller
-      operationId: findAllCustomers_1
+      operationId: searchAllCustomers
       parameters:
       - name: searchText
         in: path
@@ -2121,6 +2170,12 @@ components:
         id:
           type: integer
           format: int64
+        invoiceSymbol:
+          type: string
+        taxNumber:
+          type: string
+        taxAuthoritiesCode:
+          type: string
         orderCode:
           type: string
         customer:
@@ -2554,6 +2609,50 @@ components:
           $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
+    ApiResponsePageOrder:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PageOrder'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    PageOrder:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
     ApiResponseStatisticValueResponse:
       type: object
       properties:
@@ -2579,6 +2678,36 @@ components:
           items:
             type: integer
             format: int32
+    ApiResponseListCountOrderResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountOrderResponse'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
+    CountOrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - WAITING_PROCESS
+          - WAITING_DELIVERY
+          - SUCCESS
+          - CANCEL
+        quantity:
+          type: integer
+          format: int32
+        totalAll:
+          type: number
+          format: double
     ApiResponsePageSlider:
       type: object
       properties:
@@ -2821,50 +2950,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Comment'
-        number:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
-        first:
-          type: boolean
-        last:
-          type: boolean
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
-        empty:
-          type: boolean
-    ApiResponsePageOrder:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/PageOrder'
-        errorCode:
-          type: string
-        message:
-          type: object
-        responseCode:
-          type: integer
-          format: int32
-    PageOrder:
-      type: object
-      properties:
-        totalPages:
-          type: integer
-          format: int32
-        totalElements:
-          type: integer
-          format: int64
-        size:
-          type: integer
-          format: int32
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
         number:
           type: integer
           format: int32

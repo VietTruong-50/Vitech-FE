@@ -86,6 +86,10 @@ import { NumberCommaDirective } from './shared/number-comma.directive';
 import { CruCustomerComponent } from './pages/customer-account-management/cru-customer/cru-customer.component';
 import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-login.component';
 import { ToastrModule } from 'ngx-toastr';
+import { InventoryCheckDialogComponent } from './pages/order-management/cru-order/inventory-check-dialog/inventory-check-dialog.component';
+import { AdminHomepageComponent } from './pages/admin-homepage/admin-homepage.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { InvoiceManagementComponent } from './pages/invoice-management/invoice-management.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +147,9 @@ import { ToastrModule } from 'ngx-toastr';
     NumberCommaDirective,
     CruCustomerComponent,
     AdminLoginComponent,
+    InventoryCheckDialogComponent,
+    AdminHomepageComponent,
+    InvoiceManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -179,6 +186,7 @@ import { ToastrModule } from 'ngx-toastr';
       positionClass: 'toast-bottom-right',
       preventDuplicates: false,
     }),
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },

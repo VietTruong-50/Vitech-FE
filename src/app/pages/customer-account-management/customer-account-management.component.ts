@@ -83,7 +83,7 @@ export class CustomerAccountManagementComponent implements OnInit {
   search(pageIndex?: number) {
     if (this.searchText != '') {
       this.userController
-        .findAllCustomers1(
+        .searchAllCustomers(
           this.searchText,
           pageIndex ? pageIndex : 0,
           this.pageSize,

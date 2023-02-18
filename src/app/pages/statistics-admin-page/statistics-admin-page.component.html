@@ -1,61 +1,160 @@
-<div fxLayout="column" fxLayoutGap="30px" style="margin-top: 30px">
-  <div
-    fxLayout="row"
-    class="board-container"
-    fxLayoutAlign="space-around center"
-  >
-    <div
-      class="statistic-board"
-      fxLayout="column"
-      fxLayoutGap="10px"
-      style="background-color: rgb(75 179 223)"
-      [routerLink]="['/admin', 'products']"
-    >
-      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-        <mat-icon>all_inbox</mat-icon>
-        <p>Sản phẩm</p>
+<div>
+  <app-content-header [title]="title"></app-content-header>
+  <div fxLayout="column">
+    <div fxLayout="row">
+      <div fxFlex="60" style="margin: 30px">
+        <canvas id="lineChart"></canvas>
       </div>
-      <div fxlayout="row" fxLayoutAlign="center center" class="qty">
-        {{ statisticData?.productQuantity }}
+      <div fxFlex="30" style="margin: 30px">
+        <canvas id="pieChart"></canvas>
       </div>
     </div>
-    <div
-      class="statistic-board"
-      fxLayout="column"
-      fxLayoutGap="10px"
-      style="background-color: rgb(44 155 150)"
-      [routerLink]="['/admin', 'orders']"
-    >
-      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-        <mat-icon>edit_note</mat-icon>
-        <p>Đơn hàng</p>
+
+    <div fxLayout="row" fxLayoutGap="30px" style="padding: 20px">
+      <div fxFlex="65" fxLayout="column" fxLayoutGap="20px">
+        <div
+          class="float-right"
+          fxLayout="row"
+          fxLayoutGap="10px"
+          fxLayoutAlign="end none"
+        >
+          <input
+            type="text"
+            ngxDaterangepickerMd
+            [(ngModel)]="selected"
+            placeholder="dd/MM/yyyy --- dd/MM/yyyy"
+            class="form-control"
+            fxFlex="40"
+          />
+          <button class="btn btn-success" (click)="getSuccessOrderData()">
+            Find
+          </button>
+        </div>
+        <div>
+          <mat-table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{
+                  dataSource.filteredData.indexOf(element) +
+                    1 +
+                    pageIndex * pageSize
+                }}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="orderCode">
+              <mat-header-cell *matHeaderCellDef>Mã vận đơn</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.orderCode }}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="invoiceNumber">
+              <mat-header-cell *matHeaderCellDef>Mã hoá đơn</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{"HD" +  (element.id | number:'3.0')}}</mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef>Trạng thái</mat-header-cell>
+              <mat-cell *matCellDef="let element">Đã hoàn thành</mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="orderDate">
+              <mat-header-cell *matHeaderCellDef>Ngày đặt hàng</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.orderDate }}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef
+                ><strong>Tổng tiền:</strong>
+              </mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <mat-header-cell *matHeaderCellDef>Tổng tiền</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.total | number }}đ
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef>
+                {{ total | number }}đ</mat-footer-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <div><button class="btn btn-info" (click)="renderTo('Invoice', element.orderCode)">Xem</button></div>
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+            <mat-header-row
+              class="sticky-header"
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <mat-footer-row
+              class="sticky-footer"
+              *matFooterRowDef="displayedColumns"
+            ></mat-footer-row>
+          </mat-table>
+          <mat-paginator
+            (page)="onPaginate($event)"
+            #paginator
+            [length]="100"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </div>
       </div>
-      <div fxlayout="row" fxLayoutAlign="center center" class="qty">
-        {{ statisticData?.orderQuantity }}
+      <div fxFlex="35">
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Loại đơn hàng</th>
+                <th scope="col">Tổng giá trị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of statisticCountOrderData; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                  <span *ngFor="let st of status">
+                    <span *ngIf="st.value == item.status"
+                      >{{ st.viewValue }} <a>({{ item.quantity }})</a></span
+                    >
+                  </span>
+                </td>
+                <td>
+                  <span [class.all]="item.status === 'ALL'"
+                    ><span [class.cancel]="item.status === 'CANCEL'">
+                      <span *ngIf="item.status === 'CANCEL'">-</span
+                      >{{ item.totalAll | number }}đ</span
+                    ></span
+                  >
+                </td>
+              </tr>
+
+              <tr>
+                <th></th>
+                <td><strong>Tổng doanh thu: </strong></td>
+                <td>{{totalMoney | number}}đ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div
-      class="statistic-board"
-      fxLayout="column"
-      fxLayoutGap="10px"
-      style="background-color: rgb(221 152 1)"
-      [routerLink]="['/admin', 'customers']"
-    >
-      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-        <mat-icon>account_circle </mat-icon>
-        <p>Khách hàng</p>
-      </div>
-      <div fxlayout="row" fxLayoutAlign="center center" class="qty">
-        {{ statisticData?.customerQuantity }}
-      </div>
-    </div>
-  </div>
-  <div fxLayout="row">
-    <div fxFlex="60" style="margin: 30px">
-      <canvas id="lineChart"></canvas>
-    </div>
-    <div fxFlex="30" style="margin: 30px">
-      <canvas id="pieChart"></canvas>
     </div>
   </div>
 </div>

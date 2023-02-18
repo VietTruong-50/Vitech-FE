@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import {
@@ -26,7 +27,7 @@ export class CheckoutCartComponent implements OnInit {
     private customerController: CustomerControllerService,
     private cookieService: CookieService,
     private cartService: CartService,
-    private authController: AuthControllerService,
+    private router: Router,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private toastrService: ToastrService
@@ -74,27 +75,28 @@ export class CheckoutCartComponent implements OnInit {
   checkout() {
     console.log(this.formGroup.getRawValue());
 
-    // this.customerController
-    //   .checkout({
-    //     addressId: this.selectedIndex,
-    //     cardNumber: this.formGroup.controls['cardNumber'].value,
-    //     cardOwner: this.formGroup.controls['cardOwner'].value,
-    //     month: this.formGroup.controls['month'].value,
-    //     year: this.formGroup.controls['year'].value,
-    //     paymentMethodEnum:
-    //       this.payingMethod == 'ONLINE_PAYING'
-    //         ? 'ONLINE_PAYING'
-    //         : 'DELIVERY_PAYING',
-    //     shippingMethodId: this.shippingId,
-    //     receiverName: this.formGroup.controls['fullName'].value,
-    //     phone: this.formGroup.controls['phone'].value,
-    //     email: this.formGroup.controls['email'].value,
-    //   })
-    //   .subscribe((rs) => {
-    //     if (rs.errorCode != null) {
-    //       this.toastrService.success('Đặt hàng thành công!');
-    //     }
-    //   });
+    this.customerController
+      .checkout({
+        addressId: this.selectedIndex,
+        cardNumber: this.formGroup.controls['cardNumber'].value,
+        cardOwner: this.formGroup.controls['cardOwner'].value,
+        month: this.formGroup.controls['month'].value,
+        year: this.formGroup.controls['year'].value,
+        paymentMethodEnum:
+          this.payingMethod == 'ONLINE_PAYING'
+            ? 'ONLINE_PAYING'
+            : 'DELIVERY_PAYING',
+        shippingMethodId: this.shippingId,
+        receiverName: this.formGroup.controls['fullName'].value,
+        phone: this.formGroup.controls['phone'].value,
+        email: this.formGroup.controls['email'].value,
+      })
+      .subscribe((rs) => {
+        if (rs.errorCode != null) {
+          this.router.navigate(['homepage'])
+          this.toastrService.success('Đặt hàng thành công!');
+        }
+      });
   }
 
   addressData: any;

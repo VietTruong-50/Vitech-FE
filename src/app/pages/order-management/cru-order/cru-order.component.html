@@ -1,288 +1,359 @@
 <div fxLayout="column">
-  <app-content-header [title]="title"></app-content-header>
-  <div fxLayout="column" class="order-form">
-    <div style="padding: 20px 3rem">
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <p>Chi tiết đơn hàng #{{ orderCode }}</p>
-        <div
-          fxLayout="row"
-          [fxLayoutAlign]="
-            this.orderDetail?.status != 'WAITING_PROCESS'
-              ? 'space-evenly center'
-              : 'end center'
-          "
-          fxFlex="20"
-        >
-          <button
-            class="btn btn-success mb-2 float-right"
-            (click)="changeOrderStatus()"
-            *ngIf="this.orderDetail?.status == 'WAITING_PROCESS'"
-          >
-            Xác nhận
-          </button>
-          <button
-            class="btn btn-primary mb-2 float-right"
-            (click)="editOrder()"
-          >
-            Cập nhật
-          </button>
-        </div>
+  <app-content-header
+    [title]="
+      title == 'Hoá đơn'
+        ? title + ' #HD' + (orderDetail?.id | number : '3.0')
+        : title
+    "
+  ></app-content-header>
+  <div fxLayout="column" fxLayoutGap="20px">
+    <!-- <div fxLayout="row" fxLayoutAlign="end none" style="padding: 0 20px">
+      <button class="btn btn-success">+ Xuất file</button>
+    </div> -->
+
+    <div fxLayout="column" class="order-form" *ngIf="isInvoice">
+      <div fxLayout="column" style="padding: 20px 3rem">
+        <div class="title">Thông tin người bán</div>
+        <form [formGroup]="formGroup4" fxLayout="row" fxLayoutGap="35px">
+          <div fxFlex="50">
+            <div class="form-group">
+              <label for="code">Tên người bán</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Vitech Shop"
+                [attr.disabled]="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="code">Mã số thuế</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="taxNumber"
+                [attr.disabled]="true"
+              />
+            </div>
+          </div>
+          <div fxFlex="50">
+            <div class="form-group">
+              <label for="code">Địa chỉ</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="241 Phố Vọng, quận Hai Bà Trưng, phường Đồng Tâm"
+                [attr.disabled]="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="code">Mã cơ quan thuế</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="taxAuthoritiesCode"
+                [attr.disabled]="true"
+              />
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-    <div
-      fxLayout="row"
-      fxLayoutAlign="space-evenly"
-      class="w-100"
-      style="padding-bottom: 20px"
-    >
-      <div fxLayout="column" style="width: 350px">
-        <div class="title">Chung</div>
-        <form [formGroup]="formGroup">
-          <div class="form-group">
-            <label for="code">Mã sản phẩm</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Code"
-              formControlName="orderCode"
-              [attr.disabled]="true"
-            />
-          </div>
-          <div class="form-group">
-            <label for="code">Ngày tạo</label>
-            <input
-              type="datetime-local"
-              class="form-control"
-              formControlName="orderDate"
-              [attr.disabled]="true"
-            />
-          </div>
-          <div class="form-group">
-            <label for="code">Ngày giao</label>
-            <input
-              type="date"
-              class="form-control"
-              formControlName="deliveryDate"
-              [attr.disabled]="isDisabled"
-            />
-          </div>
-          <div class="form-group">
-            <label for="status">Trạng thái</label>
-            <select
-              class="form-select"
-              (change)="onChangeStatus($event)"
-              [attr.disabled]="isDisabled"
-            >
-              <option
-                [selected]="st.value == formGroup.controls['status'].value"
-                [value]="st.value"
-                *ngFor="let st of status"
-              >
-                {{ st.viewValue }}
-              </option>
-            </select>
-          </div>
-
-          <div class="form-group" fxLayout="column">
-            <label for="customer">Khách hàng</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Khách hàng"
-              formControlName="fullName"
-              [attr.disabled]="true"
-            />
-            <div class="form-group" style="margin-top: 10px">
-              <a
-                (click)="openDialog('customer')"
-                class="float-right"
-                style="text-decoration: underline !important"
-                >Thông tin khách hàng</a
-              >
-            </div>
-          </div>
-        </form>
-      </div>
-      <div fxLayout="column" style="width: 350px">
-        <div class="title">Thanh toán</div>
-        <form [formGroup]="formGroup2">
-          <div class="form-group">
-            <label for="code">Kiểu thanh toán</label>
-
-            <select
-              class="form-select"
-              (change)="onChange($event)"
-              [disabled]="true"
-            >
-              <option
-                [selected]="
-                  pm.value == formGroup2.controls['paymentMethod'].value
-                "
-                [value]="pm.value"
-                *ngFor="let pm of paymentMethod"
-              >
-                {{ pm.viewValue }}
-              </option>
-            </select>
-          </div>
+    <div fxLayout="column" class="order-form">
+      <div style="padding: 20px 3rem">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>Chi tiết đơn hàng #{{ orderCode }}</p>
           <div
-            *ngIf="
-              formGroup2.controls['paymentMethod'].value == 'ONLINE_PAYING'
+            fxLayout="row"
+            [fxLayoutAlign]="
+              this.orderDetail?.status != 'WAITING_PROCESS'
+                ? 'space-evenly center'
+                : 'end center'
             "
+            fxFlex="20"
+            fxLayoutGap="15px"
           >
-            <label for="code">Số thẻ</label>
-            <div class="form-group">
-              <input
-                class="form-control"
-                type="text"
-                name="Card number"
-                placeholder="Số thẻ"
-                formControlName="cardNumber"
-                [attr.disabled]="true"
-              />
-            </div>
-            <label for="code">Tên chủ thẻ</label>
-            <div class="form-group">
-              <input
-                class="form-control"
-                type="text"
-                name="Card owner"
-                placeholder="Tên chủ thẻ"
-                formControlName="cardOwner"
-                [attr.disabled]="true"
-              />
-            </div>
-
-            <label for="code">Ngày phát hành</label>
-            <div fxLayout="row" fxLayoutGap="20px">
-              <div class="form-group" fxFlex="50">
-                <input
-                  class="form-control"
-                  type="text"
-                  name="Month"
-                  placeholder="Tháng"
-                  formControlName="month"
-                  [attr.disabled]="true"
-                />
-              </div>
-
-              <div class="form-group" fxFlex="50">
-                <input
-                  class="form-control"
-                  type="text"
-                  name="Year"
-                  placeholder="Năm"
-                  formControlName="year"
-                  [attr.disabled]="true"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="form-group float-right" style="margin-top: 10px">
-            <a
-              style="text-decoration: underline !important"
-              (click)="openDialog('orderDetails')"
-              >Hoá đơn</a
+            <button
+              class="btn btn-success mb-2 float-right"
+              (click)="changeOrderStatus()"
+              *ngIf="this.orderDetail?.status == 'WAITING_PROCESS'"
             >
+              Xác nhận
+            </button>
+            <button
+              class="btn btn-primary mb-2 float-right"
+              (click)="editOrder()"
+              *ngIf="!isInvoice && !isDisabled"
+            >
+              Cập nhật
+            </button>
           </div>
-        </form>
+        </div>
       </div>
-      <div fxLayout="column" style="width: 350px">
-        <div class="title">Giao nhận</div>
-        <form [formGroup]="formGroup3">
-          <div class="form-group">
-            <label for="fullName">Họ tên</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Họ tên"
-              formControlName="fullName"
-              [attr.disabled]="isDisabled"
-            />
-          </div>
-          <div class="form-group">
-            <label for="fullName">Số điện thoại</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Số điện thoại"
-              formControlName="phone"
-              [attr.disabled]="isDisabled"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Email"
-              formControlName="email"
-              [attr.disabled]="isDisabled"
-            />
-          </div>
-          <div fxLayout="row" fxLayoutGap="10px">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-evenly"
+        class="w-100"
+        style="padding-bottom: 20px"
+      >
+        <div fxLayout="column" style="width: 350px">
+          <div class="title">Chung</div>
+          <form [formGroup]="formGroup">
             <div class="form-group">
-              <label for="city">Thành phố/Tỉnh</label>
+              <label for="code">Mã sản phẩm</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Thành phố/Tỉnh"
-                formControlName="city"
+                placeholder="Code"
+                formControlName="orderCode"
+                [attr.disabled]="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="code">Ngày tạo</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                formControlName="orderDate"
+                [attr.disabled]="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="code">Ngày giao</label>
+              <input
+                type="date"
+                class="form-control"
+                formControlName="deliveryDate"
                 [attr.disabled]="isDisabled"
               />
             </div>
             <div class="form-group">
-              <label for="name">Quận/Huyện</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Quận/Huyện"
-                formControlName="district"
+              <label for="status">Trạng thái</label>
+              <select
+                class="form-select"
+                (change)="onChangeStatus($event)"
                 [attr.disabled]="isDisabled"
-              />
-            </div>
-          </div>
-          <div fxLayout="row" fxLayoutGap="10px">
-            <div class="form-group">
-              <label for="name">Phường/Xã</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Phường/Xã"
-                formControlName="subDistrict"
-                [attr.disabled]="isDisabled"
-              />
-            </div>
-            <div class="form-group">
-              <label for="name">Địa chỉ cụ thể</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Name"
-                formControlName="specificAddress"
-                [attr.disabled]="isDisabled"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="code">Loại vận chuyển</label>
-            <select
-              class="form-select"
-              (change)="onChange($event)"
-              [disabled]="true"
-            >
-              <option
-                [selected]="
-                  shp.viewValue == formGroup3.controls['shippingMethod'].value
-                "
-                [value]="shp.value"
-                *ngFor="let shp of shipping"
               >
-                {{ shp.viewValue }}
-              </option>
-            </select>
-          </div>
-        </form>
+                <option
+                  [selected]="st.value == formGroup.controls['status'].value"
+                  [value]="st.value"
+                  *ngFor="let st of status"
+                >
+                  {{ st.viewValue }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group" fxLayout="column">
+              <label for="customer">Khách hàng</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Khách hàng"
+                formControlName="fullName"
+                [attr.disabled]="true"
+              />
+              <div class="form-group" style="margin-top: 10px">
+                <a
+                  (click)="openDialog('customer')"
+                  class="float-right"
+                  style="text-decoration: underline !important"
+                  >Thông tin khách hàng</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div fxLayout="column" style="width: 350px">
+          <div class="title">Thanh toán</div>
+          <form [formGroup]="formGroup2">
+            <div class="form-group">
+              <label for="code">Kiểu thanh toán</label>
+
+              <select
+                class="form-select"
+                (change)="onChange($event)"
+                [disabled]="true"
+              >
+                <option
+                  [selected]="
+                    pm.value == formGroup2.controls['paymentMethod'].value
+                  "
+                  [value]="pm.value"
+                  *ngFor="let pm of paymentMethod"
+                >
+                  {{ pm.viewValue }}
+                </option>
+              </select>
+            </div>
+            <div
+              *ngIf="
+                formGroup2.controls['paymentMethod'].value == 'ONLINE_PAYING'
+              "
+            >
+              <label for="code">Số thẻ</label>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="Card number"
+                  placeholder="Số thẻ"
+                  formControlName="cardNumber"
+                  [attr.disabled]="true"
+                />
+              </div>
+              <label for="code">Tên chủ thẻ</label>
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="Card owner"
+                  placeholder="Tên chủ thẻ"
+                  formControlName="cardOwner"
+                  [attr.disabled]="true"
+                />
+              </div>
+
+              <label for="code">Ngày phát hành</label>
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div class="form-group" fxFlex="50">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Month"
+                    placeholder="Tháng"
+                    formControlName="month"
+                    [attr.disabled]="true"
+                  />
+                </div>
+
+                <div class="form-group" fxFlex="50">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Year"
+                    placeholder="Năm"
+                    formControlName="year"
+                    [attr.disabled]="true"
+                  />
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between none">
+              <div class="form-group" style="margin-top: 10px">
+                <a
+                  style="text-decoration: underline !important"
+                  *ngIf="this.orderDetail?.status == 'WAITING_PROCESS'"
+                  (click)="openDialog('inventory')"
+                  >Kiểm tra hàng tồn</a
+                >
+              </div>
+              <div class="form-group" style="margin-top: 10px">
+                <a
+                  style="text-decoration: underline !important"
+                  (click)="openDialog('orderDetails')"
+                  >Hoá đơn</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+        <div fxLayout="column" style="width: 350px">
+          <div class="title">Giao nhận</div>
+          <form [formGroup]="formGroup3">
+            <div class="form-group">
+              <label for="fullName">Họ tên</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Họ tên"
+                formControlName="fullName"
+                [attr.disabled]="isDisabled"
+              />
+            </div>
+            <div class="form-group">
+              <label for="fullName">Số điện thoại</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Số điện thoại"
+                formControlName="phone"
+                [attr.disabled]="isDisabled"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Email"
+                formControlName="email"
+                [attr.disabled]="isDisabled"
+              />
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px">
+              <div class="form-group">
+                <label for="city">Thành phố/Tỉnh</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Thành phố/Tỉnh"
+                  formControlName="city"
+                  [attr.disabled]="isDisabled"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">Quận/Huyện</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Quận/Huyện"
+                  formControlName="district"
+                  [attr.disabled]="isDisabled"
+                />
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px">
+              <div class="form-group">
+                <label for="name">Phường/Xã</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Phường/Xã"
+                  formControlName="subDistrict"
+                  [attr.disabled]="isDisabled"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">Địa chỉ cụ thể</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                  formControlName="specificAddress"
+                  [attr.disabled]="isDisabled"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="code">Loại vận chuyển</label>
+              <select
+                class="form-select"
+                (change)="onChange($event)"
+                [disabled]="true"
+              >
+                <option
+                  [selected]="
+                    shp.viewValue == formGroup3.controls['shippingMethod'].value
+                  "
+                  [value]="shp.value"
+                  *ngFor="let shp of shipping"
+                >
+                  {{ shp.viewValue }}
+                </option>
+              </select>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

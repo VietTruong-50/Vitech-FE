@@ -80,6 +80,7 @@ export class ProductDetailUserComponent implements OnInit {
       .subscribe((response) => {
         if (response.errorCode == null) {
           console.log(response.result);
+          this.slides = []
 
           if (response.result?.featureImageByte) {
             let objectURL =

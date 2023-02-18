@@ -39,6 +39,8 @@ import { StatisticsAdminPageComponent } from './pages/statistics-admin-page/stat
 import { CustomerAccountManagementComponent } from './pages/customer-account-management/customer-account-management.component';
 import { CruCustomerComponent } from './pages/customer-account-management/cru-customer/cru-customer.component';
 import { AdminLoginComponent } from './pages/auth/sign-in/admin-login/admin-login.component';
+import { AdminHomepageComponent } from './pages/admin-homepage/admin-homepage.component';
+import { InvoiceManagementComponent } from './pages/invoice-management/invoice-management.component';
 
 const routes: Routes = [
   {
@@ -55,7 +57,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: StatisticsAdminPageComponent,
+        component: AdminHomepageComponent,
       },
       {
         path: 'sliders',
@@ -156,6 +158,14 @@ const routes: Routes = [
       {
         path: 'orders/:orderCode',
         component: CruOrderComponent,
+      },
+      {
+        path: 'invoice',
+        component: InvoiceManagementComponent,
+      },
+      {
+        path: 'statistic',
+        component: StatisticsAdminPageComponent,
       },
     ],
   },

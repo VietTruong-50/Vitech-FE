@@ -1,0 +1,55 @@
+<div fxLayout="column" fxLayoutGap="30px" style="margin-top: 30px">
+    <div
+      fxLayout="row"
+      class="board-container"
+      fxLayoutAlign="space-around center"
+    >
+      <div
+        class="statistic-board"
+        fxLayout="column"
+        fxLayoutGap="10px"
+        style="background-color: rgb(75 179 223)"
+        [routerLink]="['/admin', 'products']"
+      >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-icon>all_inbox</mat-icon>
+          <p>Sản phẩm</p>
+        </div>
+        <div fxlayout="row" fxLayoutAlign="center center" class="qty">
+          {{ statisticData?.productQuantity }}
+        </div>
+      </div>
+      <div
+        class="statistic-board"
+        fxLayout="column"
+        fxLayoutGap="10px"
+        style="background-color: rgb(44 155 150)"
+        [routerLink]="['/admin', 'orders']"
+      >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-icon>edit_note</mat-icon>
+          <p>Đơn hàng</p>
+        </div>
+        <div fxlayout="row" fxLayoutAlign="center center" class="qty">
+          {{ statisticData?.orderQuantity }}
+        </div>
+      </div>
+      <div
+        class="statistic-board"
+        fxLayout="column"
+        fxLayoutGap="10px"
+        style="background-color: rgb(221 152 1)"
+        [routerLink]="['/admin', 'customers']"
+      >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-icon>account_circle </mat-icon>
+          <p>Khách hàng</p>
+        </div>
+        <div fxlayout="row" fxLayoutAlign="center center" class="qty">
+          {{ statisticData?.customerQuantity }}
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  

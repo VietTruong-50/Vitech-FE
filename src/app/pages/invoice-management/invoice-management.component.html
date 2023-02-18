@@ -1,32 +1,8 @@
 <div class="content">
-  <app-content-header [title]="'Quản lý đơn hàng'"></app-content-header>
+  <app-content-header [title]="'Quản lý hoá đơn'"></app-content-header>
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="col-md-12">
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div
-          class="float-left"
-          fxLayout="row"
-          fxLayoutGap="20px"
-          fxLayoutAlign="center center"
-        >
-          <h4>Trạng thái:</h4>
-          <div>
-            <select class="form-select" (change)="setStatus($event)">
-              <option [value]="st.value" *ngFor="let st of status">
-                {{ st.viewValue }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <button
-              class="btn btn-success float-right m-2"
-              (click)="getOrderByStatus()"
-            >
-              Filter
-            </button>
-          </div>
-        </div>
+      <div fxLayout="row" fxLayoutAlign="end center" style="margin-bottom: 20px;">
         <div class="float-right">
           <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
             <input
@@ -39,8 +15,8 @@
           </div>
 
           <!-- <a class="btn btn-success float-right m-2" (click)="renderTo('Add')"
-          >Add
-        </a> -->
+            >Add
+          </a> -->
         </div>
       </div>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -52,6 +28,13 @@
                 1 +
                 pageIndex * pageSize
             }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="invoiceNumber">
+          <th mat-header-cell *matHeaderCellDef>Mã hoá đơn</th>
+          <td mat-cell *matCellDef="let element">
+            {{ "HD" + (element.id | number : "3.0") }}
           </td>
         </ng-container>
 
@@ -83,6 +66,13 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="shippingMethod">
+          <th mat-header-cell *matHeaderCellDef>PT vận chuyển</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.shippingMethod.shippingMethod }}
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="total">
           <th mat-header-cell *matHeaderCellDef>Tổng tiền</th>
           <td mat-cell *matCellDef="let element">
@@ -93,23 +83,21 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let element">
-            <div fxLayout="row" fxLayoutAlign="center center" style="padding: 8px;">
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              style="padding: 8px"
+            >
               <span
                 fxLayout="row wrap"
                 fxLayoutAlign="center center"
-                style="gap: 4px; width: 200px;"
+                style="gap: 4px; width: 200px"
               >
                 <a
-                  class="btn btn-default"
-                  (click)="renderTo('Edit', element.orderCode)"
-                  >Sửa</a
+                  class="btn btn-warning action-delete"
+                  (click)="renderTo('Invoice', element.orderCode)"
+                  >Xem hoá đơn</a
                 >
-                <a
-                  class="btn btn-info action-delete"
-                  (click)="renderTo('Info', element.orderCode)"
-                  >Xem</a
-                >
-               
               </span>
             </div>
           </td>

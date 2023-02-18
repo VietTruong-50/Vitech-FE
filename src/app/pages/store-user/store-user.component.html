@@ -185,9 +185,11 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <p class="product-category">Phân loại</p>
+                  <p class="product-category">
+                    {{ product.subCategory.subCateName }}
+                  </p>
                   <h3 class="product-name">
-                    <a (click)="renderTo('product', product.id)" tabindex="-1">{{
+                    <a (click)="renderTo('product', product.id)">{{
                       product.name | truncateText : 40
                     }}</a>
                   </h3>
@@ -200,15 +202,15 @@
                   <!-- <div class="product-rating">
               </div> -->
                   <div class="product-btns">
-                    <button class="add-to-wishlist" tabindex="-1">
+                    <button class="add-to-wishlist">
                       <i class="fa fa-heart"></i
                       ><span class="tooltipp">add to wishlist</span>
                     </button>
-                    <button class="add-to-compare" tabindex="-1">
+                    <button class="add-to-compare">
                       <i class="fa fa-exchange"></i
                       ><span class="tooltipp">add to compare</span>
                     </button>
-                    <button class="quick-view" tabindex="-1">
+                    <button class="quick-view">
                       <i class="fa fa-eye"></i
                       ><span class="tooltipp">quick view</span>
                     </button>
@@ -217,7 +219,6 @@
                 <div class="add-to-cart">
                   <button
                     class="add-to-cart-btn"
-                    tabindex="-1"
                     (click)="addItemToCart(product, 1)"
                   >
                     <i class="fa fa-shopping-cart"></i> add to cart

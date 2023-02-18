@@ -27,6 +27,7 @@ model/apiResponseCustomer.ts
 model/apiResponseDouble.ts
 model/apiResponseJwtResponse.ts
 model/apiResponseListAddress.ts
+model/apiResponseListCountOrderResponse.ts
 model/apiResponseListNotification.ts
 model/apiResponseListProduct.ts
 model/apiResponseListSubCategory.ts
@@ -56,6 +57,7 @@ model/cartItemRequest.ts
 model/category.ts
 model/comment.ts
 model/commentRequest.ts
+model/countOrderResponse.ts
 model/customCustomerResponse.ts
 model/customer.ts
 model/customerRequest.ts

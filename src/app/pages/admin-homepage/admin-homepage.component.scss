@@ -1,0 +1,24 @@
+.statistic-board {
+  padding: 50px 100px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.board-container {
+  width: 100%;
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.statistic-board p {
+  font-size: 24px;
+  margin: 0px;
+  font-weight: 600;
+}
+
+.qty {
+  font-size: 28px;
+}

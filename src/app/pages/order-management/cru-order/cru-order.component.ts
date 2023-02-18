@@ -8,6 +8,7 @@ import {
   UserControllerService,
 } from 'src/app/api-svc';
 import { CustomerDetailsDialogComponent } from './customer-details-dialog/customer-details-dialog.component';
+import { InventoryCheckDialogComponent } from './inventory-check-dialog/inventory-check-dialog.component';
 import { OrderDetailsDialogComponent } from './order-details-dialog/order-details-dialog.component';
 
 @Component({
@@ -19,10 +20,11 @@ export class CruOrderComponent implements OnInit {
   orderDetail: any;
   title: string = '';
   isDisabled: any;
-
+  isInvoice: boolean = false;
   formGroup: FormGroup;
   formGroup2: FormGroup;
   formGroup3: FormGroup;
+  formGroup4: FormGroup;
 
   status = [
     {
@@ -79,6 +81,7 @@ export class CruOrderComponent implements OnInit {
       status: [],
       deliveryDate: [],
     });
+
     this.formGroup2 = this.formBuilder.group({
       cardNumber: [],
       cardOwner: [],
@@ -86,6 +89,7 @@ export class CruOrderComponent implements OnInit {
       year: [],
       paymentMethod: [],
     });
+
     this.formGroup3 = this.formBuilder.group({
       fullName: [],
       phone: [],
@@ -97,12 +101,31 @@ export class CruOrderComponent implements OnInit {
       shippingMethod: [],
     });
 
-    if (this.route.snapshot.queryParamMap.get('type')! == 'Info') {
-      this.title = 'Thông tin đơn hàng';
-      this.isDisabled = true;
-    } else if (this.route.snapshot.queryParamMap.get('type')! == 'Edit') {
-      this.title = 'Sửa đơn hàng';
-      this.isDisabled = null;
+    this.formGroup4 = this.formBuilder.group({
+      invoiceSymbol: [],
+      taxAuthoritiesCode: [],
+      taxNumber: [],
+    });
+    
+    switch (this.route.snapshot.queryParamMap.get('type')) {
+      case 'Info': {
+        this.title = 'Thông tin đơn hàng';
+        this.isInvoice = false;
+        this.isDisabled = true;
+        break;
+      }
+      case 'Edit': {
+        this.title = 'Sửa đơn hàng';
+        this.isDisabled = null;
+        this.isInvoice = false;
+        break;
+      }
+      case 'Invoice': {
+        this.title = 'Hoá đơn';
+        this.isDisabled = true;
+        this.isInvoice = true;
+        break;
+      }
     }
   }
 
@@ -148,6 +171,12 @@ export class CruOrderComponent implements OnInit {
         specificAddress: this.orderDetail.address.specificAddress,
         shippingMethod: this.orderDetail.shippingMethod.shippingMethod,
       });
+
+      this.formGroup4.patchValue({
+        invoiceSymbol: this.orderDetail.invoiceSymbol,
+        taxAuthoritiesCode: this.orderDetail.taxAuthoritiesCode,
+        taxNumber: this.orderDetail.taxNumber,
+      });
     });
   }
 
@@ -161,12 +190,16 @@ export class CruOrderComponent implements OnInit {
           total: this.orderDetail.total,
         },
       });
-    } else {
+    } else if (component == 'customer') {
       this.dialog.open(CustomerDetailsDialogComponent, {
         width: '35vw',
         data: {
           customer: this.orderDetail.customer,
         },
+      });
+    } else {
+      this.dialog.open(InventoryCheckDialogComponent, {
+        width: '65vw',
       });
     }
   }

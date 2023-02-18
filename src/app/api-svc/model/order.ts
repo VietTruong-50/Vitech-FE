@@ -18,6 +18,9 @@ import { Customer } from './customer';
 
 export interface Order { 
     id?: number;
+    invoiceSymbol?: string;
+    taxNumber?: string;
+    taxAuthoritiesCode?: string;
     orderCode?: string;
     customer?: Customer;
     total?: number;
