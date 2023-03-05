@@ -1,9 +1,11 @@
-<div fxLayout="column" fxLayoutGap="30px" style="margin-top: 30px">
-    <div
-      fxLayout="row"
-      class="board-container"
-      fxLayoutAlign="space-around center"
-    >
+<div fxLayout="column" fxLayoutGap="30px" style="margin: 30px 0  0 45px">
+  <div
+    fxLayout="row wrap"
+    class="board-container"
+    fxLayoutAlign="start center"
+    fxLayoutGap="30px grid"
+  >
+    <div>
       <div
         class="statistic-board"
         fxLayout="column"
@@ -19,6 +21,8 @@
           {{ statisticData?.productQuantity }}
         </div>
       </div>
+    </div>
+    <div>
       <div
         class="statistic-board"
         fxLayout="column"
@@ -34,6 +38,8 @@
           {{ statisticData?.orderQuantity }}
         </div>
       </div>
+    </div>
+    <div>
       <div
         class="statistic-board"
         fxLayout="column"
@@ -50,6 +56,22 @@
         </div>
       </div>
     </div>
-   
+    <div>
+      <div
+        class="statistic-board"
+        fxLayout="column"
+        fxLayoutGap="10px"
+        style="background-color: rgb(221, 67, 1)"
+        [routerLink]="['/admin', 'customers']"
+      >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-icon>monetization_on </mat-icon>
+          <p>Doanh thu</p>
+        </div>
+        <div fxlayout="row" fxLayoutAlign="center center" class="qty">
+          18,990,000
+        </div>
+      </div>
+    </div>
   </div>
-  
+</div>

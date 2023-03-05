@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {
   CustomerControllerService,
   Order,
   UserControllerService,
 } from 'src/app/api-svc';
+import { DialogService } from 'src/app/service/dialog.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order-management',
@@ -50,17 +52,25 @@ export class OrderManagementComponent implements OnInit {
     'total',
     'action',
   ];
+
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   constructor(
     private router: Router,
     private location: Location,
     private userController: UserControllerService,
-    private customerController: CustomerControllerService
-  ) {}
+    private customerController: CustomerControllerService,
+    private route: ActivatedRoute,
+    private dialog: DialogService, 
+    private toastrService: ToastrService
+  ) {
+    if (this.route.snapshot.queryParamMap.get('type')) {
+      this.statusValue = this.route.snapshot.queryParamMap.get('type');
+    }
+  }
 
   ngOnInit(): void {
-    this.getAllOrdersData();
+    this.getOrderByStatus();
   }
 
   onPaginate($event: PageEvent) {
@@ -85,7 +95,7 @@ export class OrderManagementComponent implements OnInit {
   }
 
   getOrderByStatus() {
-    if (this.statusValue == 'ALL') {
+    if (this.statusValue == 'ALL' || this.statusValue == null) {
       this.getAllOrdersData();
     } else {
       this.customerController
@@ -100,7 +110,12 @@ export class OrderManagementComponent implements OnInit {
 
   search() {
     this.userController
-      .getAllOrdersByCode(this.orderCode ? this.orderCode : '', 0, 5, 'orderDate')
+      .getAllOrdersByCode(
+        this.orderCode ? this.orderCode : '',
+        0,
+        5,
+        'orderDate'
+      )
       .subscribe((rs) => {
         this.dataSource = new MatTableDataSource<Order>(rs.result?.content);
       });
@@ -129,5 +144,21 @@ export class OrderManagementComponent implements OnInit {
     this.location.go(`${pureUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
 
     this.getAllOrdersData(pageIndex);
+  }
+
+  destroyOrder(id: number) {
+    this.dialog.showConfirmDialog({
+      width: '20vw',
+      title: 'Xoá đơn hàng',
+      acceptText: 'Đồng ý',
+      rejectText: 'Huỷ',
+      description: 'Bạn muốn xoá đơn hàng này?',
+      onReject: () => {},
+      onAfterClosed: () => {
+        this.userController.destroyOrder(id).subscribe((rs) => {
+          this.toastrService.show('Xoá thành công!', 'Đã xoá 1 đơn hàng');
+        });
+      },
+    });
   }
 }

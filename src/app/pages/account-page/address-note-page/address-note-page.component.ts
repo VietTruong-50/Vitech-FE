@@ -4,7 +4,7 @@ import {
   AuthControllerService,
   CustomerControllerService,
 } from 'src/app/api-svc';
-import { CreateAAddressDialogComponent } from './create-a-address-dialog/create-a-address-dialog.component';
+import { CreateAddressDialogComponent } from './create-address-dialog/create-address-dialog.component';
 
 @Component({
   selector: 'app-address-note-page',
@@ -50,7 +50,7 @@ export class AddressNotePageComponent implements OnInit {
 
   openDialog(id?: number) {
     this.dialog
-      .open(CreateAAddressDialogComponent, {
+      .open(CreateAddressDialogComponent, {
         width: '40vw',
         data: {
           id: id

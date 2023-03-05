@@ -17,6 +17,6 @@ export interface SubCategory {
     id?: number;
     subCateName?: string;
     description?: string;
-    category?: Category;
+    categories?: Array<Category>;
 }
 

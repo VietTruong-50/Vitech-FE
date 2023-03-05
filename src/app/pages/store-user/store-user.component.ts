@@ -53,7 +53,7 @@ export class StoreUserComponent implements OnInit {
             this.route.snapshot.paramMap.get('categorySearch')!
           );
         }else{
-          this.categorySearch = ['LAPTOP', 'MOBILE', 'ACCESSORIES']
+          this.categorySearch = ['LAPTOP', 'MOBILE', 'PHỤ KIỆN']
         }
         this.searchText = this.route.snapshot.paramMap.get('searchText');
 

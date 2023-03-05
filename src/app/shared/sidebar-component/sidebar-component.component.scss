@@ -1,6 +1,7 @@
 .user-panel img {
   height: 50px;
   width: 50px;
+  object-fit: cover;
 }
 
 .nav-active {
@@ -8,4 +9,8 @@
   a {
     color: #343a40 !important;
   }
+}
+
+.btn-default:hover{
+  color: black !important;
 }

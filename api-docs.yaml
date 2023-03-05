@@ -261,6 +261,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponseOrder'
+    delete:
+      tags:
+      - user-controller
+      operationId: destroyOrder
+      parameters:
+      - name: orderId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseOrder'
   /api/order/{orderId}:
     put:
       tags:
@@ -1898,8 +1916,10 @@ components:
           type: string
         description:
           type: string
-        category:
-          $ref: '#/components/schemas/Category'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
     SliderRequest:
       type: object
       properties:
@@ -2039,6 +2059,8 @@ components:
             $ref: '#/components/schemas/ImageModel'
         subCategory:
           $ref: '#/components/schemas/SubCategory'
+        category:
+          $ref: '#/components/schemas/Category'
     OrderRequest:
       type: object
       properties:
@@ -2546,10 +2568,10 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
         paged:

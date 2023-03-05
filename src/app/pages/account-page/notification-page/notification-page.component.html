@@ -56,25 +56,27 @@
         </div>
         <div class="css-1puyvhb">
           <div class="css-1mwn02k">
-            <span class="css-4wgi4e">{{
-              noti.order.status == "WAITING_PROCESS" ||
-              noti.order.status == "WAITING_DELIVERY"
-                ? "Đặt hàng thành công"
-                : "Giao hàng thành công"
-            }}</span
-            ><span class="css-ztwde3">{{ noti.createdAt | date }} - 14:59</span>
+            <span class="css-4wgi4e">
+              <span *ngFor="let nt of notiArray"
+                ><span *ngIf="nt.value == noti.order.status">{{
+                  nt.viewValue
+                }}</span>
+              </span>
+            </span>
+            <span class="css-ztwde3">{{ noti.createdAt | date }} - 14:59</span>
           </div>
-          <span class="css-1tuttxx" *ngIf="noti.order.status == 'SUCCESS'"
-            >Gói hàng {{ noti.order.orderCode }} đã được giao tới bạn thành
-            công</span
-          >
-          <span
-            class="css-1tuttxx"
-            *ngIf="
-              noti.order.status == 'WAITING_PROCESS' ||
-              noti.order.status == 'WAITING_DELIVERY'
-            "
-            >Đơn hàng {{ noti.order.orderCode }} đã được đặt thành công</span
+          <!-- <span class="css-1tuttxx" *ngIf="noti.order.status == 'SUCCESS'"
+            >Gói hàng {{ noti.order.orderCode }} đã được
+            {{ noti.message }}</span
+          > -->
+
+          <span class="css-1tuttxx"
+            ><span *ngFor="let nt of notiArray">
+              <span *ngIf="nt.value == noti.order.status">
+                Đơn hàng {{ noti.order.orderCode }} đã được
+                {{ noti.message }}</span
+              >
+            </span></span
           >
         </div>
       </div>

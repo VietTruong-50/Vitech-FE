@@ -76,7 +76,7 @@ import { SafeHTMLPipe } from './pipes/safe-html.pipe';
 import { OrderManagementComponent } from './pages/order-management/order-management.component';
 import { CruOrderComponent } from './pages/order-management/cru-order/cru-order.component';
 import { AddressNotePageComponent } from './pages/account-page/address-note-page/address-note-page.component';
-import { CreateAAddressDialogComponent } from './pages/account-page/address-note-page/create-a-address-dialog/create-a-address-dialog.component';
+import { CreateAddressDialogComponent } from './pages/account-page/address-note-page/create-address-dialog/create-address-dialog.component';
 import { OrderDetailsDialogComponent } from './pages/order-management/cru-order/order-details-dialog/order-details-dialog.component';
 import { CustomerDetailsDialogComponent } from './pages/order-management/cru-order/customer-details-dialog/customer-details-dialog.component';
 import { StatisticsAdminPageComponent } from './pages/statistics-admin-page/statistics-admin-page.component';
@@ -90,6 +90,7 @@ import { InventoryCheckDialogComponent } from './pages/order-management/cru-orde
 import { AdminHomepageComponent } from './pages/admin-homepage/admin-homepage.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { InvoiceManagementComponent } from './pages/invoice-management/invoice-management.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,7 @@ import { InvoiceManagementComponent } from './pages/invoice-management/invoice-m
     OrderManagementComponent,
     CruOrderComponent,
     AddressNotePageComponent,
-    CreateAAddressDialogComponent,
+    CreateAddressDialogComponent,
     OrderDetailsDialogComponent,
     CustomerDetailsDialogComponent,
     StatisticsAdminPageComponent,
@@ -150,6 +151,7 @@ import { InvoiceManagementComponent } from './pages/invoice-management/invoice-m
     InventoryCheckDialogComponent,
     AdminHomepageComponent,
     InvoiceManagementComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

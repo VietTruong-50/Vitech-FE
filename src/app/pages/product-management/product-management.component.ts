@@ -4,12 +4,15 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import {
   SubCategoryControllerService,
   CategoryControllerService,
   ProductControllerService,
+  CustomerControllerService,
 } from 'src/app/api-svc';
 import { Product } from 'src/app/api-svc/model/product';
+import { DialogService } from 'src/app/service/dialog.service';
 
 @Component({
   selector: 'app-product-management',
@@ -34,11 +37,14 @@ export class ProductManagementComponent implements OnInit {
 
   constructor(
     private productController: ProductControllerService,
+    private customerController: CustomerControllerService,
     private router: Router,
     private sanitizer: DomSanitizer,
     private location: Location,
     private categoryController: CategoryControllerService,
-    private subCategoryController: SubCategoryControllerService
+    private subCategoryController: SubCategoryControllerService,
+    private dialogService: DialogService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -73,11 +79,17 @@ export class ProductManagementComponent implements OnInit {
   categorySearch: string = 'Phân loại';
 
   onChange(deviceValue: any) {
-    let id = deviceValue.target.value;
-    this.categorySearch = id;
-    console.log(this.categorySearch);
+    let name = deviceValue.target.value;
+    this.categorySearch = name;
+    this.subCateName = '';
 
-    this.getBrandData(id);
+    this.getBrandData(name);
+  }
+
+  subCateName: string = '';
+
+  onChangeSubCate(deviceValue: any) {
+    this.subCateName = deviceValue.target.value;
   }
 
   getData(pageIndex?: number) {
@@ -99,22 +111,36 @@ export class ProductManagementComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this.productController.deleteProduct(id).subscribe((response) => {
-      if (response.errorCode == null) {
-        this.getData();
-        window.alert('Delete success');
-      }
+    this.dialogService.showConfirmDialog({
+      width: '20vw',
+      title: 'Xoá sản phẩm',
+      acceptText: 'Đồng ý',
+      rejectText: 'Huỷ',
+      description: 'Bạn muốn xoá sản phẩm này?',
+      onReject: () => {},
+      onAfterClosed: () => {
+        this.productController.deleteProduct(id).subscribe((response) => {
+          if (response.errorCode == null) {
+            this.getData();
+            this.toastrService.show('Xoá thành công!', 'Đã xoá 1 sản phẩm');
+          }
+        });
+      },
     });
   }
 
   findAllByCategory(pageIndex?: number) {
     if (this.categorySearch != 'Phân loại') {
-      this.productController
-        .findProductsByCategoryName(
-          this.categorySearch,
-          this.pageSize,
+      this.customerController
+        .filterProduct(
           pageIndex ? pageIndex : 0,
-          'name'
+          this.pageSize,
+          'name',
+          [this.categorySearch],
+          this.subCateName ? [this.subCateName] : [],
+          0,
+          100000000,
+          ' '
         )
         .subscribe((response) => {
           response.result?.content?.forEach((item) => {

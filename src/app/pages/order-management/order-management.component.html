@@ -12,7 +12,13 @@
           <h4>Trạng thái:</h4>
           <div>
             <select class="form-select" (change)="setStatus($event)">
-              <option [value]="st.value" *ngFor="let st of status">
+              <option
+                [value]="st.value"
+                *ngFor="let st of status"
+                [selected]="
+                  statusValue != null ? statusValue == st.value : false
+                "
+              >
                 {{ st.viewValue }}
               </option>
             </select>
@@ -93,11 +99,15 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let element">
-            <div fxLayout="row" fxLayoutAlign="center center" style="padding: 8px;">
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              style="padding: 8px"
+            >
               <span
                 fxLayout="row wrap"
                 fxLayoutAlign="center center"
-                style="gap: 4px; width: 200px;"
+                style="gap: 4px; width: 200px"
               >
                 <a
                   class="btn btn-default"
@@ -105,11 +115,11 @@
                   >Sửa</a
                 >
                 <a
-                  class="btn btn-info action-delete"
+                  class="btn btn-info"
                   (click)="renderTo('Info', element.orderCode)"
                   >Xem</a
                 >
-               
+                <a class="btn btn-danger action-delete" (click)="destroyOrder(element.id)">Xoá</a>
               </span>
             </div>
           </td>

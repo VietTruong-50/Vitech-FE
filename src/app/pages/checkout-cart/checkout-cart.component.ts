@@ -10,7 +10,7 @@ import {
   CustomerControllerService,
 } from 'src/app/api-svc';
 import { CartService } from 'src/app/service/cart.service';
-import { CreateAAddressDialogComponent } from '../account-page/address-note-page/create-a-address-dialog/create-a-address-dialog.component';
+import { CreateAddressDialogComponent } from '../account-page/address-note-page/create-address-dialog/create-address-dialog.component';
 
 @Component({
   selector: 'app-checkout-cart',
@@ -132,7 +132,7 @@ export class CheckoutCartComponent implements OnInit {
 
   openDialog() {
     this.dialog
-      .open(CreateAAddressDialogComponent, {
+      .open(CreateAddressDialogComponent, {
         width: '35vw',
       })
       .afterClosed()

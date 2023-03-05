@@ -1,80 +1,90 @@
 <div fxLayout="column" fxLayoutAlign="start none">
   <div fxLayout="row">
-    <div fxFlex="50">
-      <div fxLayout="row" style="margin: 40px 15px 40px 15px">
-        <p>Thông tin tài khoản</p>
-      </div>
+    <div fxFlex="60">
+      <div>
+        <div fxLayout="row" style="margin: 40px 15px 40px 15px">
+          <p>Thông tin tài khoản</p>
+        </div>
 
-      <div class="form">
-        <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="25px">
-          <!-- <div class="form-group">
+        <div class="form">
+          <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="25px">
+            <!-- <div class="form-group">
               <img width="100px" height="100px" src="" alt="">
           </div> -->
-          <div class="form-group">
-            <label for="name">Họ tên</label>
-            <input
-              formControlName="fullName"
-              type="text"
-              class="form-control"
-              placeholder="Họ tên"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              formControlName="email"
-              type="email"
-              class="form-control"
-              placeholder="Email"
-            />
-          </div>
-          <div class="form-group">
-            <label for="phone">Số điện thoại</label>
-            <input
-              formControlName="phone"
-              type="tel"
-              class="form-control"
-              placeholder="Phone"
-            />
-          </div>
-          <div class="form-group">
-            <label for="date">Ngày sinh</label>
-            <input
-              formControlName="dateOfBirth"
-              type="date"
-              class="form-control datepicker"
-            />
-          </div>
-          <div class="form-group" fxLayout="row" fxLayoutGap="20px">
-            <label for="sex">Giới tính</label>
+            <div class="form-group">
+              <label for="name">Họ tên</label>
+              <input
+                formControlName="fullName"
+                type="text"
+                class="form-control"
+                placeholder="Họ tên"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                placeholder="Email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Số điện thoại</label>
+              <input
+                formControlName="phone"
+                type="tel"
+                class="form-control"
+                placeholder="Phone"
+              />
+            </div>
+            <div class="form-group">
+              <label for="date">Ngày sinh</label>
+              <input
+                formControlName="dateOfBirth"
+                type="date"
+                class="form-control datepicker"
+              />
+            </div>
+            <div class="form-group" fxLayout="row" fxLayoutGap="20px">
+              <label for="sex">Giới tính</label>
 
-            <!-- <select formControlName="gender" class="form-select">
+              <!-- <select formControlName="gender" class="form-select">
               <option *ngFor="let g of gender" [value]="g.value">
                 {{ g.viewValue }}
               </option>
             </select> -->
-            <mat-radio-group
-              formControlName="gender"
-              fxFlex="70"
-              fxLayout="row wrap"
-              fxLayoutAlign="space-between"
-              aria-label="Select an option"
-            >
-              <mat-radio-button value="MALE">Nam</mat-radio-button>
-              <mat-radio-button value="FEMALE">Nữ</mat-radio-button>
-              <mat-radio-button value="OTHER">Khác</mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </form>
+              <mat-radio-group
+                formControlName="gender"
+                fxFlex="70"
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between"
+                aria-label="Select an option"
+              >
+                <mat-radio-button value="MALE">Nam</mat-radio-button>
+                <mat-radio-button value="FEMALE">Nữ</mat-radio-button>
+                <mat-radio-button value="OTHER">Khác</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="form-group float-right form" style="margin-top: 15px">
+        <button class="primary-btn order-submit" (click)="updateProfile()">
+          Cập nhật
+        </button>
       </div>
     </div>
-    <div fxFlex="50">
+    <div fxFlex="40">
       <div
         fxLayout="row"
-        fxLayoutAlign="space-between"
+        fxLayoutAlign="space-between center"
         style="margin: 40px 15px 40px 15px"
       >
         <p>Địa chỉ mặc định</p>
+        <mat-icon style="color: rgb(157 161 184); font-size: 18px" (click)="openDialog(addressFormGroup.controls['id'].value)"
+          >edit_location_alt</mat-icon
+        >
       </div>
       <div class="form">
         <form
@@ -121,11 +131,6 @@
             />
           </div>
         </form>
-      </div>
-      <div class="form-group float-right form" style="margin-top: 15px;">
-        <button class="primary-btn order-submit" (click)="updateProfile()">
-          Cập nhật
-        </button>
       </div>
     </div>
   </div>

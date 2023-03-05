@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CustomerControllerService } from 'src/app/api-svc';
-import { CreateAAddressDialogComponent } from '../address-note-page/create-a-address-dialog/create-a-address-dialog.component';
+import { CreateAddressDialogComponent } from '../address-note-page/create-address-dialog/create-address-dialog.component';
 
 @Component({
   selector: 'app-notification-page',
@@ -11,6 +11,25 @@ import { CreateAAddressDialogComponent } from '../address-note-page/create-a-add
   styleUrls: ['./notification-page.component.scss'],
 })
 export class NotificationPageComponent implements OnInit {
+  notiArray = [
+    {
+      value: 'WAITING_DELIVERY',
+      viewValue: 'Đặt hàng thành công',
+    },
+    {
+      value: 'WAITING_PROCESS',
+      viewValue: 'Đặt hàng thành công',
+    },
+    {
+      value: 'SUCCESS',
+      viewValue: 'Giao hàng thành công',
+    },
+    {
+      value: 'CANCEL',
+      viewValue: 'Đã huỷ thành công',
+    },
+  ];
+
   constructor(
     private customerController: CustomerControllerService,
     private router: Router,
@@ -41,6 +60,4 @@ export class NotificationPageComponent implements OnInit {
   renderTo(code: string) {
     this.router.navigate(['account/order', code]);
   }
-
-  
 }

@@ -52,33 +52,6 @@ export class CruProductComponent implements OnInit {
 
   html: string = '';
 
-  // editorConfig: AngularEditorConfig = {
-  //   editable: true,
-  //   spellcheck: true,
-  //   height: '18rem',
-  //   minHeight: '5rem',
-  //   placeholder: 'Enter text here...',
-  //   translate: 'no',
-  //   defaultParagraphSeparator: 'p',
-  //   defaultFontName: 'Arial',
-  //   toolbarHiddenButtons: [['bold']],
-  //   customClasses: [
-  //     {
-  //       name: 'quote',
-  //       class: 'quote',
-  //     },
-  //     {
-  //       name: 'redText',
-  //       class: 'redText',
-  //     },
-  //     {
-  //       name: 'titleText',
-  //       class: 'titleText',
-  //       tag: 'h1',
-  //     },
-  //   ],
-  // };
-
   constructor(
     private formBuilder: FormBuilder,
     private productController: ProductControllerService,
@@ -151,7 +124,7 @@ export class CruProductComponent implements OnInit {
             content: response.result?.content,
             price: response.result?.actualPrice,
             quantity: response.result?.quantity,
-            categoryName: response.result?.subCategory?.category?.name,
+            categoryName: response.result?.category?.name,
             brandId: response.result?.subCategory?.id,
           });
 

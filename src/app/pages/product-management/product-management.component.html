@@ -32,9 +32,9 @@
             </select>
           </div>
           <div>
-            <select class="form-select">
-              <option selected>Nhà sản xuất</option>
-              <option [value]="brand.name" *ngFor="let brand of subCateData">
+            <select class="form-select" (change)="onChangeSubCate($event)">
+              <option selected>Hãng</option>
+              <option [value]="brand.subCateName" *ngFor="let brand of subCateData">
                 {{ brand.subCateName }}
               </option>
             </select>
@@ -70,12 +70,7 @@
           <td mat-cell *matCellDef="let element">
             <img
               [src]="element.imgUrl"
-              style="
-                max-width: 240px;
-                max-height: 120px;
-                width: auto;
-                height: auto;
-              "
+              class="product-img"
               alt="{{ element.featureImageName }}"
             />
           </td>

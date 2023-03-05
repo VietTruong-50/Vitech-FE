@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import {
   AuthControllerService,
   CustomerControllerService,
 } from 'src/app/api-svc';
+import { CreateAddressDialogComponent } from '../address-note-page/create-address-dialog/create-address-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,7 +27,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private authController: AuthControllerService,
     private formBuilder: FormBuilder,
-    private customerController: CustomerControllerService
+    private customerController: CustomerControllerService,
+    private dialog: MatDialog
   ) {
     this.formGroup = this.formBuilder.group({
       fullName: [],
@@ -107,6 +110,21 @@ export class UserProfileComponent implements OnInit {
         levant: true,
         specificAddress: formValue.specificAddress,
       })
+      .subscribe((rs) => {
+        this.getDefaultAddress();
+      });
+  }
+
+  openDialog(id?: number) {
+    this.dialog
+      .open(CreateAddressDialogComponent, {
+        width: '40vw',
+        data: {
+          id: id,
+          isDefault: true
+        },
+      })
+      .afterClosed()
       .subscribe((rs) => {
         this.getDefaultAddress();
       });

@@ -55,13 +55,13 @@ export class UserManagementComponent implements OnInit {
 
   renderTo(type: string, id?: number) {
     if (type == 'Add') {
-      this.router.navigate(['/admin/products', 'add-product'], {
-        queryParams: { type: type },
-      });
+      // this.router.navigate(['/admin/products', 'add-product'], {
+      //   queryParams: { type: type },
+      // });
     } else if ((type = 'Edit')) {
-      this.router.navigate(['/admin/products', 'edit-product', id], {
-        queryParams: { type: type },
-      });
+      // this.router.navigate(['/admin/products', 'edit-product', id], {
+      //   queryParams: { type: type },
+      // });
     }
   }
 

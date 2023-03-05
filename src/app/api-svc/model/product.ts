@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Category } from './category';
 import { SubCategory } from './subCategory';
 import { ImageModel } from './imageModel';
 import { SafeUrl } from '@angular/platform-browser';
@@ -28,6 +29,7 @@ export interface Product {
     featureImageByte?: Array<string>;
     productImages?: Set<ImageModel>;
     subCategory?: SubCategory;
+    category?: Category;
     imgUrl: SafeUrl
 }
 

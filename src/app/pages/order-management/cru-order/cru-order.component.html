@@ -74,7 +74,7 @@
           >
             <button
               class="btn btn-success mb-2 float-right"
-              (click)="changeOrderStatus()"
+              (click)="changeOrderStatus('WAITING_DELIVERY')"
               *ngIf="this.orderDetail?.status == 'WAITING_PROCESS'"
             >
               Xác nhận
@@ -82,7 +82,7 @@
             <button
               class="btn btn-primary mb-2 float-right"
               (click)="editOrder()"
-              *ngIf="!isInvoice && !isDisabled"
+              *ngIf="!isInvoice || !isDisabled"
             >
               Cập nhật
             </button>
@@ -266,7 +266,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Họ tên"
-                formControlName="fullName"
+                formControlName="receiverName"
                 [attr.disabled]="isDisabled"
               />
             </div>

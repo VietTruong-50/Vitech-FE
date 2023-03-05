@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <div class="dialog-title">{{ data.title }}</div>
+  <div class="dialog-content" [innerHTML]="data.description"></div>
+  <div class="dialog-action-row" fxLayout="row" fxLayoutAlign="space-evenly">
+    <button (click)="onAccept()" color="primary" mat-raised-button>
+      {{ data.acceptText }}
+    </button>
+    <button mat-dialog-close mat-raised-button>{{ data.rejectText }}</button>
+  </div>
+</div>

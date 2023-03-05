@@ -132,7 +132,7 @@
                 <td>
                   <span *ngFor="let st of status">
                     <span *ngIf="st.value == item.status"
-                      >{{ st.viewValue }} <a>({{ item.quantity }})</a></span
+                      >{{ st.viewValue }} <a (click)="renderTo(st.value)">({{ item.quantity }})</a></span
                     >
                   </span>
                 </td>

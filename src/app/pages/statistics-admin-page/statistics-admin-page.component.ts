@@ -78,6 +78,7 @@ export class StatisticsAdminPageComponent implements OnInit {
       this.saleSatistic = rs.result!.saleStatistic!.map(function (item) {
         return item == null ? 0 : item;
       });
+      console.log(rs.result!.orderStatistic);
 
       new Chart('lineChart', {
         type: 'line',
@@ -111,7 +112,7 @@ export class StatisticsAdminPageComponent implements OnInit {
       new Chart('pieChart', {
         type: 'pie',
         data: {
-          labels: ['Chờ xử lý', 'Chờ giao hàng', 'Đã hoàn thành', 'Đã huỷ'],
+          labels: ['Đã huỷ', 'Đã hoàn thành', 'Chờ giao hàng', 'Chờ xử lý'],
           datasets: [
             {
               label: 'Đơn',
@@ -175,9 +176,7 @@ export class StatisticsAdminPageComponent implements OnInit {
 
         quantity += item.quantity!;
 
-        if (item.status == 'CANCEL') {
-          this.totalMoney -= item.totalAll!;
-        } else if (item.status == 'SUCCESS') {
+        if (item.status == 'SUCCESS') {
           this.totalMoney += item.totalAll!;
         }
 
@@ -191,10 +190,16 @@ export class StatisticsAdminPageComponent implements OnInit {
     });
   }
 
-  renderTo(type: string, id?: number) {
-    this.router.navigate(['/admin/orders', id], {
-      queryParams: { type: type },
-    });
+  renderTo(type?: string, id?: number) {
+    if (type == 'Invoice') {
+      this.router.navigate(['/admin/orders', id], {
+        queryParams: { type: type },
+      });
+    } else {
+      this.router.navigate(['/admin/orders'], {
+        queryParams: { type: type },
+      });
+    }
   }
 
   onPaginate(event: any) {}

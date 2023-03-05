@@ -150,7 +150,7 @@
             <ng-container *ngFor="let product of productData">
               <span
                 class="product product-card"
-                *ngIf="product.subCategory.category.name == cate.name"
+                *ngIf="product.category.name == cate.name"
                 fxLayout="column"
                 style="height: 486px"
                 fxFlex="22"

@@ -91,7 +91,7 @@ export class CruOrderComponent implements OnInit {
     });
 
     this.formGroup3 = this.formBuilder.group({
-      fullName: [],
+      receiverName: [],
       phone: [],
       email: [],
       city: [],
@@ -106,7 +106,7 @@ export class CruOrderComponent implements OnInit {
       taxAuthoritiesCode: [],
       taxNumber: [],
     });
-    
+
     switch (this.route.snapshot.queryParamMap.get('type')) {
       case 'Info': {
         this.title = 'Thông tin đơn hàng';
@@ -162,7 +162,7 @@ export class CruOrderComponent implements OnInit {
       });
 
       this.formGroup3.patchValue({
-        fullName: this.orderDetail.address.receiverName,
+        receiverName: this.orderDetail.address.receiverName,
         phone: this.orderDetail.address.phone,
         email: this.orderDetail.address.email,
         city: this.orderDetail.address.city,
@@ -204,13 +204,13 @@ export class CruOrderComponent implements OnInit {
     }
   }
 
-  changeOrderStatus() {
+  changeOrderStatus(status?: string) {
     console.log(this.formGroup.getRawValue());
 
     this.userController
       .changeOrderStatus(
         this.orderDetail.id,
-        this.formGroup.controls['status'].value
+        status ? status : this.formGroup.controls['status'].value
       )
       .subscribe((rs) => {
         this.getOrderDetail();

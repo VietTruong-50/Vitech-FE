@@ -32,11 +32,13 @@ export class CruBrandComponent implements OnInit {
       this.subCategoryController
         .getSubCategoryById(Number(this.id))
         .subscribe((response) => {
+          console.log(response.result);
+          
           if (response.errorCode == null) {
             this.formGroup.patchValue({
               subCateName: response.result?.subCateName,
               description: response.result?.description,
-              category: response.result?.category?.id
+              // category: response.result?.category?.id
             });
           }
         });
