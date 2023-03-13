@@ -72,8 +72,8 @@ export class CruProductComponent implements OnInit {
       feature_img: [],
       images: [],
       quantity: [],
-      categoryName: [],
-      brandId: [],
+      categoryId: [],
+      subCategoryId: [],
     });
 
     this.title = this.route.snapshot.queryParamMap.get('type')! + ' product';
@@ -120,22 +120,23 @@ export class CruProductComponent implements OnInit {
           this.formGroup.patchValue({
             name: response.result?.name,
             code: response.result?.productCode,
+            shortDescription: response.result?.shortDescription,
             parameters: response.result?.parameters,
             content: response.result?.content,
             price: response.result?.actualPrice,
             quantity: response.result?.quantity,
-            categoryName: response.result?.category?.name,
-            brandId: response.result?.subCategory?.id,
+            categoryId: response.result?.category?.id,
+            subCategoryId: response.result?.subCategory?.id,
           });
 
-          this.getBrandData(this.formGroup.controls['categoryName'].value);
+          this.getBrandData(this.formGroup.controls['categoryId'].value);
         }
       });
   }
 
-  getBrandData(name: string) {
+  getBrandData(cateId: number) {
     this.subCategoryController
-      .getSubCategoryDataByCategory([name])
+      .getSubCategoryDataByCategory([], cateId)
       .subscribe((response) => {
         if (response.errorCode == null) {
           this.brandData = response.result;
@@ -160,7 +161,7 @@ export class CruProductComponent implements OnInit {
   }
 
   onChangeBrand(event: any){
-    this.formGroup.controls['brandId'].setValue(event.target.value)
+    this.formGroup.controls['subCategoryId'].setValue(event.target.value)
   }
 
   readURL(event: any): void {
@@ -214,7 +215,8 @@ export class CruProductComponent implements OnInit {
           productCode: data.code ? data.code : '',
           parameters: data.parameters ? toHTML(data.parameters) : '',
           shortDescription: data.shortDescription ? data.shortDescription : '',
-          brand_id: data.brandId ? data.brandId : null,
+          subCategoryId: data.subCategoryId ? data.subCategoryId : null,
+          categoryId: data.categoryId? data.categoryId : null,
         },
         data.feature_img,
         this.formGroup.controls['images'].value
@@ -243,7 +245,8 @@ export class CruProductComponent implements OnInit {
           productCode: data.code ? data.code : '',
           parameters: data.parameters ? data.parameters : '',
           shortDescription: data.shortDescription ? data.shortDescription : '',
-          brand_id: data.brandId ? data.brandId : null,
+          subCategoryId: data.subCategoryId ? data.subCategoryId : null,
+          categoryId: data.categoryId? data.categoryId : null,
         },
         data.feature_img,
         data.images ? data.images : null

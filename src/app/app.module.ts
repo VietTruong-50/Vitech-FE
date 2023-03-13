@@ -91,6 +91,7 @@ import { AdminHomepageComponent } from './pages/admin-homepage/admin-homepage.co
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { InvoiceManagementComponent } from './pages/invoice-management/invoice-management.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { NoUtf8InputDirective } from './directive/no-utf8-input.directive';
 
 @NgModule({
   declarations: [
@@ -151,7 +152,8 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     InventoryCheckDialogComponent,
     AdminHomepageComponent,
     InvoiceManagementComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NoUtf8InputDirective
   ],
   imports: [
     BrowserModule,

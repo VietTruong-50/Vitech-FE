@@ -1,3 +1,25 @@
 ::ng-deep th.mat-header-cell:last-of-type {
   text-align: center !important;
 }
+
+.success{
+  background-color: green;
+}
+
+.cancel{
+  background-color: red;
+}
+
+.waiting-process{
+  background-color: orange;
+}
+
+.waiting-delivery{
+  background-color: blue;
+}
+
+.status{
+  padding: 5px;
+  border-radius: 4px;
+  color: white;
+}

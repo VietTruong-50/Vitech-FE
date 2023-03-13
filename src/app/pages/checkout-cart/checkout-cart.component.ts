@@ -92,7 +92,7 @@ export class CheckoutCartComponent implements OnInit {
         email: this.formGroup.controls['email'].value,
       })
       .subscribe((rs) => {
-        if (rs.errorCode != null) {
+        if (rs.errorCode == null) {
           this.router.navigate(['homepage'])
           this.toastrService.success('Đặt hàng thành công!');
         }

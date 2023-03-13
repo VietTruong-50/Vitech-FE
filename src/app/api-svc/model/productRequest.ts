@@ -19,6 +19,7 @@
     actualPrice: number;
     shortDescription: string;
     quantity: number;
-    brand_id?: number;
+    subCategoryId?: number;
+    categoryId?: number;
 }
 

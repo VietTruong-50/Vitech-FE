@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -6,17 +6,20 @@ import {
   Product,
   ProductControllerService,
 } from 'src/app/api-svc';
-import { Location } from '@angular/common';
-import { PageEvent } from '@angular/material/paginator';
 import { CartService } from 'src/app/service/cart.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatTabGroup } from '@angular/material/tabs';
 @Component({
   selector: 'app-product-detail-user',
   templateUrl: './product-detail-user.component.html',
   styleUrls: ['./product-detail-user.component.scss'],
 })
 export class ProductDetailUserComponent implements OnInit {
+  @ViewChild('scrollable') scrollable!: CdkScrollable;
+  @ViewChild('tabGroup') tabGroup!: MatTabGroup;
+  @ViewChild('myElement') myElement!: ElementRef;
+
   nameProduct: string = 'Laptop 1';
   productData: any;
   id!: string;
@@ -80,7 +83,7 @@ export class ProductDetailUserComponent implements OnInit {
       .subscribe((response) => {
         if (response.errorCode == null) {
           console.log(response.result);
-          this.slides = []
+          this.slides = [];
 
           if (response.result?.featureImageByte) {
             let objectURL =
@@ -134,7 +137,9 @@ export class ProductDetailUserComponent implements OnInit {
       });
   }
 
-  Navigate(elem: HTMLElement) {
+  Navigate(elem: HTMLElement, tabIndex: number) {
+    this.tabGroup.selectedIndex = tabIndex;
+    
     elem.scrollIntoView({ behavior: 'smooth' });
   }
 

@@ -21,10 +21,10 @@ export interface PageBanner {
     content?: Array<Banner>;
     number?: number;
     sort?: Sort;
+    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
     numberOfElements?: number;
-    pageable?: PageableObject;
     empty?: boolean;
 }
 

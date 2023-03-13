@@ -9,6 +9,9 @@ export class ContentHeaderComponent implements OnInit {
   @Input()
   title: string | null = '';
 
+  @Input()
+  content: string | null = '';
+
   constructor() {}
 
   ngOnInit(): void {}

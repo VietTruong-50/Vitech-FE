@@ -15,5 +15,6 @@ export interface StatisticQuantityResponse {
     productQuantity?: number;
     customerQuantity?: number;
     orderQuantity?: number;
+    revenue?: number;
 }
 

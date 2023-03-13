@@ -20,7 +20,7 @@ import { DialogService } from 'src/app/service/dialog.service';
   styleUrls: ['./product-management.component.scss'],
 })
 export class ProductManagementComponent implements OnInit {
-  title: string = 'List products';
+  title: string = 'Danh sách sản phẩm';
 
   pageIndex: number = 0;
   pageSize: number = 5;
@@ -30,6 +30,7 @@ export class ProductManagementComponent implements OnInit {
     'featureImageName',
     'productCode',
     'name',
+    'quantity',
     'actualPrice',
     'action',
   ];

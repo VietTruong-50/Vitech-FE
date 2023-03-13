@@ -1,5 +1,8 @@
 <div class="content">
-  <app-content-header [title]="'Quản lý đơn hàng'"></app-content-header>
+  <app-content-header
+    [title]="'Danh sách đơn hàng'"
+    [content]="'Order'"
+  ></app-content-header>
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="col-md-12">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -82,9 +85,15 @@
           <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
           <td mat-cell *matCellDef="let element">
             <span *ngFor="let st of status"
-              ><span *ngIf="st.value == element.status">{{
-                st.viewValue
-              }}</span></span
+              ><span
+                *ngIf="st.value == element.status"
+                class="status"
+                [class.waiting-process]="element.status == 'WAITING_PROCESS'"
+                [class.cancel]="element.status == 'CANCEL'"
+                [class.waiting-delivery]="element.status == 'WAITING_DELIVERY'"
+                [class.success]="element.status == 'SUCCESS'"
+                >{{ st.viewValue }}</span
+              ></span
             >
           </td>
         </ng-container>
@@ -119,7 +128,11 @@
                   (click)="renderTo('Info', element.orderCode)"
                   >Xem</a
                 >
-                <a class="btn btn-danger action-delete" (click)="destroyOrder(element.id)">Xoá</a>
+                <a
+                  class="btn btn-danger action-delete"
+                  (click)="destroyOrder(element.id)"
+                  >Xoá</a
+                >
               </span>
             </div>
           </td>
@@ -132,7 +145,7 @@
         (page)="onPaginate($event)"
         #paginator
         [length]="100"
-        [pageSize]="5"
+        [pageSize]="20"
         showFirstLastButtons
       >
       </mat-paginator>

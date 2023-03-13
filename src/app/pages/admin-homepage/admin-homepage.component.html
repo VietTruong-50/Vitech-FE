@@ -62,14 +62,14 @@
         fxLayout="column"
         fxLayoutGap="10px"
         style="background-color: rgb(221, 67, 1)"
-        [routerLink]="['/admin', 'customers']"
+        [routerLink]="['/admin', 'statistic']"
       >
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
           <mat-icon>monetization_on </mat-icon>
           <p>Doanh thu</p>
         </div>
         <div fxlayout="row" fxLayoutAlign="center center" class="qty">
-          18,990,000
+          {{ statisticData?.revenue | number }}đ
         </div>
       </div>
     </div>

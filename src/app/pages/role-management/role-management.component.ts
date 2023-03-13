@@ -8,7 +8,7 @@ import { Role, RoleControllerService } from 'src/app/api-svc';
   styleUrls: ['./role-management.component.scss'],
 })
 export class RoleManagementComponent implements OnInit {
-  title: string = 'List roles';
+  title: string = 'Danh sách vai trò';
 
   pageIndex: number = 0;
   pageSize: number = 5;

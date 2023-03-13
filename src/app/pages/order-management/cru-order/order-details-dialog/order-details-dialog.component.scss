@@ -3,9 +3,10 @@
   color: #fff !important;
 }
 
-.card-list {
+.cart-list {
   overflow: auto;
-  height: 100px;
+  height: 300px;
+  border-bottom: 1px solid;
 }
 
 .title {
@@ -17,3 +18,4 @@
 .shipping-price{
     font-size: 14px;
 }
+

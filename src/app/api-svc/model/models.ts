@@ -9,6 +9,7 @@ export * from './apiResponseCustomer';
 export * from './apiResponseDouble';
 export * from './apiResponseJwtResponse';
 export * from './apiResponseListAddress';
+export * from './apiResponseListCartItem';
 export * from './apiResponseListCountOrderResponse';
 export * from './apiResponseListNotification';
 export * from './apiResponseListProduct';

@@ -296,13 +296,14 @@ export class SubCategoryControllerService {
 
     /**
      * @param names 
+     * @param categoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSubCategoryDataByCategory(names?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListSubCategory>;
-    public getSubCategoryDataByCategory(names?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListSubCategory>>;
-    public getSubCategoryDataByCategory(names?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListSubCategory>>;
-    public getSubCategoryDataByCategory(names?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getSubCategoryDataByCategory(names?: Array<string>, categoryId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListSubCategory>;
+    public getSubCategoryDataByCategory(names?: Array<string>, categoryId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListSubCategory>>;
+    public getSubCategoryDataByCategory(names?: Array<string>, categoryId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListSubCategory>>;
+    public getSubCategoryDataByCategory(names?: Array<string>, categoryId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (names) {
@@ -310,6 +311,10 @@ export class SubCategoryControllerService {
                 localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
                   <any>element, 'names');
             })
+        }
+        if (categoryId !== undefined && categoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>categoryId, 'categoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;

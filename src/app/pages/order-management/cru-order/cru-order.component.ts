@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import {
   CustomerControllerService,
   UserControllerService,
@@ -72,7 +73,8 @@ export class CruOrderComponent implements OnInit {
     private customerController: CustomerControllerService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private userController: UserControllerService
+    private userController: UserControllerService,
+    private toastrService: ToastrService
   ) {
     this.formGroup = this.formBuilder.group({
       orderCode: [],
@@ -213,6 +215,7 @@ export class CruOrderComponent implements OnInit {
         status ? status : this.formGroup.controls['status'].value
       )
       .subscribe((rs) => {
+        this.toastrService.success('Cập nhật thành công');
         this.getOrderDetail();
       });
   }
@@ -240,6 +243,7 @@ export class CruOrderComponent implements OnInit {
         email: this.formGroup3.controls['email'].value,
       })
       .subscribe((rs) => {
+        this.toastrService.success('Cập nhật thành công');
         this.getOrderDetail();
       });
   }

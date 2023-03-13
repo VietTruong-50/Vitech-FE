@@ -12,7 +12,7 @@ import { Category, CategoryControllerService } from 'src/app/api-svc';
   styleUrls: ['./category-management.component.scss'],
 })
 export class CategoryManagementComponent implements OnInit {
-  title: string = 'List categories';
+  title: string = 'Danh sách loại sản phẩm';
   categoryData: any;
 
   pageIndex: number = 0;

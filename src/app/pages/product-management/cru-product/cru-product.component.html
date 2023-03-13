@@ -22,17 +22,21 @@
       </div>
       <div class="form-group">
         <label for="name">Mô tả ngắn</label>
-        <input
-          type="text"
-          formControlName="shortDescription"
+
+        <textarea
           class="form-control"
           placeholder="Mô tả ngắn"
-        />
+          formControlName="shortDescription"
+          id=""
+          cols="30"
+          rows="5"
+        ></textarea>
       </div>
       <div class="form-group">
         <label for="parameters">Thông số sản phẩm</label>
 
-        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+        </ngx-editor-menu>
         <ngx-editor
           [editor]="editor2"
           formControlName="parameters"
@@ -41,7 +45,8 @@
       </div>
       <div class="form-group">
         <label for="content">Nội dung chi tiết</label>
-        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar2"> </ngx-editor-menu>
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar2">
+        </ngx-editor-menu>
         <ngx-editor
           [editor]="editor"
           formControlName="content"
@@ -75,11 +80,9 @@
         <select class="form-select" (change)="onChange($event)">
           <option value="0" selected>Choose category</option>
           <option
-            [selected]="
-              category.name == formGroup.controls['categoryName'].value
-            "
+            [selected]="category.id == formGroup.controls['categoryId'].value"
             *ngFor="let category of categoryData"
-            [value]="category.name"
+            [value]="category.id"
           >
             {{ category.name }}
           </option>
@@ -90,7 +93,7 @@
         <select class="form-select" (change)="onChangeBrand($event)">
           <option value="0" selected>Choose brand</option>
           <option
-            [selected]="brand.id == formGroup.controls['brandId'].value"
+            [selected]="brand.id == formGroup.controls['subCategoryId'].value"
             *ngFor="let brand of brandData"
             [value]="brand.id"
           >

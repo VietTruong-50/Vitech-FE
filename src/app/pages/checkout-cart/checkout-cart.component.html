@@ -200,11 +200,14 @@
                 </div>
                 <div class="form-group">
                   <input
+                    #cardOwner
                     class="input"
                     type="text"
                     name="Card owner"
                     placeholder="Tên chủ thẻ"
                     formControlName="cardOwner"
+                    noUtf8Input
+                    (input)="cardOwner.value = cardOwner.value.toUpperCase()"
                   />
                 </div>
                 <div fxLayout="row" fxLayoutGap="20px">
@@ -300,7 +303,7 @@
         </div>
 
         <div class="input-checkbox">
-          <input type="checkbox" id="terms" />
+          <input type="checkbox" id="terms" #terms/>
           <label for="terms">
             <span></span>
             Tôi đã đọc và chấp nhận các

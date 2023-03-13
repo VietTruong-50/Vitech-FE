@@ -9,15 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
+import { CartItem } from './cartItem';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    paged?: boolean;
-    unpaged?: boolean;
-    pageSize?: number;
-    pageNumber?: number;
+export interface ApiResponseListCartItem { 
+    result?: Array<CartItem>;
+    errorCode?: string;
+    message?: object;
+    responseCode?: number;
 }
 

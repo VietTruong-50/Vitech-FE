@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./statistics-admin-page.component.scss'],
 })
 export class StatisticsAdminPageComponent implements OnInit {
-  title: string = 'Statistic';
+  title: string = 'Thống kê';
   selected: { startDate: moment.Moment; endDate: moment.Moment } | undefined;
   pageIndex: number = 0;
   pageSize: number = 5;
@@ -66,6 +66,7 @@ export class StatisticsAdminPageComponent implements OnInit {
   ngOnInit(): void {
     this.getStatisticCountOrder();
     this.getSaleSatistic();
+    this.getTop5Seller();
 
     this.getSuccessOrderData();
     Chart.register(...registerables);
@@ -139,6 +140,12 @@ export class StatisticsAdminPageComponent implements OnInit {
 
   total: number = 0;
 
+  find(){
+    this.getSuccessOrderData()
+    this.getTop5Seller()
+  }
+
+
   getSuccessOrderData() {
     this.userController
       .statisticSuccessOrderAndOrderDateBetween(
@@ -200,6 +207,23 @@ export class StatisticsAdminPageComponent implements OnInit {
         queryParams: { type: type },
       });
     }
+  }
+
+  top5Seller: any;
+
+  getTop5Seller() {
+    this.userController
+      .getTop5Seller(
+        this.selected?.startDate != null
+          ? this.selected?.startDate.toISOString()
+          : '2023-01-01T00:00:00.000Z',
+        this.selected?.endDate != null
+          ? this.selected?.endDate.toISOString()
+          : '2023-12-31T00:00:00.000Z'
+      )
+      .subscribe((rs) => {
+        this.top5Seller = rs.result;
+      });
   }
 
   onPaginate(event: any) {}

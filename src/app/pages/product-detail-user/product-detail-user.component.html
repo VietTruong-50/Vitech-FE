@@ -106,7 +106,7 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star-o"></i>
             </div>
-            <a class="review-link" (click)="Navigate(reviews)"
+            <a class="review-link" (click)="Navigate(reviews, 3)"
               >{{ commentsData?.length }} Review(s) | Add your review</a
             >
           </div>
@@ -114,8 +114,7 @@
             <h3 class="product-price">
               {{ productData?.actualPrice | number }}
             </h3>
-            <span class="product-available" *ngIf="productData?.quantity > 0"
-              >Còn hàng</span
+            <span class="product-available" *ngIf="productData?.quantity > 0">Còn hàng</span
             >
             <span class="product-available" *ngIf="productData?.quantity == 0"
               >Hết hàng</span
@@ -177,9 +176,9 @@
       </div>
 
       <div class="col-md-12">
-        <div id="product-tab">
+        <div id="product-tab" id="reviews" #reviews>
           <!-- product tab nav -->
-          <mat-tab-group mat-align-tabs="start">
+          <mat-tab-group mat-align-tabs="start" #tabGroup>
             <mat-tab label="Mô tả">
               <p [innerHTML]="contentToHtml"></p>
             </mat-tab>
@@ -271,7 +270,7 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div id="reviews" #reviews>
+                  <div >
                     <ul class="reviews">
                       <li
                         *ngFor="

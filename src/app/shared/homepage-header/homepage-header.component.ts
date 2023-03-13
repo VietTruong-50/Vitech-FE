@@ -118,7 +118,7 @@ export class HomepageHeaderComponent implements OnInit {
   }
 
   renderToAccount() {
-    this.router.navigate(['account']);
+    this.router.navigate(['account/profile']);
   }
 
   categorySearch: string = 'All';

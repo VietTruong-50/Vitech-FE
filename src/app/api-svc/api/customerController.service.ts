@@ -33,6 +33,8 @@ import { ApiResponseDouble } from '../model/apiResponseDouble';
 // @ts-ignore
 import { ApiResponseListAddress } from '../model/apiResponseListAddress';
 // @ts-ignore
+import { ApiResponseListCartItem } from '../model/apiResponseListCartItem';
+// @ts-ignore
 import { ApiResponseListNotification } from '../model/apiResponseListNotification';
 // @ts-ignore
 import { ApiResponseListProduct } from '../model/apiResponseListProduct';
@@ -48,6 +50,8 @@ import { ApiResponsePageOrder } from '../model/apiResponsePageOrder';
 import { ApiResponsePageProduct } from '../model/apiResponsePageProduct';
 // @ts-ignore
 import { ApiResponseShoppingSession } from '../model/apiResponseShoppingSession';
+// @ts-ignore
+import { CartItem } from '../model/cartItem';
 // @ts-ignore
 import { CartItemRequest } from '../model/cartItemRequest';
 // @ts-ignore
@@ -1570,6 +1574,69 @@ export class CustomerControllerService {
         return this.httpClient.delete<ApiResponseObject>(`${this.configuration.basePath}/api/customer/cart/product/${encodeURIComponent(String(productId))}`,
             {
                 context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param cartItems 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateCurrentCart(cartItems?: Array<CartItem>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListCartItem>;
+    public updateCurrentCart(cartItems?: Array<CartItem>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListCartItem>>;
+    public updateCurrentCart(cartItems?: Array<CartItem>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListCartItem>>;
+    public updateCurrentCart(cartItems?: Array<CartItem>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (cartItems) {
+            cartItems.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'cartItems');
+            })
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        return this.httpClient.put<ApiResponseListCartItem>(`${this.configuration.basePath}/api/customer/cart`,
+            null,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

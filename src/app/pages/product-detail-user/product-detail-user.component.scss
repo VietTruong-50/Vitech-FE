@@ -19,3 +19,7 @@
   color: rgb(52, 134, 206);
   cursor: pointer;
 }
+
+::ng-deep .mat-tab-body.mat-tab-body-active{
+  overflow-y: hidden !important;
+}

@@ -86,7 +86,7 @@ export class OrderManagementComponent implements OnInit {
 
   getAllOrdersData(pageIndex?: number) {
     this.userController
-      .getAllOrders(pageIndex ? pageIndex : this.pageIndex, 5, 'orderDate')
+      .getAllOrders(pageIndex ? pageIndex : this.pageIndex, 20, 'orderDate')
       .subscribe((rs) => {
         this.ordersData = rs.result?.content;
 
@@ -156,6 +156,7 @@ export class OrderManagementComponent implements OnInit {
       onReject: () => {},
       onAfterClosed: () => {
         this.userController.destroyOrder(id).subscribe((rs) => {
+          this.getAllOrdersData()
           this.toastrService.show('Xoá thành công!', 'Đã xoá 1 đơn hàng');
         });
       },

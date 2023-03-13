@@ -12,7 +12,7 @@ import * as moment from 'moment';
   styleUrls: ['./customer-account-management.component.scss'],
 })
 export class CustomerAccountManagementComponent implements OnInit {
-  title: string = 'List customer account';
+  title: string = 'Danh sách khách hàng';
   customerData: any;
 
   pageIndex: number = 0;

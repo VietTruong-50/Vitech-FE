@@ -1,5 +1,8 @@
 <div>
-  <app-content-header [title]="title"></app-content-header>
+  <app-content-header
+    [title]="title"
+    [content]="'Statistic'"
+  ></app-content-header>
   <div fxLayout="column">
     <div fxLayout="row">
       <div fxFlex="60" style="margin: 30px">
@@ -26,9 +29,7 @@
             class="form-control"
             fxFlex="40"
           />
-          <button class="btn btn-success" (click)="getSuccessOrderData()">
-            Find
-          </button>
+          <button class="btn btn-success" (click)="find()">Find</button>
         </div>
         <div>
           <mat-table
@@ -58,7 +59,9 @@
 
             <ng-container matColumnDef="invoiceNumber">
               <mat-header-cell *matHeaderCellDef>Mã hoá đơn</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{"HD" +  (element.id | number:'3.0')}}</mat-cell>
+              <mat-cell *matCellDef="let element">{{
+                "HD" + (element.id | number : "3.0")
+              }}</mat-cell>
               <mat-footer-cell *matFooterCellDef></mat-footer-cell>
             </ng-container>
 
@@ -91,7 +94,14 @@
             <ng-container matColumnDef="action">
               <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <div><button class="btn btn-info" (click)="renderTo('Invoice', element.orderCode)">Xem</button></div>
+                <div>
+                  <button
+                    class="btn btn-info"
+                    (click)="renderTo('Invoice', element.orderCode)"
+                  >
+                    Xem
+                  </button>
+                </div>
               </mat-cell>
               <mat-footer-cell *matFooterCellDef></mat-footer-cell>
             </ng-container>
@@ -115,6 +125,28 @@
           >
           </mat-paginator>
         </div>
+        <div fxLayout="column" fxLayoutGap="15px">
+          <div>
+            <strong style="font-size: 20px">Top 5 sản phẩm bán chạy</strong>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of top5Seller; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ item.name }}</td>
+                <td>{{ item.actualPrice | number }}đ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div fxFlex="35">
         <div>
@@ -132,7 +164,10 @@
                 <td>
                   <span *ngFor="let st of status">
                     <span *ngIf="st.value == item.status"
-                      >{{ st.viewValue }} <a (click)="renderTo(st.value)">({{ item.quantity }})</a></span
+                      >{{ st.viewValue }}
+                      <a (click)="renderTo(st.value)"
+                        >({{ item.quantity }})</a
+                      ></span
                     >
                   </span>
                 </td>
@@ -149,7 +184,7 @@
               <tr>
                 <th></th>
                 <td><strong>Tổng doanh thu: </strong></td>
-                <td>{{totalMoney | number}}đ</td>
+                <td>{{ totalMoney | number }}đ</td>
               </tr>
             </tbody>
           </table>

@@ -13,7 +13,7 @@
       Thêm địa chỉ mới
     </button>
     <div class="teko-card css-i1mt8k">
-      <div class="teko-card-body css-0">
+      <div class="teko-card-body css-0" *ngIf="defaultAddress">
         <div
           class="teko-row teko-row-space-between teko-row-middle css-1o3gs9x"
         >
@@ -53,6 +53,17 @@
                   ><div class="css-157jl91"></div
                 ></span>
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="teko-card-body css-0" *ngIf="!defaultAddress">
+        <div
+          class="teko-row teko-row-space-between teko-row-middle css-1o3gs9x"
+        >
+          <div class="teko-col css-gr7r8o" style="width: 100%" fxLayout="row" fxLayoutAlign="center">
+            <div type="body" color="textSecondary" class="css-t00t6x">
+              Vui lòng thêm địa chỉ nhận hàng
             </div>
           </div>
         </div>

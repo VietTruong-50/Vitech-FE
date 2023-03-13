@@ -27,6 +27,7 @@ model/apiResponseCustomer.ts
 model/apiResponseDouble.ts
 model/apiResponseJwtResponse.ts
 model/apiResponseListAddress.ts
+model/apiResponseListCartItem.ts
 model/apiResponseListCountOrderResponse.ts
 model/apiResponseListNotification.ts
 model/apiResponseListProduct.ts
