@@ -15,16 +15,16 @@ import { Sort } from './sort';
 
 
 export interface PageCustomer { 
-    totalPages?: number;
     totalElements?: number;
+    totalPages?: number;
     size?: number;
     content?: Array<Customer>;
     number?: number;
     sort?: Sort;
-    pageable?: PageableObject;
     first?: boolean;
     last?: boolean;
     numberOfElements?: number;
+    pageable?: PageableObject;
     empty?: boolean;
 }
 

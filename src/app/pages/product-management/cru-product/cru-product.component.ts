@@ -156,7 +156,7 @@ export class CruProductComponent implements OnInit {
 
   onChange(deviceValue: any) {
     let id = deviceValue.target.value;
-    console.log(id);
+    this.formGroup.controls['categoryId'].setValue(id)
     this.getBrandData(id);
   }
 

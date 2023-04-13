@@ -31,6 +31,7 @@ model/apiResponseListCartItem.ts
 model/apiResponseListCountOrderResponse.ts
 model/apiResponseListNotification.ts
 model/apiResponseListProduct.ts
+model/apiResponseListProductTopSellerInterface.ts
 model/apiResponseListSubCategory.ts
 model/apiResponseObject.ts
 model/apiResponseOrder.ts
@@ -82,6 +83,7 @@ model/pageSubCategory.ts
 model/pageUser.ts
 model/pageableObject.ts
 model/product.ts
+model/productTopSellerInterface.ts
 model/role.ts
 model/shippingMethod.ts
 model/shoppingSession.ts

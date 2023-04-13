@@ -114,7 +114,8 @@
             <h3 class="product-price">
               {{ productData?.actualPrice | number }}
             </h3>
-            <span class="product-available" *ngIf="productData?.quantity > 0">Còn hàng</span
+            <span class="product-available" *ngIf="productData?.quantity > 0"
+              >Còn hàng</span
             >
             <span class="product-available" *ngIf="productData?.quantity == 0"
               >Hết hàng</span
@@ -270,7 +271,7 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div >
+                  <div>
                     <ul class="reviews">
                       <li
                         *ngFor="
@@ -353,11 +354,16 @@
                           /><label for="star1"></label>
                         </div>
                       </div>
-                      <button class="primary-btn" (click)="createComment()">
+                      <button
+                        class="primary-btn"
+                        (click)="createComment()"
+                        [class.disabled-btn]="isLogin()"
+                        [disabled]="isLogin()"
+                      >
                         Submit
                       </button>
                       <div>
-                        <mat-error *ngIf="!isLogin()"
+                        <mat-error *ngIf="isLogin()"
                           >Vui long dang nhap de binh luan</mat-error
                         >
                       </div>

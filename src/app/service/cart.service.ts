@@ -129,7 +129,7 @@ export class CartService {
   }
 
   resetCart() {
-    // this._cartItems = []
-    // this.saveCart()
+    this._cartItems = []
+    this.saveCart()
   }
 }

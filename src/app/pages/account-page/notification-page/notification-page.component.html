@@ -34,7 +34,7 @@
             : 'Giao hàng thành công'
         "
         class="css-1ol5tqj"
-        *ngFor="let noti of notificationsData"
+        *ngFor="let noti of notificationsData; let i = index"
         (click)="renderTo(noti.order.orderCode)"
       >
         <div class="css-12viweu">
@@ -45,7 +45,7 @@
                   class="lazyload css-jdz5ak"
                   alt=""
                   [src]="
-                    this.notificationsData[0].order.orderDetails[0].product
+                    this.notificationsData[i].order.orderDetails[0].product
                       .imgUrl
                   "
                   loading="lazy"

@@ -9,15 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
+import { ProductTopSellerInterface } from './productTopSellerInterface';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageSize?: number;
-    pageNumber?: number;
-    paged?: boolean;
-    unpaged?: boolean;
+export interface ApiResponseListProductTopSellerInterface { 
+    result?: Array<ProductTopSellerInterface>;
+    errorCode?: string;
+    message?: object;
+    responseCode?: number;
 }
 

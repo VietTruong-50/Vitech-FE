@@ -10,6 +10,7 @@ import { Chart, registerables } from 'chart.js';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-statistics-admin-page',
@@ -146,7 +147,7 @@ export class StatisticsAdminPageComponent implements OnInit {
   }
 
 
-  getSuccessOrderData() {
+  getSuccessOrderData(pageIndex?: number) {
     this.userController
       .statisticSuccessOrderAndOrderDateBetween(
         this.selected?.startDate != null
@@ -155,7 +156,7 @@ export class StatisticsAdminPageComponent implements OnInit {
         this.selected?.endDate != null
           ? this.selected?.endDate.toISOString()
           : '2023-12-31T00:00:00.000Z',
-        0,
+        pageIndex ? pageIndex : 0,
         20
       )
       .subscribe((rs) => {
@@ -226,5 +227,7 @@ export class StatisticsAdminPageComponent implements OnInit {
       });
   }
 
-  onPaginate(event: any) {}
+  onPaginate($event: PageEvent) {
+    this.getSuccessOrderData($event.pageIndex);
+  }
 }

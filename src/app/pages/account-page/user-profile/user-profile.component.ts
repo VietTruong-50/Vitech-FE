@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import {
   AuthControllerService,
   CustomerControllerService,
@@ -28,7 +29,8 @@ export class UserProfileComponent implements OnInit {
     private authController: AuthControllerService,
     private formBuilder: FormBuilder,
     private customerController: CustomerControllerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastrService: ToastrService
   ) {
     this.formGroup = this.formBuilder.group({
       fullName: [],
@@ -40,6 +42,9 @@ export class UserProfileComponent implements OnInit {
 
     this.addressFormGroup = this.formBuilder.group({
       id: [],
+      receiverName: [],
+      phone: [],
+      email: [],
       city: [],
       district: [],
       subDistrict: [],
@@ -71,11 +76,14 @@ export class UserProfileComponent implements OnInit {
   getDefaultAddress() {
     this.customerController.getDefaultAddress().subscribe((rs) => {
       this.addressFormGroup.patchValue({
-        id: rs.result?.id,
+        receiverName: rs.result?.receiverName,
+        phone: rs.result?.phone,
+        email: rs.result?.email,
         city: rs.result?.city,
         district: rs.result?.district,
         subDistrict: rs.result?.subDistrict,
         specificAddress: rs.result?.specificAddress,
+        isDefault: rs.result?.default,
       });
     });
   }
@@ -94,6 +102,9 @@ export class UserProfileComponent implements OnInit {
       })
       .subscribe((rs) => {
         console.log(rs);
+        if (rs.errorCode == null) {
+          this.toastrService.success('Cập nhật thông tin thành công');
+        }
       });
     this.updateAddress();
   }
@@ -104,11 +115,14 @@ export class UserProfileComponent implements OnInit {
 
     this.customerController
       .editAddress(formValue.id, {
+        receiverName: formValue.receiverName,
+        phone: formValue.phone,
+        email: formValue.email,
         city: formValue.city,
-        district: formValue.district,
-        subDistrict: formValue.subDistrict,
         levant: true,
         specificAddress: formValue.specificAddress,
+        district: formValue.district,
+        subDistrict: formValue.subDistrict,
       })
       .subscribe((rs) => {
         this.getDefaultAddress();
@@ -121,7 +135,7 @@ export class UserProfileComponent implements OnInit {
         width: '40vw',
         data: {
           id: id,
-          isDefault: true
+          isDefault: true,
         },
       })
       .afterClosed()

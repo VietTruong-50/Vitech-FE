@@ -30,6 +30,6 @@ export interface Product {
     productImages?: Set<ImageModel>;
     subCategory?: SubCategory;
     category?: Category;
-    imgUrl: SafeUrl
+    imgUrl: SafeUrl;
 }
 

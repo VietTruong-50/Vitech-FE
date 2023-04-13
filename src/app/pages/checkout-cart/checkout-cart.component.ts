@@ -93,6 +93,7 @@ export class CheckoutCartComponent implements OnInit {
       })
       .subscribe((rs) => {
         if (rs.errorCode == null) {
+          this.cartService.resetCart()
           this.router.navigate(['homepage'])
           this.toastrService.success('Đặt hàng thành công!');
         }

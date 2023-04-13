@@ -1127,7 +1127,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseListProduct'
+                $ref: '#/components/schemas/ApiResponseListProductTopSellerInterface'
   /api/test/user:
     get:
       tags:
@@ -2598,12 +2598,12 @@ components:
     PageUser:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2616,8 +2616,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -2625,6 +2623,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     PageableObject:
@@ -2635,16 +2635,16 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/Sort'
-        paged:
-          type: boolean
-        unpaged:
-          type: boolean
         pageSize:
           type: integer
           format: int32
         pageNumber:
           type: integer
           format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
     Sort:
       type: object
       properties:
@@ -2654,18 +2654,29 @@ components:
           type: boolean
         unsorted:
           type: boolean
-    ApiResponseListProduct:
+    ApiResponseListProductTopSellerInterface:
       type: object
       properties:
         result:
           type: array
           items:
-            $ref: '#/components/schemas/Product'
+            $ref: '#/components/schemas/ProductTopSellerInterface'
         errorCode:
           type: string
         message:
           type: object
         responseCode:
+          type: integer
+          format: int32
+    ProductTopSellerInterface:
+      type: object
+      properties:
+        name:
+          type: string
+        actualPrice:
+          type: number
+          format: double
+        totalAmount:
           type: integer
           format: int32
     ApiResponsePageSubCategory:
@@ -2683,12 +2694,12 @@ components:
     PageSubCategory:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2701,8 +2712,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -2710,6 +2719,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponsePageOrder:
@@ -2727,12 +2738,12 @@ components:
     PageOrder:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2745,8 +2756,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -2754,6 +2763,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponseStatisticValueResponse:
@@ -2826,12 +2837,12 @@ components:
     PageSlider:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2844,8 +2855,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -2853,6 +2862,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponsePageRole:
@@ -2870,12 +2881,12 @@ components:
     PageRole:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2888,8 +2899,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -2897,6 +2906,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponseStatisticQuantityResponse:
@@ -2941,12 +2952,12 @@ components:
     PageProduct:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -2959,8 +2970,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -2968,8 +2977,24 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
+    ApiResponseListProduct:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        errorCode:
+          type: string
+        message:
+          type: object
+        responseCode:
+          type: integer
+          format: int32
     ApiResponsePageCustomer:
       type: object
       properties:
@@ -2985,12 +3010,12 @@ components:
     PageCustomer:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -3003,8 +3028,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -3012,6 +3035,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponsePageComment:
@@ -3029,12 +3054,12 @@ components:
     PageComment:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -3047,8 +3072,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -3056,6 +3079,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponseListNotification:
@@ -3148,12 +3173,12 @@ components:
     PageCategory:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -3166,8 +3191,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -3175,6 +3198,8 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     ApiResponseListSubCategory:
@@ -3206,12 +3231,12 @@ components:
     PageBanner:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         size:
           type: integer
           format: int32
@@ -3224,8 +3249,6 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/Sort'
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         first:
           type: boolean
         last:
@@ -3233,5 +3256,7 @@ components:
         numberOfElements:
           type: integer
           format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean

@@ -132,6 +132,8 @@ export class ProductManagementComponent implements OnInit {
 
   findAllByCategory(pageIndex?: number) {
     if (this.categorySearch != 'Phân loại') {
+      console.log(pageIndex);
+      
       this.customerController
         .filterProduct(
           pageIndex ? pageIndex : 0,

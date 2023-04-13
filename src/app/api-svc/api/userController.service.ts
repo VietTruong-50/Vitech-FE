@@ -21,7 +21,7 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { ApiResponseListCountOrderResponse } from '../model/apiResponseListCountOrderResponse';
 // @ts-ignore
-import { ApiResponseListProduct } from '../model/apiResponseListProduct';
+import { ApiResponseListProductTopSellerInterface } from '../model/apiResponseListProductTopSellerInterface';
 // @ts-ignore
 import { ApiResponseObject } from '../model/apiResponseObject';
 // @ts-ignore
@@ -750,9 +750,9 @@ export class UserControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTop5Seller(startDate: string, endDate: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListProduct>;
-    public getTop5Seller(startDate: string, endDate: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListProduct>>;
-    public getTop5Seller(startDate: string, endDate: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListProduct>>;
+    public getTop5Seller(startDate: string, endDate: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ApiResponseListProductTopSellerInterface>;
+    public getTop5Seller(startDate: string, endDate: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiResponseListProductTopSellerInterface>>;
+    public getTop5Seller(startDate: string, endDate: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiResponseListProductTopSellerInterface>>;
     public getTop5Seller(startDate: string, endDate: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (startDate === null || startDate === undefined) {
             throw new Error('Required parameter startDate was null or undefined when calling getTop5Seller.');
@@ -802,7 +802,7 @@ export class UserControllerService {
             }
         }
 
-        return this.httpClient.get<ApiResponseListProduct>(`${this.configuration.basePath}/api/top5seller`,
+        return this.httpClient.get<ApiResponseListProductTopSellerInterface>(`${this.configuration.basePath}/api/top5seller`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,

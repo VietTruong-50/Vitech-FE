@@ -11,3 +11,7 @@
   font-size: 1.5rem;
   padding: 30px;
 }
+
+::ng-deep .mat-radio-outer-circle{
+  border-color: #888888 !important;
+}

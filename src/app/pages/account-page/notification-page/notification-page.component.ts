@@ -47,13 +47,17 @@ export class NotificationPageComponent implements OnInit {
     this.customerController.getAllNotifications().subscribe((rs) => {
       this.notificationsData = rs.result;
 
-      let objectURL =
-        'data:image/jpeg;base64,' +
-        this.notificationsData[0].order.orderDetails[0].product
-          .featureImageByte;
+      for (var i = 0; i < this.notificationsData.length; i++) {
+        console.log(this.notificationsData[i]);
+        
+        let objectURL =
+          'data:image/jpeg;base64,' +
+          this.notificationsData[i].order.orderDetails[0].product
+            .featureImageByte;
 
-      this.notificationsData[0].order.orderDetails[0].product.imgUrl =
-        this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        this.notificationsData[i].order.orderDetails[0].product.imgUrl =
+          this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      }
     });
   }
 
